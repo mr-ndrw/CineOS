@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{AB16FA27-1307-4556-B8E4-E4A20F224A12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{043B39A4-5750-4C67-A70A-D59F7B72D1BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Shared", "_Shared", "{56744AAE-DAED-44A1-AC27-08265964186E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3F7BBE08-75CA-43C0-92B5-9297D605DA1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic.Model", "Logic\Logic.Model\Logic.Model.csproj", "{14C044B2-165E-4C84-87DE-347ECB1B1B42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.MainApp", "Client\MainApp\Client.MainApp.csproj", "{179EABD0-5797-4A19-B730-47E87F10588E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14C044B2-165E-4C84-87DE-347ECB1B1B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14C044B2-165E-4C84-87DE-347ECB1B1B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14C044B2-165E-4C84-87DE-347ECB1B1B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14C044B2-165E-4C84-87DE-347ECB1B1B42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179EABD0-5797-4A19-B730-47E87F10588E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179EABD0-5797-4A19-B730-47E87F10588E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179EABD0-5797-4A19-B730-47E87F10588E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179EABD0-5797-4A19-B730-47E87F10588E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14C044B2-165E-4C84-87DE-347ECB1B1B42} = {AB16FA27-1307-4556-B8E4-E4A20F224A12}
+		{179EABD0-5797-4A19-B730-47E87F10588E} = {043B39A4-5750-4C67-A70A-D59F7B72D1BC}
+	EndGlobalSection
+EndGlobal
