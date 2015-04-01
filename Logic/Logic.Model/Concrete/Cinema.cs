@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 {
@@ -7,6 +9,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	/// </summary>
 	public class Cinema
 	{
+
+		public Cinema()
+		{
+			HistoryOfEmployments = new List<Employment>();
+			ProjectionRooms = new List<ProjectionRoom>();
+		}
+
+		#region Properties
 		/// <summary>
 		///		Unique identifier of the Cinema.
 		/// </summary>
@@ -29,8 +39,51 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		public string TelephoneNumber { get; set; }
 
 		/// <summary>
+		///		Id of the Region in which this Cinema is situated.
+		/// </summary>
+		public int RegionId { get; set; }
+
+		/// <summary>
+		///		Region in which this Cinema is situated.
+		/// </summary>
+		public Region Region { get; set; }
+
+		/// <summary>
 		///		Collection representing the history of Employment in the Cinema.
 		/// </summary>
 		public IEnumerable<Employment> HistoryOfEmployments { get; set; }
+
+		/// <summary>
+		///		Collection of Projection Rooms contained within this Cinema.
+		/// </summary>
+		public IEnumerable<ProjectionRoom> ProjectionRooms { get; set; }
+
+		/// <summary>
+		///		Collection of Projections which take place in the Cinema.
+		/// </summary>
+		public IEnumerable<Projection> Projections
+		{
+			get
+			{
+				var projections = new List<Projection>();
+				foreach (var projectionRoom in ProjectionRooms)
+				{
+					projections.AddRange(projectionRoom.Projections);
+				}
+
+				return projections;
+			}
+		} 
+		#endregion
+
+
+		#region Methods
+
+		public ProjectionRoom GetProjectionRoom(string projectionRoomNumber)
+		{
+			return ProjectionRooms.FirstOrDefault(projectionRoom => projectionRoom.Number.Equals(projectionRoomNumber));
+		}
+
+		#endregion
 	}
 }

@@ -42,10 +42,15 @@
     <Compile Include="Concrete\Cinema.cs" />
     <Compile Include="Concrete\Employee.cs" />
     <Compile Include="Concrete\Employment.cs" />
+    <Compile Include="Concrete\Film.cs" />
+    <Compile Include="Concrete\Medium.cs" />
+    <Compile Include="Concrete\Projection.cs" />
     <Compile Include="Concrete\ProjectionRoom.cs" />
     <Compile Include="Concrete\Region.cs" />
-    <Compile Include="InterfaceAndBase\CompositionOwner.cs" />
-    <Compile Include="InterfaceAndBase\CompositionPart.cs" />
+    <Compile Include="Concrete\Seat.cs" />
+    <Compile Include="Enums\Association.cs" />
+    <Compile Include="InterfaceAndBase\ObjectWithAssociations.cs" />
+    <Compile Include="InterfaceAndBase\ObjectWithExtent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

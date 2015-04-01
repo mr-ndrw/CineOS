@@ -1,4 +1,6 @@
-﻿namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+﻿using System.Collections.Generic;
+
+namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 {
 
 	/// <summary>
@@ -9,6 +11,11 @@
 	/// </remarks>
 	public class Region
 	{
+		public Region()
+		{
+			Cinemas = new List<Cinema>();
+		}
+
 		/// <summary>
 		///		Unique identifier of the Region.
 		/// </summary>
@@ -19,6 +26,10 @@
 		/// </summary>
 		public string Name { get; set; }
 
+		/// <summary>
+		///		Collection of Cinemas in the Region.
+		/// </summary>
+		public virtual IEnumerable<Cinema> Cinemas { get; set; }
 
 	}
 }

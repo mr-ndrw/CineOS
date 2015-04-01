@@ -51,6 +51,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		/// </summary>
 		public int Salary { get; set; }
 		
+
+
 		//	TODO: remove \ lata pracy from cd diagram.
 
 	}
