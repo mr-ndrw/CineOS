@@ -40,10 +40,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
             }
         }
 
-        /// <summary>
-        ///     Creates a class extent dictionary from the provided stream.
-        /// </summary>
-        /// <param name="extentDictionary"></param>
         public static void CreateExtentDictionary(Dictionary<Type, List<Object>> extentDictionary )
         {
             if (ExtentDictionary == null)
