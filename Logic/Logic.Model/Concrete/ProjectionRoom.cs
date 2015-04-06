@@ -11,7 +11,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	/// </summary>
 	public class ProjectionRoom
 	{
-		public ProjectionRoom(Cinema cinema) : base(cinema)
+		public ProjectionRoom(Cinema cinema)
 		{
 			Cinema = cinema;
 			Projections = new List<Projection>();

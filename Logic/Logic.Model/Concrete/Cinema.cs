@@ -7,7 +7,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	/// <summary>
 	///		Represents a Cinema unit.
 	/// </summary>
-	public class Cinema
+	public class Cinema : ObjectWithAssociations
 	{
 
 		public Cinema()

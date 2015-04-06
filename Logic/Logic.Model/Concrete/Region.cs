@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 {
@@ -9,7 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	/// <remarks>
 	///		May be either geographical or political.
 	/// </remarks>
-	public class Region
+	public class Region : ObjectWithAssociations
 	{
 		public Region()
 		{
