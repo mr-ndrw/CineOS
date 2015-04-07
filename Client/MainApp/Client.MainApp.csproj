@@ -52,6 +52,10 @@
       <Project>{14c044b2-165e-4c84-87de-347ecb1b1b42}</Project>
       <Name>Logic.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">
+      <Project>{933d38fe-1e35-4649-b0cd-3de751fac6ac}</Project>
+      <Name>Shared.HelperLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

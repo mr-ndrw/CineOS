@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
@@ -12,10 +14,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	/// </remarks>
 	public class Region : ObjectWithAssociations
 	{
-		public Region()
-		{
-			Cinemas = new List<Cinema>();
-		}
+		#region Properties
 
 		/// <summary>
 		///		Unique identifier of the Region.
@@ -30,7 +29,32 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		/// <summary>
 		///		Collection of Cinemas in the Region.
 		/// </summary>
-		public virtual IEnumerable<Cinema> Cinemas { get; set; }
+		public IEnumerable<Cinema> Cinemas
+		{
+			get
+			{
+				return GetAssociations(Association.FromRegionToCinema)
+					.Cast<Cinema>();
+			}
+		} 
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		///		Adds the designated Cinema to this Region's composition.
+		/// </summary>
+		/// <param name="cinema">
+		///		Cinema to be added into this Region's composition.
+		/// </param>
+		public void AddCinema(Cinema cinema)
+		{
+			AddPart(Association.FromRegionToCinema, Association.FromCinemaToRegion, cinema);
+		}
+
+		#endregion
+
 
 	}
 }

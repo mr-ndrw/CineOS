@@ -5,8 +5,22 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	/// <summary>
 	///		Seat in a Projection Room.
 	/// </summary>
-	public class Seat
+	public class Seat : ObjectWithAssociations
 	{
+		/// <summary>
+		///		Projection Room in which the Seat is situated.
+		/// </summary>
+		private readonly ProjectionRoom _projectionRoom;
+
+		public Seat(string rowNumber, string columnNumber, ProjectionRoom projectionRoom)
+		{
+			RowNumber = rowNumber;
+			ColumnNumber = columnNumber;
+			_projectionRoom = projectionRoom;
+
+			_projectionRoom.AddSeat(this);
+		}
+
 		/// <summary>
 		///		Unique identifier of the Seat.
 		/// </summary>
@@ -15,22 +29,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		/// <summary>
 		///		Number of the column in which the Seat is situated.
 		/// </summary>
-		public string ColumnNumber { get; set; }
+		public string ColumnNumber { get; private set; }
 
 		/// <summary>
 		///		Number of the Row in which the Seat is placed.
 		/// </summary>
-		public string RowNumber { get; set; }
+		public string RowNumber { get; private set; }
 
 		/// <summary>
-		///		Id of the Projection Room in which the Seat is situated.
+		///		Gets the Projection Room in which the Seat is situated.
 		/// </summary>
-		public int ProjectionRoomId { get; set; }
-
-		/// <summary>
-		///		Projection Room in which the Seat is situated.
-		/// </summary>
-		public ProjectionRoom ProjectionRoom { get; set; }
+		public ProjectionRoom ProjectionRoom {
+			get { return _projectionRoom; } 
+		}
 
 	}
 }

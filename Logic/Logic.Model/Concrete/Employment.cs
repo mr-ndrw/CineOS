@@ -9,19 +9,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	public class Employment
 	{
 		/// <summary>
-		///		Cinema's Id.
-		/// </summary>
-		public int CinemaId { get; set; }
-
-		/// <summary>
 		///		Cinema in which the Employee was employed.
 		/// </summary>
 		public Cinema Cinema { get; set; }
-
-		/// <summary>
-		///		Employee's Id.
-		/// </summary>
-		public int EmployeeId { get; set; }
 
 		/// <summary>
 		///		Employee which was employed in the Cinema.
@@ -50,9 +40,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		///		Employee's salary.
 		/// </summary>
 		public int Salary { get; set; }
-		
-
-
 		//	TODO: remove \ lata pracy from cd diagram.
 
 	}

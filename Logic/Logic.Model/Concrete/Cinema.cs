@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
+using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 {
@@ -10,10 +13,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 	public class Cinema : ObjectWithAssociations
 	{
 
-		public Cinema()
+		/// <summary>
+		///		Creates a Cinema in the parametrized Region.
+		/// </summary>
+		/// <param name="region">
+		///		Region in which this Cinema is placed.
+		/// </param>
+		public Cinema(Region region)
 		{
-			HistoryOfEmployments = new List<Employment>();
-			ProjectionRooms = new List<ProjectionRoom>();
+			region.AddCinema(this);
 		}
 
 		#region Properties
@@ -39,11 +47,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		public string TelephoneNumber { get; set; }
 
 		/// <summary>
-		///		Id of the Region in which this Cinema is situated.
-		/// </summary>
-		public int RegionId { get; set; }
-
-		/// <summary>
 		///		Region in which this Cinema is situated.
 		/// </summary>
 		public Region Region { get; set; }
@@ -51,12 +54,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		/// <summary>
 		///		Collection representing the history of Employment in the Cinema.
 		/// </summary>
-		public IEnumerable<Employment> HistoryOfEmployments { get; set; }
+		public IEnumerable<Employment> HistoryOfEmployments { get; private set; }
 
 		/// <summary>
 		///		Collection of Projection Rooms contained within this Cinema.
 		/// </summary>
-		public IEnumerable<ProjectionRoom> ProjectionRooms { get; set; }
+		public IEnumerable<ProjectionRoom> ProjectionRooms 
+		{
+			get
+			{
+				var projectionRooms = GetAssociations(Association.FromCinemaToProjectionRoom).Cast<ProjectionRoom>();
+				return projectionRooms;
+			}
+		}
 
 		/// <summary>
 		///		Collection of Projections which take place in the Cinema.
@@ -66,6 +76,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 			get
 			{
 				var projections = new List<Projection>();
+
 				foreach (var projectionRoom in ProjectionRooms)
 				{
 					projections.AddRange(projectionRoom.Projections);
@@ -73,15 +84,67 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 
 				return projections;
 			}
-		} 
+		}
+ 		 
 		#endregion
 
 
 		#region Methods
 
+		/// <summary>
+		///		Adds the designated Projection Room to Cinema's composition.
+		/// </summary>
+		/// <param name="projectionRoom">
+		///		Projection Room to be added to Cinema's composition.
+		/// </param>
+		public void AddProjectionRoom(ProjectionRoom projectionRoom)
+		{
+			AddPart(Association.FromCinemaToProjectionRoom, Association.FromProjectionRoomToCinema, projectionRoom, projectionRoom.Number);
+		}
+
+		/// <summary>
+		///		Returns the Projection Room contained in this Cinema based on the Room's number.
+		/// </summary>
+		/// <param name="projectionRoomNumber">
+		///		Unique(within the Cinema) number of the Projection Room.
+		/// </param>
+		/// <returns>
+		///		Returns reference to found Projection Room or null if no such Room was found.
+		/// </returns>
 		public ProjectionRoom GetProjectionRoom(string projectionRoomNumber)
 		{
-			return ProjectionRooms.FirstOrDefault(projectionRoom => projectionRoom.Number.Equals(projectionRoomNumber));
+			return GetQualifiedAssociation(Association.FromCinemaToProjectionRoom, projectionRoomNumber) as ProjectionRoom;
+		}
+
+		/// <summary>
+		///		Returns the collection of Projections from the given date span.
+		/// </summary>
+		/// <param name="fromDate">
+		///		From DateTime.
+		/// </param>
+		/// <param name="toDate">
+		///		To DateTime
+		/// </param>
+		/// <returns>
+		///		Collection of Projections.
+		/// </returns>
+		public IEnumerable<Projection> GetProjections(DateTime fromDate, DateTime toDate)
+		{
+			return Projections.Where(projection => projection.DateTime.IsBetween(fromDate, toDate));
+		}
+
+		/// <summary>
+		///		Returns the collection of Projections for this Cinema for the next week.
+		/// </summary>
+		/// <returns>
+		///		Collection of Projections.
+		/// </returns>
+		public IEnumerable<Projection> GetProjectionsForTheNextWeek()
+		{
+			var nowDateTime = DateTime.Now;
+			var nextWeekDateTime = DateTime.Now.AddDays(7);
+
+			return Projections.Where(projection => projection.DateTime.IsBetween(nowDateTime, nextWeekDateTime));
 		}
 
 		#endregion

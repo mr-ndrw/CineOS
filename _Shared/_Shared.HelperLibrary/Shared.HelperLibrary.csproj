@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{14C044B2-165E-4C84-87DE-347ECB1B1B42}</ProjectGuid>
+    <ProjectGuid>{933D38FE-1E35-4649-B0CD-3DE751FAC6AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>en.AndrewTorski.CineOS.Logic.Model</RootNamespace>
-    <AssemblyName>en.AndrewTorski.CineOS.Logic.Model</AssemblyName>
+    <RootNamespace>en.AndrewTorski.CineOS.Shared.HelperLibrary</RootNamespace>
+    <AssemblyName>en.AndrewTorski.CineOS.Shared.HelperLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,27 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\Cinema.cs" />
-    <Compile Include="Concrete\Client.cs" />
-    <Compile Include="Concrete\Employee.cs" />
-    <Compile Include="Concrete\Employment.cs" />
-    <Compile Include="Concrete\Film.cs" />
-    <Compile Include="Concrete\Medium.cs" />
-    <Compile Include="Concrete\Projection.cs" />
-    <Compile Include="Concrete\ProjectionRoom.cs" />
-    <Compile Include="Concrete\Region.cs" />
-    <Compile Include="Concrete\Reservation.cs" />
-    <Compile Include="Concrete\Seat.cs" />
-    <Compile Include="Enums\Association.cs" />
-    <Compile Include="InterfaceAndBase\ObjectWithAssociations.cs" />
-    <Compile Include="InterfaceAndBase\ObjectWithExtent.cs" />
+    <Compile Include="DateTimeExtenstions.cs" />
+    <Compile Include="EqualityComparer\PairComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">
-      <Project>{933d38fe-1e35-4649-b0cd-3de751fac6ac}</Project>
-      <Name>Shared.HelperLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

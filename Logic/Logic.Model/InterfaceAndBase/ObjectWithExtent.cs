@@ -29,7 +29,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
             classExtentList.Add(self);
 
-            Console.WriteLine("Current object type: {0}", selfType);
+            //Console.WriteLine("Current object type: {0}", selfType);
         }
 
         public static void CreateExtentDictionary()
