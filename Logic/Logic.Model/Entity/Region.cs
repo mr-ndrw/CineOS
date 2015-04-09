@@ -42,17 +42,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 		#region Methods
 
-		/// <summary>
-		///		Adds the designated Cinema to this Region's composition.
-		/// </summary>
-		/// <param name="cinema">
-		///		Cinema to be added into this Region's composition.
-		/// </param>
-		public void AddCinema(Cinema cinema)
-		{
-			AddPart(Association.FromRegionToCinema, Association.FromCinemaToRegion, cinema);
-		}
-
 		#endregion
 
 

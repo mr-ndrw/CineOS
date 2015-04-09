@@ -70,17 +70,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 		#region Methods
 		
-		/// <summary>
-		///		Adds the Reservation object reference into this Projection's composition.
-		/// </summary>
-		/// <param name="reservation">
-		///		Reference to Reservation object.
-		/// </param>
-		public void AddReservation(Reservation reservation)
-		{
-			AddPart(Association.FromProjectionToReservation, Association.FromReservationToProjection, reservation);
-		}
-
 		#endregion
 
 	}

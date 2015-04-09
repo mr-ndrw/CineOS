@@ -21,7 +21,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Cinema(Region region)
 		{
-			region.AddCinema(this);
+			this.AddAsPartOf(Association.FromCinemaToRegion, Association.FromRegionToCinema, region);
 		}
 
 		#region Properties
@@ -85,17 +85,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 
 		#region Methods
-
-		/// <summary>
-		///		Adds the designated Projection Room to Cinema's composition.
-		/// </summary>
-		/// <param name="projectionRoom">
-		///		Projection Room to be added to Cinema's composition.
-		/// </param>
-		public void AddProjectionRoom(ProjectionRoom projectionRoom)
-		{
-			AddPart(Association.FromCinemaToProjectionRoom, Association.FromProjectionRoomToCinema, projectionRoom, projectionRoom.Number);
-		}
 
 		/// <summary>
 		///		Returns the Projection Room contained in this Cinema based on the Room's number.

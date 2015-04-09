@@ -1,4 +1,5 @@
-﻿using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
+﻿using en.AndrewTorski.CineOS.Logic.Model.Enums;
+using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
@@ -18,7 +19,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			ColumnNumber = columnNumber;
 			_projectionRoom = projectionRoom;
 
-			_projectionRoom.AddSeat(this);
+			this.AddAsPartOf(Association.FromSeatToProjectionRoom, Association.FromProjectionRoomToSeat, projectionRoom);
 		}
 
 		/// <summary>

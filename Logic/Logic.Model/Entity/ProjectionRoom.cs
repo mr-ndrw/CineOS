@@ -17,7 +17,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			Number = number;
 			//	Add this Projection Room to the composition owner - Cinema.
-			cinema.AddProjectionRoom(this);
+			this.AddAsPartOf(Association.FromProjectionRoomToCinema, Association.FromCinemaToProjectionRoom, cinema);
 		}
 
 		#region Properties
@@ -83,19 +83,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		#endregion
 
 		#region Methods
-
-		/// <summary>
-		///     Adds the designated Seat to this Projection Room's composition.
-		/// </summary>
-		/// <param name="seat">
-		///     Seat to be added to this Projection Room's composition.
-		/// </param>
-		public void AddSeat(Seat seat)
-		{
-			var seatRowColumnTuple = new Tuple<string, string>(seat.RowNumber, seat.ColumnNumber);
-
-			AddPart(Association.FromProjectionRoomToSeat, Association.FromSeatToProjectionRoom, seat, seatRowColumnTuple);
-		}
 
 		/// <summary>
 		///     Returns the Seat contained in this Projection Room based on the Seat's row number and column number.

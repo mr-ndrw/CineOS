@@ -140,7 +140,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <param name="qualifier">
 		///     The object which serves as a qualifier in qualified association
 		/// </param>
-		protected void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject, object qualifier)
+		private void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject, object qualifier)
 		{
 			if (targetPartObject == null) throw new ArgumentNullException("targetPartObject");
 
@@ -170,7 +170,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <param name="targetPartObject">
 		///     The ObjectWithAssociations reference with which we create a association.
 		/// </param>
-		protected void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject)
+		private void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject)
 		{
 			AddPart(association, reverseAssociation, targetPartObject, targetPartObject);
 		}
@@ -187,9 +187,29 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <param name="targetOwnerObject">
 		///     The ObjectWithAssociations reference with which we create a association.
 		/// </param>
-		protected void AddThisAsPartOf(Association association, Association reverseAssociation, ObjectWithAssociations targetOwnerObject)
+		protected void AddAsPartOf(Association association, Association reverseAssociation, ObjectWithAssociations targetOwnerObject)
 		{
 			targetOwnerObject.AddPart(association, reverseAssociation, this);
+		}
+
+		/// <summary>
+		///		Adds this Part object to the given Owner object's composition.
+		/// </summary>
+		/// <param name="association">
+		///     Association type from this object's direction.
+		/// </param>
+		/// <param name="reverseAssociation">
+		///     Association type from targetPartObject's direction.
+		/// </param>
+		/// <param name="targetOwnerObject">
+		///     The ObjectWithAssociations reference with which we create a association.
+		/// </param>
+		/// <param name="qualifier">
+		///     The object which serves as a qualifier in qualified association
+		/// </param>
+		protected void AddAsPartOf(Association association, Association reverseAssociation, ObjectWithAssociations targetOwnerObject, object qualifier)
+		{
+			targetOwnerObject.AddPart(association, reverseAssociation, this, qualifier);
 		}
 
 

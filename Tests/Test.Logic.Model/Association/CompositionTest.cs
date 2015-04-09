@@ -65,7 +65,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model.Association
 			var partAlreadyOwnedExceptionWasThrown = false;
 			try
 			{
-				region2.AddCinema(cinema1);
+				//region2.AddCinema(cinema1);
 			}
 			catch (PartAlreadyOwnedException e)
 			{

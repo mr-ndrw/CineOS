@@ -28,7 +28,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			AddAssociation(Association.FromReservationToClient, Association.FromClientToReservation, client);
 
 			//	Compose this Reservation into Projection for which this Reservation is made.
-			projection.AddReservation(this);
+			this.AddAsPartOf(Association.FromReservationToProjection, Association.FromProjectionToReservation,  projection);
 		}
 		
 		#region Properties
