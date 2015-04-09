@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.MainApp", "Client\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.HelperLibrary", "_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj", "{933D38FE-1E35-4649-B0CD-3DE751FAC6AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Logic.Model", "Tests\Test.Logic.Model\Test.Logic.Model.csproj", "{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{933D38FE-1E35-4649-B0CD-3DE751FAC6AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{933D38FE-1E35-4649-B0CD-3DE751FAC6AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{933D38FE-1E35-4649-B0CD-3DE751FAC6AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 		{14C044B2-165E-4C84-87DE-347ECB1B1B42} = {AB16FA27-1307-4556-B8E4-E4A20F224A12}
 		{179EABD0-5797-4A19-B730-47E87F10588E} = {043B39A4-5750-4C67-A70A-D59F7B72D1BC}
 		{933D38FE-1E35-4649-B0CD-3DE751FAC6AC} = {56744AAE-DAED-44A1-AC27-08265964186E}
+		{067707E7-DA5E-4A41-BD98-E4D7F1EAB052} = {3F7BBE08-75CA-43C0-92B5-9297D605DA1B}
 	EndGlobalSection
 EndGlobal

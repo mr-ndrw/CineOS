@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Enums;
+using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 {
 	/// <summary>
-	///     Allows the implementing classes to come into association interaction with eachother.
+	///		Serves as the base class for class that come into associations with eachother.
 	/// </summary>
 	public abstract class ObjectWithAssociations : ObjectWithExtent
 	{
@@ -19,7 +20,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Collection of typed(named) associations between object(which may be either this object or a qualifier) and any
 		///     other number of objects.
 		/// </summary>
-		public readonly Dictionary<Association, Dictionary<Object, ObjectWithAssociations>> _associations;
+		private readonly Dictionary<Association, Dictionary<Object, ObjectWithAssociations>> _associations;
 
 		/// <summary>
 		///     Initializes the static Owner and Parts dictionary.
@@ -30,8 +31,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		}
 
 		/// <summary>
-		///     Initializes the object.
+		///     Initializes the class for use by an inherited class instance.
 		/// </summary>
+		/// <remarks>
+		///		This constructor can only be called by an inherited class.
+		/// </remarks>
 		protected ObjectWithAssociations()
 		{
 			_associations = new Dictionary<Association, Dictionary<object, ObjectWithAssociations>>();
@@ -44,7 +48,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Association type from this object's direction.
 		/// </param>
 		/// <param name="reverseAssociation">
-		///     Association type from targetObject's direction.
+		///     Association type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetObject">
 		///     The ObjectWithAssociations refernce with which we create a association.
@@ -87,7 +91,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Association type from this object's direction.
 		/// </param>
 		/// <param name="reverseAssociation">
-		///     Association type from targetObject's direction.
+		///     Association type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetObject">
 		///     The ObjectWithAssociations refernce with which we create a association.
@@ -107,14 +111,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Association type from this object's direction.
 		/// </param>
 		/// <param name="reverseAssociation">
-		///     Association type from targetObject's direction.
+		///     Association type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetObject">
 		///     The ObjectWithAssociations refernce with which we create a association.
 		/// </param>
 		/// <remarks>
 		///     We call AddAssociation(Association,Association,ObjectWithAssociations,object) method inside this method
-		///     but we pass the targetObject as the qualifier implicitly.
+		///     but we pass the targetPartObject as the qualifier implicitly.
 		/// </remarks>
 		protected void AddAssociation(Association association, Association reverseAssociation, ObjectWithAssociations targetObject)
 		{
@@ -128,49 +132,74 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Association type from this object's direction.
 		/// </param>
 		/// <param name="reverseAssociation">
-		///     Association type from targetObject's direction.
+		///     Association type from targetPartObject's direction.
 		/// </param>
-		/// <param name="targetObject">
+		/// <param name="targetPartObject">
 		///     The ObjectWithAssociations reference with which we create a association.
 		/// </param>
 		/// <param name="qualifier">
 		///     The object which serves as a qualifier in qualified association
 		/// </param>
-		protected void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetObject, object qualifier)
+		protected void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject, object qualifier)
 		{
-			if (targetObject == null) throw new ArgumentNullException("targetObject");
+			if (targetPartObject == null) throw new ArgumentNullException("targetPartObject");
 
-			if (OwnerAndPartsDictionary.Values.Any(ownerPartCollection => ownerPartCollection.Contains(targetObject)))
+			if (OwnerAndPartsDictionary.Values.Any(ownerPartCollection => ownerPartCollection.Contains(targetPartObject)))
 			{
-				throw new Exception("Provided object is already a part of some owner object.");
+				throw new PartAlreadyOwnedException();
 			}
-			AddAssociation(association, reverseAssociation, targetObject, qualifier);
+			AddAssociation(association, reverseAssociation, targetPartObject, qualifier);
 
 			if (!OwnerAndPartsDictionary.ContainsKey(this))
 			{
-				OwnerAndPartsDictionary.Add(this, new List<ObjectWithAssociations> {targetObject});
+				OwnerAndPartsDictionary.Add(this, new List<ObjectWithAssociations> {targetPartObject});
 				return;
 			}
-			OwnerAndPartsDictionary[this].Add(targetObject);
+			OwnerAndPartsDictionary[this].Add(targetPartObject);
 		}
 
 		/// <summary>
-		///     Add the parametrized ObjectWithExtension into this ObjectWithExtension's composition association.
+		///     Adds the ObjectWithExtension into this ObjectWithExtension's composition.
 		/// </summary>
 		/// <param name="association">
 		///     Association type from this object's direction.
 		/// </param>
 		/// <param name="reverseAssociation">
-		///     Association type from targetObject's direction.
+		///     Association type from targetPartObject's direction.
 		/// </param>
-		/// <param name="targetObject">
+		/// <param name="targetPartObject">
 		///     The ObjectWithAssociations reference with which we create a association.
 		/// </param>
-		protected void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetObject)
+		protected void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject)
 		{
-			AddPart(association, reverseAssociation, targetObject, targetObject);
+			AddPart(association, reverseAssociation, targetPartObject, targetPartObject);
 		}
 
+		/// <summary>
+		///		Adds this Part object to the given Owner object's composition.
+		/// </summary>
+		/// <param name="association">
+		///     Association type from this object's direction.
+		/// </param>
+		/// <param name="reverseAssociation">
+		///     Association type from targetPartObject's direction.
+		/// </param>
+		/// <param name="targetOwnerObject">
+		///     The ObjectWithAssociations reference with which we create a association.
+		/// </param>
+		protected void AddThisAsPartOf(Association association, Association reverseAssociation, ObjectWithAssociations targetOwnerObject)
+		{
+			targetOwnerObject.AddPart(association, reverseAssociation, this);
+		}
+
+
+		/// <summary>
+		///		Returns the collection of ObjectWithAssociation references which are connected with this ObjectWithAssociations
+		///		by the given Association.
+		/// </summary>
+		/// <returns>
+		///		The collection of ObjectWithAssociation references.
+		/// </returns>
 		protected IEnumerable<ObjectWithAssociations> GetAssociations(Association association)
 		{
 			var dictonary = _associations[association].Values;
@@ -186,6 +215,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		protected ObjectWithAssociations GetQualifiedAssociation<T>(Association association, T qualifier, IEqualityComparer<T> equalityComparer)
 		{
+			if (qualifier == null) throw new ArgumentNullException("qualifier");
+			if (equalityComparer == null) throw new ArgumentNullException("equalityComparer");
 			var qualifierDictonary = _associations[association];
 
 			return (from qualifierObjectPair in qualifierDictonary

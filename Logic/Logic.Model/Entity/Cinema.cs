@@ -5,7 +5,7 @@ using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents a Cinema unit.
@@ -49,7 +49,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		/// <summary>
 		///		Region in which this Cinema is situated.
 		/// </summary>
-		public Region Region { get; set; }
+		public Region Region 
+		{
+			get { return GetAssociations(Association.FromCinemaToRegion).FirstOrDefault() as Region; }
+		}
 
 		/// <summary>
 		///		Collection representing the history of Employment in the Cinema.
@@ -63,8 +66,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		{
 			get
 			{
-				var projectionRooms = GetAssociations(Association.FromCinemaToProjectionRoom).Cast<ProjectionRoom>();
-				return projectionRooms;
+				return GetAssociations(Association.FromCinemaToProjectionRoom).Cast<ProjectionRoom>();
 			}
 		}
 
@@ -75,14 +77,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		{
 			get
 			{
-				var projections = new List<Projection>();
-
-				foreach (var projectionRoom in ProjectionRooms)
-				{
-					projections.AddRange(projectionRoom.Projections);
-				}
-
-				return projections;
+				return GetAssociations(Association.FromCinemaToProjection).Cast<Projection>();
 			}
 		}
  		 

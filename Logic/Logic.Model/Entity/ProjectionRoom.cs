@@ -5,7 +5,7 @@ using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary.EqualityComparer;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///     Represents a Projection Room structure within the Cinema which is capable

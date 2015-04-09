@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents an employment relation ship between a Cinema and an Employee

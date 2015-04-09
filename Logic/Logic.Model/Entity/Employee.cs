@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents an Employee entity.

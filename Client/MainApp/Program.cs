@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using en.AndrewTorski.CineOS.Logic.Model.Concrete;
+using en.AndrewTorski.CineOS.Logic.Model.Entity;
 using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 

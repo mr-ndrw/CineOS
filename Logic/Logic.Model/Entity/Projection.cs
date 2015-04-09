@@ -3,14 +3,31 @@ using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents a Projection entity. An event during which a film is shown.
 	/// </summary>
+	/// <remarks>
+	///		This class is associated with a one-to-many relationship with Cinema class, hence
+	///		the presence of a reference to a Cinema object in the constructor's parameters.
+	///		This is not a composition!!!
+	/// </remarks>
 	public class Projection : ObjectWithAssociations
 	{
-		
+
+		/// <summary>
+		///		Initializes a new instance of the Projection class using the mandatory refererence
+		///		to the Cinema.
+		/// </summary>
+		/// <param name="cinema">
+		///		Reference to the Cinema in which the Projection takes place.
+		/// </param>
+		public Projection(Cinema cinema)
+		{
+			AddAssociation(Association.FromProjectionToCinema, Association.FromCinemaToProjection, cinema);
+		}
+
 		#region Properties
 		
 		/// <summary>
@@ -19,18 +36,18 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		public int Id { get; set; }
 
 		/// <summary>
-		///		Date and time of the Projection.
+		///		Get or sets the date and time of the Projection.
 		/// </summary>
 		public DateTime DateTime { get; set; }
 
 		/// <summary>
-		///		Duration of the whole projection in minutes.
+		///		Get or sets the duration of the whole projection in minutes.
 		/// </summary>
 		/// TODO change to film's length
 		public int Length { get; set; }
 
 		/// <summary>
-		///		Projection Room in which this Projection takes place.
+		///		Gets the Projection Room in which this Projection takes place.
 		/// </summary>
 		public ProjectionRoom ProjectionRoom
 		{
@@ -42,7 +59,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		}
 
 		/// <summary>
-		///		Cinema in which this Projection takes place.
+		///		Get the Cinema in which this Projection takes place.
 		/// </summary>
 		public Cinema Cinema
 		{
@@ -52,7 +69,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
 		#endregion
 
 		#region Methods
-
+		
+		/// <summary>
+		///		Adds the Reservation object reference into this Projection's composition.
+		/// </summary>
+		/// <param name="reservation">
+		///		Reference to Reservation object.
+		/// </param>
 		public void AddReservation(Reservation reservation)
 		{
 			AddPart(Association.FromProjectionToReservation, Association.FromReservationToProjection, reservation);

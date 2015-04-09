@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Concrete
+namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents a physical medium on which a Film can be stored.
