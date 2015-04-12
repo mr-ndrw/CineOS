@@ -51,6 +51,7 @@
     <Compile Include="Entity\Reservation.cs" />
     <Compile Include="Entity\Seat.cs" />
     <Compile Include="Enums\Association.cs" />
+    <Compile Include="Exceptions\EmployeeAlreadyHasManagerException.cs" />
     <Compile Include="InterfaceAndBase\ObjectWithAssociations.cs" />
     <Compile Include="InterfaceAndBase\ObjectWithExtent.cs" />
     <Compile Include="Exceptions\PartAlreadyOwnedException.cs" />

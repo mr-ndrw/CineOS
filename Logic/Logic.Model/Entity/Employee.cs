@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using en.AndrewTorski.CineOS.Logic.Model.Enums;
+using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents an Employee entity.
 	/// </summary>
-	public class Employee
+	public class Employee : ObjectWithAssociations
 	{
-		public Employee()
-		{
-			HistoryOfEmployment = new List<Employment>();
-			Subordinates = new List<Employee>();
-		}
-
+		#region Properties
 		/// <summary>
 		///		Unique identifier of the Employee.
 		/// </summary>
@@ -26,21 +25,55 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Collection of Employee's history of Employments.
 		/// </summary>
-		public IEnumerable<Employment> HistoryOfEmployment { get; set; }
-
-		/// <summary>
-		///		Id of the Employee's manager.
-		/// </summary>
-		public int ManagerId { get; set; }
+		public IEnumerable<Employment> HistoryOfEmployment 
+		{
+			get
+			{
+				return GetAssociations(Association.FromEmployeeToEmployment)
+					.Cast<Employment>();
+			} 
+		}
 
 		/// <summary>
 		///		Employee's manager.
 		/// </summary>
-		public Employee Manager { get; set; }
+		public Employee Manager
+		{
+			get
+			{
+				return GetAssociations(Association.FromSubordinateToManager)
+					.FirstOrDefault() as Employee;
+
+			}
+		}
 
 		/// <summary>
 		///		Employee's/Manager's subordinate Employees.
 		/// </summary>
-		public IEnumerable<Employee> Subordinates { get; set; }		
+		public IEnumerable<Employee> Subordinates
+		{
+			get
+			{
+				return GetAssociations(Association.FromManagerToSubordinate)
+					.Cast<Employee>();
+			}
+		}
+
+		#endregion		
+
+		#region Methods
+
+		public void AddToCinema(Cinema cinema)
+		{
+			new Employment(cinema, this);
+		}
+
+		public void AddSubordinate(Employee employee)
+		{
+			if (Manager != null) return;
+			AddAssociation(Association.FromManagerToSubordinate, Association.FromSubordinateToManager, employee);
+		}
+
+		#endregion
 	}
 }

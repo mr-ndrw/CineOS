@@ -11,6 +11,10 @@
 		FromProjectionToFilm, FromFilmToProjection,
 		FromReservationToProjection, FromProjectionToReservation,
 		FromSeatToReservation, FromReservationToSeat,
-		FromReservationToClient, FromClientToReservation
+		FromReservationToClient, FromClientToReservation,
+		FromCinemaToEmployment, FromEmploymentToCinema,
+		FromEmployeeToEmployment, FromEmploymentToEmployee,
+		FromManagerToSubordinate, FromSubordinateToManager,
+		FromMediumToProjection, FromProjectionToMedium
 	}
 }

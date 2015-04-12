@@ -131,6 +131,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			return Projections.Where(projection => projection.DateTime.IsBetween(nowDateTime, nextWeekDateTime));
 		}
 
+		public void AddEmployee(Employee employee)
+		{
+			new Employment(this, employee);
+		}
+
 		#endregion
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
@@ -64,6 +65,18 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public Cinema Cinema
 		{
 			get { return ProjectionRoom.Cinema; }
+		}
+
+		/// <summary>
+		///		Return the collection of Mediums associated with this Projection.
+		/// </summary>
+		public IEnumerable<Medium> Mediums
+		{
+			get
+			{
+				return GetAssociations(Association.FromProjectionToMedium)
+					.Cast<Medium>();
+			}
 		} 
 
 		#endregion

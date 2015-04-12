@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using en.AndrewTorski.CineOS.Logic.Model.Enums;
+using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	/// <summary>
 	///		Represents a Film entity.
 	/// </summary>
-	public class Film
+	public class Film : ObjectWithAssociations
 	{
 
 		public Film()
 		{
-			Mediums = new HashSet<Medium>();
 		}
+
 		/// <summary>
 		///		Unique identifier of the Film.
 		/// </summary>
@@ -50,6 +53,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Collection of Mediums associated with this Film.
 		/// </summary>
-		public IEnumerable<Medium> Mediums { get; set; }
+		public IEnumerable<Medium> Mediums
+		{
+			get
+			{
+				return GetAssociations(Association.FromFilmToMedium)
+					.Cast<Medium>();
+			}
+		}
 	}
 }
