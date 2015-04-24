@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asso.cs" />
+    <Compile Include="Dog.cs" />
     <Compile Include="Entity\Cinema.cs" />
     <Compile Include="Entity\Client.cs" />
     <Compile Include="Entity\Employee.cs" />
@@ -52,10 +54,13 @@
     <Compile Include="Entity\Seat.cs" />
     <Compile Include="Enums\Association.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyHasManagerException.cs" />
+    <Compile Include="InterfaceAndBase\AssociatedObject.cs" />
     <Compile Include="InterfaceAndBase\ObjectWithAssociations.cs" />
     <Compile Include="InterfaceAndBase\ObjectWithExtent.cs" />
     <Compile Include="Exceptions\PartAlreadyOwnedException.cs" />
+    <Compile Include="Man.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualifiedAsso.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">
