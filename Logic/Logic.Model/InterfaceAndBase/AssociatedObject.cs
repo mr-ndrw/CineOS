@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using en.AndrewTorski.CineOS.Logic.Model.Enums;
 
@@ -106,7 +106,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 				throw new Exception("Association by such name already exists.");
 			}
 
-			Asso association = new Asso(associationName, firstType, secondType, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType);
+			Asso association = new Asso(associationName, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType);
 
 			return association;
 		}
@@ -431,4 +431,4 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 
 	}
-}
+}*/

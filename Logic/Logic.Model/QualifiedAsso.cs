@@ -13,8 +13,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 	///		just be left out as null, if we're using primite types(i.e. int, string).
 	/// </remarks>
 	/// <typeparam name="TQualifier"></typeparam>
-	public class QualifiedAsso<TQualifier> : Asso
-		where TQualifier : IEqualityComparer<TQualifier>
+	public class QualifiedAsso<T1, T2, TQualifier> : Asso<T1, T2>
+		where TQualifier : IEqualityComparer<TQualifier> where T1 : class where T2 : class
 	{
 		#region Private Fields
 
@@ -43,7 +43,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// <param name="secondType">
 		///  	Second class which will be used in new Association.
 		///   </param>
-		/// <param name="lowerBoundForFirstType">
+		/// <param name="boundForFirstType">
 		///		Lower bound for First class.
 		///		Should be greater, equal to zero.
 		/// </param>
@@ -63,10 +63,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// 	Comparer of the Qualifier objects.
 		/// </param>
 		public QualifiedAsso(	string name, Type firstType, Type secondType,
-								int lowerBoundForFirstType, int upperBoundForFirstType,
+								int boundForFirstType, int upperBoundForFirstType,
 								int lowerBoundForSecondType, int upperBoundForSecondType,
 								IEqualityComparer<TQualifier> qualifierComparer)
-			: base(name, firstType, secondType, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
+			: base(name, boundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
 		{
 			_qualifierComparer = qualifierComparer;
 		}
@@ -134,8 +134,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// <param name="qualifierComparer">
 		///		Comparer of the Qualifier objects.
 		/// </param>
-		public QualifiedAsso(Asso association, IEqualityComparer<TQualifier> qualifierComparer)
-			: this(association.Name, association.Type1, association.Type2, association.GetLowerBoundaryForFirstType, association.GetLowerBoundaryForSecondType, association.GetUpperBoundaryForFirstType, association.GetUpperBoundaryForSecondType, qualifierComparer)
+		public QualifiedAsso(Asso<T1, T2> association, IEqualityComparer<TQualifier> qualifierComparer)
+			: this(association.Name, association.Type1, association.Type2, association.GetBoundaryForFirstType, association.LowerBoundaryForSecondType, association.UpperBoundaryForFirstType, association.UpperBoundaryForSecondType, qualifierComparer)
 		{
 		}
 
@@ -150,7 +150,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// <param name="association">
 		///		Association from which we initailize.
 		/// </param>
-		public QualifiedAsso(Asso association)
+		public QualifiedAsso(Asso<T1, T2> association)
 			: this(association, null)
 		{
 
@@ -169,7 +169,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///  <param name="secondType">
 		///   	Second class which will be used in new Association.
 		///    </param>
-		///  <param name="lowerBoundForFirstType">
+		///  <param name="boundForFirstType">
 		/// 		Lower bound for First class.
 		/// 		Should be greater, equal to zero.
 		///  </param>
@@ -186,9 +186,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///   	Should be greater than zero.
 		///  </param>
 		public QualifiedAsso(	string name, Type firstType, Type secondType,
-								int lowerBoundForFirstType, int upperBoundForFirstType,
+								int boundForFirstType, int upperBoundForFirstType,
 								int lowerBoundForSecondType, int upperBoundForSecondType)
-			: this(name, firstType, secondType, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType, null)
+			: this(name, firstType, secondType, boundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType, null)
 		{
 		}
 

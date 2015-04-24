@@ -12,7 +12,7 @@ namespace Test.Experimental
 		public void TestIfAssocationConstructorConstructsTuplesCorrectly()
 		{
 			//	Arrange
-			var association = new Asso("ownership", typeof(Test1), typeof(Test2));
+			var association = new Asso<Test1, Test2>("ownership");
 
 			//	Act
 			var type1 = association.Type1;
@@ -24,11 +24,58 @@ namespace Test.Experimental
 		}
 
 		[Test]
+		public void AssoctiaionConformsWithOneTypeOnlyTest()
+		{
+			//	Arrange
+			var association = new Asso<Test1, Test2>("ownership");
+
+			//	Act
+			var doesTest1ConformAssociation = association.ConformsWith(typeof(Test1));
+			var doesTest2ConformAssociation = association.ConformsWith(typeof(Test2));
+
+			//	Assert
+			Assert.That(doesTest1ConformAssociation);
+			Assert.That(doesTest2ConformAssociation);
+		}
+
+		[Test]
+		public void AssociationConformsWithTwoTypesTest()
+		{
+			//	Arrange
+			var association = new Asso<Test1, Test2>("ownership");
+
+			//	Act & Assert
+			Assert.IsTrue(association.ConformsWith(typeof(Test1), typeof(Test2)));
+		}
+
+		[Test]
+		public void AreObjectsLinkedTest()
+		{
+			//	Arrange
+			var obj1 = new Test1();
+			var obj2 = new Test2();
+			var obj3 = new Test2();
+			var obj4 = new Test2();
+
+			var association = new Asso<Test1, Test2>("test");
+			//	Act
+			association.Link(obj1, obj2);
+			association.Link(obj1, obj3);
+			association.Link(obj1, obj4);
+
+			//	Assert
+			var associatedObjects = association.GetAssociatedObjects(obj1);
+			Assert.IsTrue(associatedObjects.Contains(obj2));
+			Assert.IsTrue(associatedObjects.Contains(obj3));
+			Assert.IsTrue(associatedObjects.Contains(obj4));
+		}
+
+		[Test]
 		public void TestEqualsDifferentNames()
 		{
 			//	Arrange
-			var association1ForNameFailureCase = new Asso("ownership", typeof(Test1), typeof(Test2));
-			var association2ForNameFailureCase = new Asso("owner"    , typeof(Test1), typeof(Test2));
+			var association1ForNameFailureCase = new Asso<Test1, Test2>("ownership");
+			var association2ForNameFailureCase = new Asso<Test1, Test2>("owner");
 
 			//	Act
 			var nameFailureCaseResult = association1ForNameFailureCase.Equals(association2ForNameFailureCase);
@@ -42,10 +89,10 @@ namespace Test.Experimental
 		{
 			//	Arrange
 			const string name = "";
-			var assocation12 = new Asso(name, typeof(Test1), typeof(Test2));
-			var assocation21 = new Asso(name, typeof(Test2), typeof(Test1));
-			var assocation12Second = new Asso(name, typeof(Test1), typeof(Test2));
-			var assocation21Second = new Asso(name, typeof(Test2), typeof(Test1));
+			var assocation12 = new Asso<Test1, Test2>(name);
+			var assocation21 = new Asso<Test2, Test1>(name);
+			var assocation12Second = new Asso<Test1, Test2>(name);
+			var assocation21Second = new Asso<Test2, Test1>(name);
 
 			//	Act
 			var resultForComparing12Vs12 = assocation12.Equals(assocation12Second);
@@ -60,9 +107,9 @@ namespace Test.Experimental
 			Assert.That(resultForComparing21Vs21, Is.True);
 		}
 
-		class Test1 : AssociatedObject { }
-		class Test2 : AssociatedObject { }
-		class Test3 : AssociatedObject { }
-		class Test4 : AssociatedObject { }
+		class Test1   { }
+		class Test2   { }
+		class Test3  { }
+		class Test4 { }
 	}
 }
