@@ -26,7 +26,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Projection(Cinema cinema)
 		{
-			AddAssociation(Association.FromProjectionToCinema, Association.FromCinemaToProjection, cinema);
+			AddAssociation(AssociationRole.FromProjectionToCinema, AssociationRole.FromCinemaToProjection, cinema);
 		}
 
 		#region Properties
@@ -54,7 +54,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return	GetAssociations(Association.FromProjectionToProjectionRoom)
+				return	GetAssociations(AssociationRole.FromProjectionToProjectionRoom)
 						.FirstOrDefault() as ProjectionRoom;
 			}
 		}
@@ -74,7 +74,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromProjectionToMedium)
+				return GetAssociations(AssociationRole.FromProjectionToMedium)
 					.Cast<Medium>();
 			}
 		} 

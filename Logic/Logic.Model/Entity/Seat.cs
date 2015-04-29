@@ -19,7 +19,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			ColumnNumber = columnNumber;
 			_projectionRoom = projectionRoom;
 
-			this.AddAsPartOf(Association.FromSeatToProjectionRoom, Association.FromProjectionRoomToSeat, projectionRoom);
+			this.AddAsPartOf(AssociationRole.FromSeatToProjectionRoom, AssociationRole.FromProjectionRoomToSeat, projectionRoom);
 		}
 
 		/// <summary>

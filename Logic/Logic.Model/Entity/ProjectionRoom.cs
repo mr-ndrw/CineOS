@@ -17,7 +17,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			Number = number;
 			//	Add this Projection Room to the composition owner - Cinema.
-			this.AddAsPartOf(Association.FromProjectionRoomToCinema, Association.FromCinemaToProjectionRoom, cinema);
+			this.AddAsPartOf(AssociationRole.FromProjectionRoomToCinema, AssociationRole.FromCinemaToProjectionRoom, cinema);
 		}
 
 		#region Properties
@@ -51,7 +51,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromProjectionRoomToCinema)
+				return GetAssociations(AssociationRole.FromProjectionRoomToCinema)
 					.FirstOrDefault() as Cinema;
 			}
 		}
@@ -63,7 +63,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromProjectionRoomToProjection)
+				return GetAssociations(AssociationRole.FromProjectionRoomToProjection)
 					.Cast<Projection>();
 			}
 		}
@@ -75,7 +75,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromProjectionRoomToSeat)
+				return GetAssociations(AssociationRole.FromProjectionRoomToSeat)
 					.Cast<Seat>();
 			}
 		}
@@ -98,7 +98,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </returns>
 		public Seat GetSeat(string rowNumber, string columnNumber)
 		{
-			return GetQualifiedAssociation(Association.FromProjectionRoomToSeat, new Tuple<string, string>(rowNumber, columnNumber), new PairComparer<string, string>()) as Seat;
+			return GetQualifiedAssociation(AssociationRole.FromProjectionRoomToSeat, new Tuple<string, string>(rowNumber, columnNumber), new PairComparer<string, string>()) as Seat;
 		}
 
 		#endregion

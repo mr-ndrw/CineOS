@@ -21,14 +21,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			//	Iterate over seats and associate them with this Reservation.
 			foreach (var seat in seats)
 			{
-				AddAssociation(Association.FromReservationToSeat, Association.FromSeatToReservation, seat);
+				AddAssociation(AssociationRole.FromReservationToSeat, AssociationRole.FromSeatToReservation, seat);
 			}
 
 			//	Associate this Reservation with the Client who has made the Reservation.
-			AddAssociation(Association.FromReservationToClient, Association.FromClientToReservation, client);
+			AddAssociation(AssociationRole.FromReservationToClient, AssociationRole.FromClientToReservation, client);
 
 			//	Compose this Reservation into Projection for which this Reservation is made.
-			this.AddAsPartOf(Association.FromReservationToProjection, Association.FromProjectionToReservation,  projection);
+			this.AddAsPartOf(AssociationRole.FromReservationToProjection, AssociationRole.FromProjectionToReservation,  projection);
 		}
 		
 		#region Properties
@@ -51,7 +51,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Projection Projection
 		{
-			get { return GetAssociations(Association.FromReservationToProjection).FirstOrDefault() as Projection; }
+			get { return GetAssociations(AssociationRole.FromReservationToProjection).FirstOrDefault() as Projection; }
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Client Client
 		{
-			get { return GetAssociations(Association.FromReservationToClient).FirstOrDefault() as Client; }
+			get { return GetAssociations(AssociationRole.FromReservationToClient).FirstOrDefault() as Client; }
 		}
 
 		#endregion

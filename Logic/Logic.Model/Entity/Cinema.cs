@@ -21,7 +21,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Cinema(Region region)
 		{
-			this.AddAsPartOf(Association.FromCinemaToRegion, Association.FromRegionToCinema, region);
+			this.AddAsPartOf(AssociationRole.FromCinemaToRegion, AssociationRole.FromRegionToCinema, region);
 		}
 
 		#region Properties
@@ -51,7 +51,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Region Region 
 		{
-			get { return GetAssociations(Association.FromCinemaToRegion).FirstOrDefault() as Region; }
+			get { return GetAssociations(AssociationRole.FromCinemaToRegion).FirstOrDefault() as Region; }
 		}
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromCinemaToProjectionRoom).Cast<ProjectionRoom>();
+				return GetAssociations(AssociationRole.FromCinemaToProjectionRoom).Cast<ProjectionRoom>();
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromCinemaToProjection).Cast<Projection>();
+				return GetAssociations(AssociationRole.FromCinemaToProjection).Cast<Projection>();
 			}
 		}
  		 
@@ -97,7 +97,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </returns>
 		public ProjectionRoom GetProjectionRoom(string projectionRoomNumber)
 		{
-			return GetQualifiedAssociation(Association.FromCinemaToProjectionRoom, projectionRoomNumber) as ProjectionRoom;
+			return GetQualifiedAssociation(AssociationRole.FromCinemaToProjectionRoom, projectionRoomNumber) as ProjectionRoom;
 		}
 
 		/// <summary>

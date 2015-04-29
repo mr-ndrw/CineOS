@@ -13,10 +13,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public Employment(Cinema cinema, Employee employee)
 		{
 			//	Create Assosciations between this and Cinema
-			AddAssociation(Association.FromEmploymentToCinema, Association.FromCinemaToEmployment, cinema);
+			AddAssociation(AssociationRole.FromEmploymentToCinema, AssociationRole.FromCinemaToEmployment, cinema);
 
 			//	Create Assosciations between this and Employee
-			AddAssociation(Association.FromEmploymentToEmployee, Association.FromEmployeeToEmployment, employee);
+			AddAssociation(AssociationRole.FromEmploymentToEmployee, AssociationRole.FromEmployeeToEmployment, employee);
 		}
 
 		/// <summary>

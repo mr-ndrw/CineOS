@@ -35,7 +35,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			_storedFrom = dateFrom;
 			_storedTo = dateTo;
 
-			AddAsPartOf(Association.FromMediumToFilm, Association.FromFilmToMedium, film);
+			AddAsPartOf(AssociationRole.FromMediumToFilm, AssociationRole.FromFilmToMedium, film);
 		}
 
 		#region Properties
@@ -81,7 +81,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromMediumToFilm)
+				return GetAssociations(AssociationRole.FromMediumToFilm)
 					.FirstOrDefault() as Film;
 			}
 		}
@@ -96,7 +96,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			if (projection.Mediums.Count() > 2) return;
 
-			AddAssociation(Association.FromMediumToProjection, Association.FromProjectionToMedium, projection);
+			AddAssociation(AssociationRole.FromMediumToProjection, AssociationRole.FromProjectionToMedium, projection);
 		}
 		#endregion
 	}

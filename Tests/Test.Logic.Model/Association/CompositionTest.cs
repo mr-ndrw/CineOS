@@ -53,7 +53,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model.Association
 			 *	This is best illustrated by the following example. A Region is composed of one-to-many Cinemas.
 			 *	Cinema class constructor expects a Region object reference. During the creation of the Cinema
 			 *	object, a call to AddCinema(Cinema) method of Region is made, which in turn calls 
-			 *	AddPart(Association,Association,ObjectWithAssociation) of ObjectWithAssociation - the base class
+			 *	AddPart(AssociationRole,AssociationRole,ObjectWithAssociation) of ObjectWithAssociation - the base class
 			 *	for all business classes. 
 			 *	
 			 */

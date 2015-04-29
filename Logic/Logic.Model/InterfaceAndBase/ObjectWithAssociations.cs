@@ -20,7 +20,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Collection of typed(named) associations between object(which may be either this object or a qualifier) and any
 		///     other number of objects.
 		/// </summary>
-		private readonly Dictionary<Association, Dictionary<Object, ObjectWithAssociations>> _associations;
+		private readonly Dictionary<AssociationRole, Dictionary<Object, ObjectWithAssociations>> _associations;
 
 		/// <summary>
 		///     Initializes the static Owner and Parts dictionary.
@@ -38,28 +38,28 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </remarks>
 		protected ObjectWithAssociations()
 		{
-			_associations = new Dictionary<Association, Dictionary<object, ObjectWithAssociations>>();
+			_associations = new Dictionary<AssociationRole, Dictionary<object, ObjectWithAssociations>>();
 		}
 
 		/// <summary>
-		///     Creates a two way association betwen this Object and the Target Object by using a qualifier.
+		///     Creates a two way AssociationRole betwen this Object and the Target Object by using a qualifier.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetObject">
-		///     The ObjectWithAssociations refernce with which we create a association.
+		///     The ObjectWithAssociations refernce with which we create a AssociationRole.
 		/// </param>
 		/// <param name="qualifier">
-		///     The object which serves as a qualifier in qualified association.
+		///     The object which serves as a qualifier in qualified AssociationRole.
 		/// </param>
 		/// <param name="counter">
 		///     Counter to prevent infinite callbacks(?).
 		/// </param>
-		private void AddAssociation(Association association, Association reverseAssociation, ObjectWithAssociations targetObject, object qualifier, int counter)
+		private void AddAssociation(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetObject, object qualifier, int counter)
 		{
 			if (targetObject == null) throw new ArgumentNullException("targetObject");
 			if (qualifier == null) throw new ArgumentNullException("qualifier");
@@ -67,80 +67,80 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			if (counter < 1) return;
 			Dictionary<object, ObjectWithAssociations> thisObjectsAssociations;
 
-			if (_associations.ContainsKey(association))
+			if (_associations.ContainsKey(associationRole))
 			{
-				thisObjectsAssociations = _associations[association];
+				thisObjectsAssociations = _associations[associationRole];
 			}
 			else
 			{
 				thisObjectsAssociations = new Dictionary<object, ObjectWithAssociations>();
-				_associations.Add(association, thisObjectsAssociations);
+				_associations.Add(associationRole, thisObjectsAssociations);
 			}
 
 			if (!thisObjectsAssociations.ContainsKey(qualifier))
 			{
 				thisObjectsAssociations.Add(qualifier, targetObject);
-				targetObject.AddAssociation(reverseAssociation, association, this, this, counter - 1);
+				targetObject.AddAssociation(reverseAssociationRole, associationRole, this, this, counter - 1);
 			}
 		}
 
 		/// <summary>
-		///     Creates a two way association betwen this Object and the Target Object with the explicit use of qualifier.
+		///     Creates a two way AssociationRole betwen this Object and the Target Object with the explicit use of qualifier.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetObject">
-		///     The ObjectWithAssociations refernce with which we create a association.
+		///     The ObjectWithAssociations refernce with which we create a AssociationRole.
 		/// </param>
 		/// <param name="qualifier">
-		///     The object which serves as a qualifier in qualified association.
+		///     The object which serves as a qualifier in qualified AssociationRole.
 		/// </param>
-		protected void AddAssociation(Association association, Association reverseAssociation, ObjectWithAssociations targetObject, object qualifier)
+		protected void AddAssociation(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetObject, object qualifier)
 		{
-			AddAssociation(association, reverseAssociation, targetObject, qualifier, 2);
+			AddAssociation(associationRole, reverseAssociationRole, targetObject, qualifier, 2);
 		}
 
 		/// <summary>
-		///     Creates a two way association betwen this Object and the Target Object.
+		///     Creates a two way AssociationRole betwen this Object and the Target Object.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetObject">
-		///     The ObjectWithAssociations refernce with which we create a association.
+		///     The ObjectWithAssociations refernce with which we create a AssociationRole.
 		/// </param>
 		/// <remarks>
-		///     We call AddAssociation(Association,Association,ObjectWithAssociations,object) method inside this method
+		///     We call AddAssociation(AssociationRole,AssociationRole,ObjectWithAssociations,object) method inside this method
 		///     but we pass the targetPartObject as the qualifier implicitly.
 		/// </remarks>
-		protected void AddAssociation(Association association, Association reverseAssociation, ObjectWithAssociations targetObject)
+		protected void AddAssociation(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetObject)
 		{
-			AddAssociation(association, reverseAssociation, targetObject, targetObject);
+			AddAssociation(associationRole, reverseAssociationRole, targetObject, targetObject);
 		}
 
 		/// <summary>
-		///     Add the parametrized ObjectWithExtension into this ObjectWithExtension's composition association.
+		///     Add the parametrized ObjectWithExtension into this ObjectWithExtension's composition AssociationRole.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetPartObject">
-		///     The ObjectWithAssociations reference with which we create a association.
+		///     The ObjectWithAssociations reference with which we create a AssociationRole.
 		/// </param>
 		/// <param name="qualifier">
-		///     The object which serves as a qualifier in qualified association
+		///     The object which serves as a qualifier in qualified AssociationRole
 		/// </param>
-		private void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject, object qualifier)
+		private void AddPart(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetPartObject, object qualifier)
 		{
 			if (targetPartObject == null) throw new ArgumentNullException("targetPartObject");
 
@@ -148,7 +148,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			{
 				throw new PartAlreadyOwnedException();
 			}
-			AddAssociation(association, reverseAssociation, targetPartObject, qualifier);
+			AddAssociation(associationRole, reverseAssociationRole, targetPartObject, qualifier);
 
 			if (!OwnerAndPartsDictionary.ContainsKey(this))
 			{
@@ -161,83 +161,83 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <summary>
 		///     Adds the ObjectWithExtension into this ObjectWithExtension's composition.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetPartObject">
-		///     The ObjectWithAssociations reference with which we create a association.
+		///     The ObjectWithAssociations reference with which we create a AssociationRole.
 		/// </param>
-		private void AddPart(Association association, Association reverseAssociation, ObjectWithAssociations targetPartObject)
+		private void AddPart(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetPartObject)
 		{
-			AddPart(association, reverseAssociation, targetPartObject, targetPartObject);
+			AddPart(associationRole, reverseAssociationRole, targetPartObject, targetPartObject);
 		}
 
 		/// <summary>
 		///		Adds this Part object to the given Owner object's composition.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetOwnerObject">
-		///     The ObjectWithAssociations reference with which we create a association.
+		///     The ObjectWithAssociations reference with which we create a AssociationRole.
 		/// </param>
-		protected void AddAsPartOf(Association association, Association reverseAssociation, ObjectWithAssociations targetOwnerObject)
+		protected void AddAsPartOf(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetOwnerObject)
 		{
-			targetOwnerObject.AddPart(association, reverseAssociation, this);
+			targetOwnerObject.AddPart(associationRole, reverseAssociationRole, this);
 		}
 
 		/// <summary>
 		///		Adds this Part object to the given Owner object's composition.
 		/// </summary>
-		/// <param name="association">
-		///     Association type from this object's direction.
+		/// <param name="associationRole">
+		///     AssociationRole type from this object's direction.
 		/// </param>
-		/// <param name="reverseAssociation">
-		///     Association type from targetPartObject's direction.
+		/// <param name="reverseAssociationRole">
+		///     AssociationRole type from targetPartObject's direction.
 		/// </param>
 		/// <param name="targetOwnerObject">
-		///     The ObjectWithAssociations reference with which we create a association.
+		///     The ObjectWithAssociations reference with which we create a AssociationRole.
 		/// </param>
 		/// <param name="qualifier">
-		///     The object which serves as a qualifier in qualified association
+		///     The object which serves as a qualifier in qualified AssociationRole
 		/// </param>
-		protected void AddAsPartOf(Association association, Association reverseAssociation, ObjectWithAssociations targetOwnerObject, object qualifier)
+		protected void AddAsPartOf(AssociationRole associationRole, AssociationRole reverseAssociationRole, ObjectWithAssociations targetOwnerObject, object qualifier)
 		{
-			targetOwnerObject.AddPart(association, reverseAssociation, this, qualifier);
+			targetOwnerObject.AddPart(associationRole, reverseAssociationRole, this, qualifier);
 		}
 
 
 		/// <summary>
 		///		Returns the collection of ObjectWithAssociation references which are connected with this ObjectWithAssociations
-		///		by the given Association.
+		///		by the given AssociationRole.
 		/// </summary>
 		/// <returns>
 		///		The collection of ObjectWithAssociation references.
 		/// </returns>
-		protected IEnumerable<ObjectWithAssociations> GetAssociations(Association association)
+		protected IEnumerable<ObjectWithAssociations> GetAssociations(AssociationRole associationRole)
 		{
-			var dictonary = _associations[association].Values;
+			var dictonary = _associations[associationRole].Values;
 			return dictonary;
 		}
 
-		protected ObjectWithAssociations GetQualifiedAssociation(Association association, object qualifier)
+		protected ObjectWithAssociations GetQualifiedAssociation(AssociationRole associationRole, object qualifier)
 		{
-			var qualifierDictionary = _associations[association];
+			var qualifierDictionary = _associations[associationRole];
 
 			return qualifierDictionary.ContainsKey(qualifier) ? qualifierDictionary[qualifier] : null;
 		}
 
-		protected ObjectWithAssociations GetQualifiedAssociation<T>(Association association, T qualifier, IEqualityComparer<T> equalityComparer)
+		protected ObjectWithAssociations GetQualifiedAssociation<T>(AssociationRole associationRole, T qualifier, IEqualityComparer<T> equalityComparer)
 		{
 			if (qualifier == null) throw new ArgumentNullException("qualifier");
 			if (equalityComparer == null) throw new ArgumentNullException("equalityComparer");
-			var qualifierDictonary = _associations[association];
+			var qualifierDictonary = _associations[associationRole];
 
 			return (from qualifierObjectPair in qualifierDictonary
 					where equalityComparer.Equals((T) qualifierObjectPair.Key, qualifier)

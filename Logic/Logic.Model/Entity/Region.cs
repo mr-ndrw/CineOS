@@ -33,7 +33,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromRegionToCinema)
+				return GetAssociations(AssociationRole.FromRegionToCinema)
 					.Cast<Cinema>();
 			}
 		} 

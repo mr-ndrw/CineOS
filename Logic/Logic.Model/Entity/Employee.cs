@@ -29,7 +29,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromEmployeeToEmployment)
+				return GetAssociations(AssociationRole.FromEmployeeToEmployment)
 					.Cast<Employment>();
 			} 
 		}
@@ -41,7 +41,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromSubordinateToManager)
+				return GetAssociations(AssociationRole.FromSubordinateToManager)
 					.FirstOrDefault() as Employee;
 
 			}
@@ -54,7 +54,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromManagerToSubordinate)
+				return GetAssociations(AssociationRole.FromManagerToSubordinate)
 					.Cast<Employee>();
 			}
 		}
@@ -71,7 +71,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public void AddSubordinate(Employee employee)
 		{
 			if (Manager != null) return;
-			AddAssociation(Association.FromManagerToSubordinate, Association.FromSubordinateToManager, employee);
+			AddAssociation(AssociationRole.FromManagerToSubordinate, AssociationRole.FromSubordinateToManager, employee);
 		}
 
 		#endregion

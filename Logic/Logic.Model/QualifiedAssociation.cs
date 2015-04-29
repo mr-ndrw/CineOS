@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace en.AndrewTorski.CineOS.Logic.Model
 {
 	/// <summary>
-	///		More specialized version of <see cref="Asso"/> which provides the ability
+	///		More specialized version of <see cref="Association{T1,T2}"/> which provides the ability
 	///		of contaning a EqualityComparer which should be used whenever a search for
 	///		object would be performed by means of finding them through qualifiers. 
 	/// </summary>
@@ -13,13 +13,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 	///		just be left out as null, if we're using primite types(i.e. int, string).
 	/// </remarks>
 	/// <typeparam name="TQualifier"></typeparam>
-	public class QualifiedAsso<T1, T2, TQualifier> : Asso<T1, T2>
+	public class QualifiedAssociation<T1, T2, TQualifier> : Association<T1, T2>
 		where TQualifier : IEqualityComparer<TQualifier> where T1 : class where T2 : class
 	{
 		#region Private Fields
 
 		/// <summary>
-		///		Comparer which should be used for comparing qualifier objects for this Association.
+		///		Comparer which should be used for comparing qualifier objects for this AssociationRole.
 		/// </summary>
 		/// <remarks>
 		///		This may be intentionally null, if we predicted that the qualifier object is of simple type like int, or
@@ -35,15 +35,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///		boundaries and the EqualityComparer for the qualifier objects which will be used to find qualifier objects.
 		/// </summary>
 		/// <param name="name">
-		///  	Name of the Association.
+		///  	Name of the AssociationRole.
 		///   </param>
 		/// <param name="firstType">
-		///  	First class which will be used in new Association.
+		///  	First class which will be used in new AssociationRole.
 		/// </param>
 		/// <param name="secondType">
-		///  	Second class which will be used in new Association.
+		///  	Second class which will be used in new AssociationRole.
 		///   </param>
-		/// <param name="boundForFirstType">
+		/// <param name="lowerBoundForFirstType">
 		///		Lower bound for First class.
 		///		Should be greater, equal to zero.
 		/// </param>
@@ -62,11 +62,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// <param name="qualifierComparer">
 		/// 	Comparer of the Qualifier objects.
 		/// </param>
-		public QualifiedAsso(	string name, Type firstType, Type secondType,
-								int boundForFirstType, int upperBoundForFirstType,
+		public QualifiedAssociation(	string name, Type firstType, Type secondType,
+								int lowerBoundForFirstType, int upperBoundForFirstType,
 								int lowerBoundForSecondType, int upperBoundForSecondType,
 								IEqualityComparer<TQualifier> qualifierComparer)
-			: base(name, boundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
+			: base(name, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
 		{
 			_qualifierComparer = qualifierComparer;
 		}
@@ -76,13 +76,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///		boundaries(lower are by default 0) and the EqualityComparer for the qualifier objects which will be used to find qualifier objects.
 		/// </summary>
 		///  <param name="name">
-		/// 	Name of the Association.
+		/// 	Name of the AssociationRole.
 		///  </param>
 		///  <param name="firstType">
-		/// 	First class which will be used in new Association.
+		/// 	First class which will be used in new AssociationRole.
 		///  </param>
 		///  <param name="secondType">
-		/// 	Second class which will be used in new Association.
+		/// 	Second class which will be used in new AssociationRole.
 		///  </param>
 		/// <param name="upperBoundForFirstType">
 		/// 	Upper bound for First class.
@@ -95,7 +95,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// <param name="qualifierComparer">
 		///		Comparer of the Qualifier objects.
 		/// </param>
-		public QualifiedAsso(	string name, Type firstType, Type secondType,
+		public QualifiedAssociation(	string name, Type firstType, Type secondType,
 								int upperBoundForFirstType, int upperBoundForSecondType,
 								IEqualityComparer<TQualifier> qualifierComparer)
 			: this(name, firstType, secondType, 0, upperBoundForFirstType, 0, upperBoundForSecondType, qualifierComparer)
@@ -107,34 +107,34 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///		(upper set to int.maxValue and lower to 0) and the EqualityComparer for the qualifier objects which will be used to find qualifier objects.
 		/// </summary>
 		/// <param name="name">
-		///     Name of the Association.
+		///     Name of the AssociationRole.
 		/// </param>
 		/// <param name="firstType">
-		///     First class which will be used in new Association.
+		///     First class which will be used in new AssociationRole.
 		/// </param>
 		/// <param name="secondType">
-		///     Second class which will be used in new Association.
+		///     Second class which will be used in new AssociationRole.
 		/// </param>
 		/// <param name="qualifierComparer">
 		///		Comparer of the Qualifier objects.
 		/// </param>
-		public QualifiedAsso(	string name, Type firstType, Type secondType, 
+		public QualifiedAssociation(	string name, Type firstType, Type secondType, 
 								IEqualityComparer<TQualifier> qualifierComparer)
 			: this(name, firstType, secondType, int.MaxValue, int.MaxValue, qualifierComparer)
 		{
 		}
 
 		/// <summary>
-		///		Initializes new instance of QulifiedAsso class using copying the values in provided Association 
+		///		Initializes new instance of QulifiedAsso class using copying the values in provided AssociationRole 
 		///		and the EqualityComparer for the qualifier objects which will be used to find qualifier objects.
 		/// </summary>
 		/// <param name="association">
-		///		Association from which we initailize.
+		///		AssociationRole from which we initailize.
 		/// </param>
 		/// <param name="qualifierComparer">
 		///		Comparer of the Qualifier objects.
 		/// </param>
-		public QualifiedAsso(Asso<T1, T2> association, IEqualityComparer<TQualifier> qualifierComparer)
+		public QualifiedAssociation(Association<T1, T2> association, IEqualityComparer<TQualifier> qualifierComparer)
 			: this(association.Name, association.Type1, association.Type2, association.GetBoundaryForFirstType, association.LowerBoundaryForSecondType, association.UpperBoundaryForFirstType, association.UpperBoundaryForSecondType, qualifierComparer)
 		{
 		}
@@ -144,13 +144,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		 */
 
 		/// <summary>
-		///		Initializes new instance of QulifiedAsso class using copying the values in provided Association.
-		///		No equality comprarer is specified, as we expect this Association to use primitive types for it's qualifier objects.
+		///		Initializes new instance of QulifiedAsso class using copying the values in provided AssociationRole.
+		///		No equality comprarer is specified, as we expect this AssociationRole to use primitive types for it's qualifier objects.
 		/// </summary>
 		/// <param name="association">
-		///		Association from which we initailize.
+		///		AssociationRole from which we initailize.
 		/// </param>
-		public QualifiedAsso(Asso<T1, T2> association)
+		public QualifiedAssociation(Association<T1, T2> association)
 			: this(association, null)
 		{
 
@@ -158,18 +158,18 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 
 		///  <summary>
 		///		Initializes new instance of QulifiedAsso class using the provided name, class for both ends and all amount 
-		///		boundaries. No equality comprarer is specified, as we expect this Association to use primitive types for it's qualifier objects.
+		///		boundaries. No equality comprarer is specified, as we expect this AssociationRole to use primitive types for it's qualifier objects.
 		///  </summary>
 		///  <param name="name">
-		///   	Name of the Association.
+		///   	Name of the AssociationRole.
 		///    </param>
 		///  <param name="firstType">
-		///   	First class which will be used in new Association.
+		///   	First class which will be used in new AssociationRole.
 		///  </param>
 		///  <param name="secondType">
-		///   	Second class which will be used in new Association.
+		///   	Second class which will be used in new AssociationRole.
 		///    </param>
-		///  <param name="boundForFirstType">
+		///  <param name="lowerBoundForFirstType">
 		/// 		Lower bound for First class.
 		/// 		Should be greater, equal to zero.
 		///  </param>
@@ -185,26 +185,26 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///   	Upper bound for Second class.
 		///   	Should be greater than zero.
 		///  </param>
-		public QualifiedAsso(	string name, Type firstType, Type secondType,
-								int boundForFirstType, int upperBoundForFirstType,
+		public QualifiedAssociation(	string name, Type firstType, Type secondType,
+								int lowerBoundForFirstType, int upperBoundForFirstType,
 								int lowerBoundForSecondType, int upperBoundForSecondType)
-			: this(name, firstType, secondType, boundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType, null)
+			: this(name, firstType, secondType, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType, null)
 		{
 		}
 
 		/// <summary>
 		///		Initializes new instance of QulifiedAsso class using the provided name, class for both ends, upper amount 
-		///		boundaries(lower are by default 0). No equality comprarer is specified, as we expect this Association to 
+		///		boundaries(lower are by default 0). No equality comprarer is specified, as we expect this AssociationRole to 
 		///		use primitive types for it's qualifier objects.
 		/// </summary>
 		/// <param name="name">
-		///     Name of the Association.
+		///     Name of the AssociationRole.
 		/// </param>
 		/// <param name="firstType">
-		///     First class which will be used in new Association.
+		///     First class which will be used in new AssociationRole.
 		/// </param>
 		/// <param name="secondType">
-		///     Second class which will be used in new Association.
+		///     Second class which will be used in new AssociationRole.
 		/// </param>
 		///  <param name="upperBoundForFirstType">
 		///   	Upper bound for First class.
@@ -214,7 +214,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///   	Upper bound for Second class.
 		///   	Should be greater than zero.
 		///  </param>
-		public QualifiedAsso(	string name, Type firstType, Type secondType,
+		public QualifiedAssociation(	string name, Type firstType, Type secondType,
 								int upperBoundForFirstType, int upperBoundForSecondType)
 			: this(name, firstType, secondType, 0, upperBoundForFirstType, 0, upperBoundForSecondType)
 		{
@@ -222,19 +222,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 
 		/// <summary>
 		///		Initializes new instance of QulifiedAsso class using the provided name, class for both ends, many-to-many boundaries
-		///		(upper set to int.maxValue and lower to 0). No equality comprarer is specified, as we expect this Association to use 
+		///		(upper set to int.maxValue and lower to 0). No equality comprarer is specified, as we expect this AssociationRole to use 
 		///		primitive types for it's qualifier objects.
 		/// </summary>
 		/// <param name="name">
-		///     Name of the Association.
+		///     Name of the AssociationRole.
 		/// </param>
 		/// <param name="firstType">
-		///     First class which will be used in new Association.
+		///     First class which will be used in new AssociationRole.
 		/// </param>
 		/// <param name="secondType">
-		///     Second class which will be used in new Association.
+		///     Second class which will be used in new AssociationRole.
 		/// </param>
-		public QualifiedAsso(string name, Type firstType, Type secondType)
+		public QualifiedAssociation(string name, Type firstType, Type secondType)
 			: this(name, firstType, secondType, int.MaxValue, int.MaxValue)
 		{
 		}
@@ -244,7 +244,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		#region Properties
 
 		/// <summary>
-		///		Gets the comparer which should be used for comparing qualifier objects for this Association.
+		///		Gets the comparer which should be used for comparing qualifier objects for this AssociationRole.
 		/// </summary>
 		/// <remarks>
 		///		May be null, if used qualifier is of primitive type.

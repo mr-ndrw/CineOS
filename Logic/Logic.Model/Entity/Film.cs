@@ -57,7 +57,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(Association.FromFilmToMedium)
+				return GetAssociations(AssociationRole.FromFilmToMedium)
 					.Cast<Medium>();
 			}
 		}

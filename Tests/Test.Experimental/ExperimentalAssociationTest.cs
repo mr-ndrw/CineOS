@@ -12,7 +12,7 @@ namespace Test.Experimental
 		public void TestIfAssocationConstructorConstructsTuplesCorrectly()
 		{
 			//	Arrange
-			var association = new Asso<Test1, Test2>("ownership");
+			var association = new Association<Test1, Test2>("ownership");
 
 			//	Act
 			var type1 = association.Type1;
@@ -27,7 +27,7 @@ namespace Test.Experimental
 		public void AssoctiaionConformsWithOneTypeOnlyTest()
 		{
 			//	Arrange
-			var association = new Asso<Test1, Test2>("ownership");
+			var association = new Association<Test1, Test2>("ownership");
 
 			//	Act
 			var doesTest1ConformAssociation = association.ConformsWith(typeof(Test1));
@@ -42,7 +42,7 @@ namespace Test.Experimental
 		public void AssociationConformsWithTwoTypesTest()
 		{
 			//	Arrange
-			var association = new Asso<Test1, Test2>("ownership");
+			var association = new Association<Test1, Test2>("ownership");
 
 			//	Act & Assert
 			Assert.IsTrue(association.ConformsWith(typeof(Test1), typeof(Test2)));
@@ -57,7 +57,7 @@ namespace Test.Experimental
 			var obj3 = new Test2();
 			var obj4 = new Test2();
 
-			var association = new Asso<Test1, Test2>("test");
+			var association = new Association<Test1, Test2>("test");
 			//	Act
 			association.Link(obj1, obj2);
 			association.Link(obj1, obj3);
@@ -74,8 +74,8 @@ namespace Test.Experimental
 		public void TestEqualsDifferentNames()
 		{
 			//	Arrange
-			var association1ForNameFailureCase = new Asso<Test1, Test2>("ownership");
-			var association2ForNameFailureCase = new Asso<Test1, Test2>("owner");
+			var association1ForNameFailureCase = new Association<Test1, Test2>("ownership");
+			var association2ForNameFailureCase = new Association<Test1, Test2>("owner");
 
 			//	Act
 			var nameFailureCaseResult = association1ForNameFailureCase.Equals(association2ForNameFailureCase);
@@ -89,10 +89,10 @@ namespace Test.Experimental
 		{
 			//	Arrange
 			const string name = "";
-			var assocation12 = new Asso<Test1, Test2>(name);
-			var assocation21 = new Asso<Test2, Test1>(name);
-			var assocation12Second = new Asso<Test1, Test2>(name);
-			var assocation21Second = new Asso<Test2, Test1>(name);
+			var assocation12 = new Association<Test1, Test2>(name);
+			var assocation21 = new Association<Test2, Test1>(name);
+			var assocation12Second = new Association<Test1, Test2>(name);
+			var assocation21Second = new Association<Test2, Test1>(name);
 
 			//	Act
 			var resultForComparing12Vs12 = assocation12.Equals(assocation12Second);
