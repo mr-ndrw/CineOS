@@ -147,7 +147,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			else
 			{
 				qualifierHashSet = _identiferToHashSetOfQualifiersDictionary[identifier];
-				// TODO check if hashSetAlready contains such qualifier and throw exception?
+				if (qualifierHashSet.Contains(qualifier))
+				{
+					//	Todo implement exception for situation when the qualifier already exists.
+					throw new Exception("Such qualifier already exists!");
+				}
 			}
 			qualifierHashSet.Add(qualifier);
 
