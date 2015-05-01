@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.HelperLibrary", "_Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Logic.Model", "Tests\Test.Logic.Model\Test.Logic.Model.csproj", "{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Experimental", "Tests\Test.Experimental\Test.Experimental.csproj", "{AA038D24-22CE-45E2-8177-86A1082B5482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Association", "Tests\Test.Experimental\Test.Association.csproj", "{AA038D24-22CE-45E2-8177-86A1082B5482}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

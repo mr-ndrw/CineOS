@@ -6,8 +6,8 @@
     <ProjectGuid>{AA038D24-22CE-45E2-8177-86A1082B5482}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test.Experimental</RootNamespace>
-    <AssemblyName>Test.Experimental</AssemblyName>
+    <RootNamespace>en.AndrewTorski.CineOS.Test.Experimental</RootNamespace>
+    <AssemblyName>en.AndrewTorski.CineOS.Test.Experimental</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -53,8 +53,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ExperimentalAssociationTest.cs" />
+    <Compile Include="Basic Associations\ExperimentalAssociationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Associated Object\AssociatedObjectTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -68,6 +69,11 @@
       <Project>{933d38fe-1e35-4649-b0cd-3de751fac6ac}</Project>
       <Name>Shared.HelperLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attribute Associations\" />
+    <Folder Include="Compositions\" />
+    <Folder Include="Qualified Associations\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

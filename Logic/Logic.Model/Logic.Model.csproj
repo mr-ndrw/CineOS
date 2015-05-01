@@ -39,8 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Association.cs" />
-    <Compile Include="Associations\Association.cs" />
+    <Compile Include="Associations\QualifiedAssociation.cs" />
+    <Compile Include="Associations\QualifiedAssociationBase.cs" />
+    <Compile Include="Associations\StandardAssociation.cs" />
+    <Compile Include="Associations\AssociationBase.cs" />
+    <Compile Include="Associations\RecurrentStandardAssociationBase.cs" />
+    <Compile Include="Associations\StandardAssociationBase.cs" />
     <Compile Include="Entity\Cinema.cs" />
     <Compile Include="Entity\Client.cs" />
     <Compile Include="Entity\Employee.cs" />
@@ -53,13 +57,18 @@
     <Compile Include="Entity\Reservation.cs" />
     <Compile Include="Entity\Seat.cs" />
     <Compile Include="Enums\AssociationRole.cs" />
+    <Compile Include="Exceptions\AssociationAmountBoundariesExceededException.cs" />
+    <Compile Include="Exceptions\AssociationNotFoundException.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyHasManagerException.cs" />
+    <Compile Include="Exceptions\TypesNotConformingWithAssociationException.cs" />
+    <Compile Include="Exceptions\ObjectTypeDoesntConformAssociationTypesException.cs" />
     <Compile Include="InterfaceAndBase\AssociatedObject.cs" />
+    <Compile Include="InterfaceAndBase\IQualifierIdentifierEqualityComparer.cs" />
     <Compile Include="InterfaceAndBase\ObjectWithAssociations.cs" />
     <Compile Include="InterfaceAndBase\ObjectWithExtent.cs" />
     <Compile Include="Exceptions\PartAlreadyOwnedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QualifiedAssociation.cs" />
+    <Compile Include="QualifiedAsso.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">
@@ -67,6 +76,7 @@
       <Name>Shared.HelperLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
