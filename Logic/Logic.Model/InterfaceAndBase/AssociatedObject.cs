@@ -6,6 +6,9 @@ using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 {
+	/// <summary>
+	///		TODO COMMENT
+	/// </summary>
 	public class AssociatedObject : ObjectWithExtent
 	{
 		#region Private Fields
@@ -158,19 +161,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Name of the association.
 		/// </param>
 		/// <param name="identifierLowerAmountBound">
-		///     Lower bound for Identifier.
-		///     Should be greater than or equal than zero.
+		///     Lower bound on the Identifier side.
+		///     Should be equal or greater than 0.
 		/// </param>
 		/// <param name="identifierUpperAmountBound">
-		///     Upper bound for Identifier.
+		///     Upper bound on the Identifier side.
 		///     Should be greater than zero.
 		/// </param>
 		/// <param name="identifiableLowerAmountBound">
-		///     Lower bound for Identifiable..
-		///     Should be greater than or equal than zero.
+		///     Lower bound on the Identifiable side.
+		///     Should be equal or greater than 0.
 		/// </param>
 		/// <param name="identifiableUpperAmountBound">
-		///     Upper bound for Identifiable..
+		///     Upper bound on the Identifiable side.
 		///     Should be greater than zero.
 		/// </param>
 		/// <param name="qualifierEqualityComparer">
@@ -179,14 +182,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <returns>
 		///     New instance of the QualifiedAssociation class.
 		/// </returns>
-		private static QualifiedAssociationBase<TQualifier> ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer) where TIdentifier : class where TIdentifiable : class
+		private static QualifiedAssociationBase<TQualifier> ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer)
+			where TIdentifier : class
+			where TIdentifiable : class
 		{
 			if (qualifierEqualityComparer == null) throw new ArgumentNullException("qualifierEqualityComparer");
 
 			CheckRegistrationParameters(associationName, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound);
 
-			var qualifiedAssociation = new QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierLowerAmountBound, identifierUpperAmountBound,
-				identifiableLowerAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
+			var qualifiedAssociation = new QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
 
 			return qualifiedAssociation;
 		}
@@ -209,11 +213,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Name of the association.
 		/// </param>
 		/// <param name="identifierUpperAmountBound">
-		///     Upper bound for Identifier.
+		///     Upper bound on the Identifier side.
 		///     Should be greater than zero.
 		/// </param>
 		/// <param name="identifiableUpperAmountBound">
-		///     Upper bound for Identifiable..
+		///     Upper bound on the Identifiable side.
 		///     Should be greater than zero.
 		/// </param>
 		/// <param name="qualifierEqualityComparer">
@@ -265,7 +269,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </exception>
 		public static void RegisterAssociation<T1, T2>(string associationName,
 			int lowerBoundForFirstType, int upperBoundForFirstType,
-			int lowerBoundForSecondType, int upperBoundForSecondType) where T1 : class where T2 : class
+			int lowerBoundForSecondType, int upperBoundForSecondType)
+			where T1 : class
+			where T2 : class
 		{
 			var association = ConstructStandardAssociation<T1, T2>(associationName, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType);
 
@@ -279,12 +285,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </summary>
 		/// <param name="associationName">
 		///     Name of the AssociationRole.
-		/// </param>
-		/// <param name="firstType">
-		///     First class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="secondType">
-		///     Second class which will be used in new AssociationRole.
 		/// </param>
 		/// <param name="upperBoundForFirstType">
 		///     Upper bound for First class.
@@ -312,8 +312,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		/// <summary>
 		///     Registers new AssociationRole with specified name, classes used on both ends and boundaries set to many-to-many -
-		///     upper boundaries
-		///     by default are set to int.maxValue and lower boundaries to 0.
+		///     upper boundaries by default are set to int.maxValue and lower boundaries to 0.
 		/// </summary>
 		/// <param name="associationName">
 		///     Name of the AssociationRole.
@@ -362,11 +361,55 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		#region Qualified Associations
 
+		#region Qualifiead Associations Registration Methods
+
 		/// <summary>
-		///     Registers a qualified association with specified name, classes used on both ends and all amount boundaries for said
-		///     classes..
-		///     No equality comprarer is specified, as we expect this AssociationRole to use primitive types for it's qualifier
-		///     objects.
+		///     Registers a qualified association with specified name, classes used on both ends and all amount boundaries for
+		///     Identifier and Identifiable.
+		/// </summary>
+		/// <typeparam name="TIdentifier">
+		///     Type of the class that will be the Idenditifer in this Association.
+		/// </typeparam>
+		/// <typeparam name="TIdentifiable">
+		///     Type of the class that will be the Identified in this Association.
+		/// </typeparam>
+		/// <typeparam name="TQualifier">
+		///     Type of the Qualifier which will serve in the search of Identifiables.
+		/// </typeparam>
+		/// <param name="associationName">
+		///     Name of the association.
+		/// </param>
+		/// <param name="identifierLowerAmountBound">
+		///     Lower bound on the Identifier side.
+		///     Should be equal or greater than 0.
+		/// </param>
+		/// <param name="identifierUpperAmountBound">
+		///     Upper bound on the Identifier side.
+		///     Should be greater than zero.
+		/// </param>
+		/// <param name="identifiableLowerAmountBound">
+		///     Lower bound on the Identifiable side.
+		///     Should be equal or greater than 0.
+		/// </param>
+		/// <param name="identifiableUpperAmountBound">
+		///     Upper bound on the Identifiable side.
+		///     Should be greater than zero.
+		/// </param>
+		/// <param name="qualifierEqualityComparer">
+		///     Comprarer of the qualifier.
+		/// </param>
+		public static void RegisterQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer)
+			where TIdentifier : class
+			where TIdentifiable : class
+		{
+			var qualifiedAssociation = ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
+
+			Assos.Add(associationName, qualifiedAssociation);
+		}
+
+		/// <summary>
+		///     Registers a qualified association with specified name, classes used on both ends and upper amount
+		///     boundaries for Identifier and Identifiable. Lower amounts bounds are by default set to 0.
 		/// </summary>
 		/// <typeparam name="TIdentifier">
 		///     Type of the class that will be the Idenditifer in this Association.
@@ -381,149 +424,98 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Name of the association.
 		/// </param>
 		/// <param name="identifierUpperAmountBound">
-		///     Upper bound for Identifier.
+		///     Upper bound on the Identifier side.
 		///     Should be greater than zero.
 		/// </param>
 		/// <param name="identifiableUpperAmountBound">
-		///     Upper bound for Identifiable..
+		///     Upper bound on the Identifiable side.
 		///     Should be greater than zero.
 		/// </param>
 		/// <param name="qualifierEqualityComparer">
 		///     Comprarer of the qualifier.
 		/// </param>
-		public static void RegisterQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierLowerAmountBound, int identifierupperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer)
+		public static void RegisterQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierUpperAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer)
 			where TIdentifier : class
 			where TIdentifiable : class
 		{
-			var association = ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierLowerAmountBound, identifierupperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
+			var qualifiedAssociation = ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierUpperAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
 
-			Assos.Add(associationName, association);
+			Assos.Add(associationName, qualifiedAssociation);
 		}
 
+		#region QUalified Association Link Methods
+
 		/// <summary>
-		///     Registers a qualified association with specified name, classes used on both ends and upper boundaries. Lower
-		///     boundaries are by default set to 0.
-		///     No equality comprarer is specified, as we expect this AssociationRole to use primitive types for it's qualifier
-		///     objects.
+		/// 
 		/// </summary>
-		/// <param name="associationName">
-		///     Name of the AssociationRole.
-		/// </param>
-		/// <param name="firstType">
-		///     First class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="secondType">
-		///     Second class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="upperBoundForFirstType">
-		///     Upper bound for First class.
-		///     Should be greater than zero.
-		/// </param>
-		/// <param name="upperBoundForSecondType">
-		///     Upper bound for Second class.
-		///     Should be greater than zero.
-		/// </param>
-		/// <summary>
-		///     Registers a qualified association with specified name, classes used on both ends and boundaries set to many-to-many
-		///     - upper boundaries
-		///     by default are set to int.maxValue and lower boundaries to 0. No equality comprarer is specified, as we expect this
-		///     AssociationRole to use
-		///     primitive types for it's qualifier objects.
-		/// </summary>
-		/// <param name="associationName">
-		///     Name of the AssociationRole.
-		/// </param>
-		/// <param name="firstType">
-		///     First class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="secondType">
-		///     Second class which will be used in new AssociationRole.
-		/// </param>
-		/// <summary>
-		///     Registers a qualified association with specified name, classes used on both ends, upper boundaries and the
-		///     EqualityComparer for the
-		///     qualifier objects which will be used to compare qualifier objects. Lower boundaries are by default set to 0.
-		/// </summary>
+		/// <typeparam name="TIdentifier">
+		///     Type of the class that will be the Idenditifer in this Association.
+		/// </typeparam>
+		/// <typeparam name="TIdentifiable">
+		///     Type of the class that will be the Identified in this Association.
+		/// </typeparam>
 		/// <typeparam name="TQualifier">
-		///     Type of the Qualifier.
+		///     Type of the Qualifier which will serve in the search of Identifiables.
 		/// </typeparam>
 		/// <param name="associationName">
-		///     Name of the AssociationRole.
+		///     Name of the association.
 		/// </param>
-		/// <param name="firstType">
-		///     First class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="secondType">
-		///     Second class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="lowerBoundForFirstType">
-		///     Lower bound for First class.
-		///     Should be greater, equal to zero.
-		/// </param>
-		/// <param name="upperBoundForFirstType">
-		///     Upper bound for First class.
-		///     Should be greater than zero.
-		/// </param>
-		/// <param name="lowerBoundForSecondType">
-		///     Lower bound for Second class.
-		///     Should be greater, equal to zero.
-		/// </param>
-		/// <param name="upperBoundForSecondType">
-		///     Upper bound for Second class.
-		///     Should be greater than zero.
-		/// </param>
-		/// <param name="qualifierComparer">
-		///     Comparer of the Qualifier objects.
-		/// </param>
-		/// <summary>
-		///     Registers a qualified association with specified name, classes used on both ends, upper boundaries and the
-		///     EqualityComparer for the
-		///     qualifier objects which will be used to compare qualifier objects. Lower boundaries are by default set to 0.
-		/// </summary>
-		/// <typeparam name="TQualifier">
-		///     Type of the Qualifier.
-		/// </typeparam>
-		/// <param name="associationName">
-		///     Name of the AssociationRole.
-		/// </param>
-		/// <param name="firstType">
-		///     First class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="secondType">
-		///     Second class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="upperBoundForFirstType">
-		///     Upper bound for First class.
-		///     Should be greater than zero.
-		/// </param>
-		/// <param name="upperBoundForSecondType">
-		///     Upper bound for Second class.
-		///     Should be greater than zero.
-		/// </param>
-		/// <param name="qualifierComparer">
-		///     Comparer of the Qualifier objects.
-		/// </param>
-		/// <summary>
-		///     Registers a qualified association with specified name, classes used on both ends, the EqualityComparer for the
-		///     qualifier objects which will be used to compare qualifier objects and boundaries set to many-to-many - upper
-		///     boundaries
-		///     by default are set to int.maxValue and lower boundaries to 0.
-		/// </summary>
-		/// <typeparam name="TQualifier">
-		///     Type of the Qualifier.
-		/// </typeparam>
-		/// <param name="associationName">
-		///     Name of the AssociationRole.
-		/// </param>
-		/// <param name="firstType">
-		///     First class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="secondType">
-		///     Second class which will be used in new AssociationRole.
-		/// </param>
-		/// <param name="qualifierComparer">
-		///     Comparer of the Qualifier objects.
-		/// </param>
+		/// <param name="identifier"></param>
+		/// <param name="identifiable"></param>
+		/// <param name="qualifier"></param>
+		public static void Link<TIdentifier, TIdentifiable, TQualifier>(string associationName, TIdentifier identifier, TIdentifiable identifiable, TQualifier qualifier) 
+			where TIdentifier : class 
+			where TIdentifiable : class
+		{
+			//	Check if association exists, else throw exception
+			if (!DoesAssociationExist(associationName))
+			{
+				throw new Exception("Association of name " + associationName + " doesn't exist.");
+			}
+			//	If it exists, retrieve it and check if it's a qualified association of paramterized types. 
+			//	Perform safe cast.
+			var association = Assos[associationName];
+
+			if (!(association is QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>))
+			{
+				/*TODO invalid association cast exception?*/throw new Exception("Invalid association cast exception?");
+			}
+			var qualifiedAssociation = (QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>)association;
+			//	And link it.
+			qualifiedAssociation.Link(identifier, identifiable, qualifier);
+		}
+
+		public static void Link<TQualifier>(string associationName, object firstObject, object secondObject, TQualifier qualifier)
+		{
+			//	Check if it exists.
+			if (!DoesAssociationExist(associationName))
+			{
+				throw new Exception("Association of name " + associationName + " doesn't exist.");
+			}
+			//	If it exists, retrieve it and check if it's a qualified association of parametrized Qualifier type.. 
+			//	Perform safe cast.
+			var association = Assos[associationName];
+
+			if (!(association is QualifiedAssociationBase<TQualifier>))
+			{
+				/*TODO invalid association cast exception?*/
+				throw new Exception("Invalid association cast exception?");
+			}
+
+			var qualifiedAssociation = (QualifiedAssociationBase<TQualifier>) association;
+
+			//	Link it!
+			qualifiedAssociation.Link(firstObject, secondObject, qualifier);
+		}
+
+		#endregion
+
+		#endregion
+
+		#endregion
+
+		#region Public Helper Static Methods
+
 		/// <summary>
 		///     Allows checking whether association by given name exists.
 		/// </summary>
@@ -597,15 +589,20 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <summary>
 		///     Links this AssociatedObject with another AssociatedObject in the specified Association.
 		/// </summary>
-		/// <param name="associatioName">
+		/// <param name="associationName">
 		///     Name of the Association in which we are linking these AssociatedObjects..
 		/// </param>
-		/// <param name="obj">
+		/// <param name="linkedObject">
 		///     Reference to the AssociatedObject with which we want to link this AssociatedObject.
 		/// </param>
-		public void Link(string associatioName, AssociatedObject obj)
+		public void Link(string associationName, AssociatedObject linkedObject)
 		{
-			Link(associatioName, this, obj);
+			Link(associationName, this, linkedObject);
+		}
+
+		public void Link<TQualifier>(string associationName, AssociatedObject linkedObject, TQualifier qualifier)
+		{
+			Link<TQualifier>(associationName, this, linkedObject, qualifier);
 		}
 
 		#endregion

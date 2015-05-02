@@ -273,6 +273,16 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			secondList.Add(firstObject);
 		}
 
+		/// <summary>
+		///		TODO COMMENT
+		/// </summary>
+		/// <typeparam name="T1"></typeparam>
+		/// <typeparam name="T2"></typeparam>
+		/// <param name="association"></param>
+		/// <param name="firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary"></param>
+		/// <param name="secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary"></param>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		protected static List<object> GetLinkedObjects<T1, T2>(AssociationBase association, Dictionary<T1, List<T2>> firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary,
 			Dictionary<T2, List<T1>> secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary, object obj)
 		{

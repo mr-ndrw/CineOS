@@ -53,7 +53,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		///     When searching for certain TIdentifiable(s) for certain TIdenifier using TQualifier, this Dictionary serves as our
 		///     starting point.
 		/// </remarks>
-		private readonly Dictionary<TIdentifier, HashSet<TQualifier>> _identiferToHashSetOfQualifiersDictionary;
+		private readonly Dictionary<TIdentifier, Dictionary<TQualifier, TQualifier>> _identiferToDictionaryOfQualifiersDictionary;
 
 		/// <summary>
 		///     Dictionary of TQualifiers and associated Collections of TIdentifiables.
@@ -98,8 +98,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			_qualifierEqualityComparer = qualifierEqualityComparer;
 			_identifierToIdentifiablesDictionary = new Dictionary<TIdentifier, List<TIdentifable>>();
 			_identifiableToIdentifiersDictionary = new Dictionary<TIdentifable, List<TIdentifier>>();
-			_identiferToHashSetOfQualifiersDictionary = new Dictionary<TIdentifier, HashSet<TQualifier>>();
-			_qualifierToCollectionOfIdentifiablesDictonary = new Dictionary<TQualifier, List<TIdentifable>>(_qualifierEqualityComparer);
+			_identiferToDictionaryOfQualifiersDictionary = new Dictionary<TIdentifier, Dictionary<TQualifier, TQualifier>>();
+			_qualifierToCollectionOfIdentifiablesDictonary = new Dictionary<TQualifier, List<TIdentifable>>();
 		}
 
 		/// <summary>
@@ -127,7 +127,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		}
 
 		/// <summary>
-		///     TODO Comment
+		///     Links Identifier and Identifiable using a Qualifier.
 		/// </summary>
 		/// <param name="identifier"></param>
 		/// <param name="identifable"></param>
@@ -135,36 +135,44 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		public void Link(TIdentifier identifier, TIdentifable identifable, TQualifier qualifier)
 		{
 			LinkObjects(this, _identifierToIdentifiablesDictionary, _identifiableToIdentifiersDictionary, identifier, identifable);
-			var identifierExistsInAssociation = _identifierToIdentifiablesDictionary.ContainsKey(identifier);
 
-			HashSet<TQualifier> qualifierHashSet;
+			var identifierExistsInAssociation = _identiferToDictionaryOfQualifiersDictionary.ContainsKey(identifier);
+
+			Dictionary<TQualifier, TQualifier> qualifiersDictionary;
+
+			TQualifier associationQualifier;
 
 			if (!identifierExistsInAssociation)
 			{
-				qualifierHashSet = new HashSet<TQualifier>(_qualifierEqualityComparer);
-				_identiferToHashSetOfQualifiersDictionary.Add(identifier, qualifierHashSet);
+				qualifiersDictionary = new Dictionary<TQualifier, TQualifier>(_qualifierEqualityComparer);
+				_identiferToDictionaryOfQualifiersDictionary.Add(identifier, qualifiersDictionary);
+				qualifiersDictionary.Add(qualifier, qualifier);
+				associationQualifier = qualifier;
 			}
 			else
 			{
-				qualifierHashSet = _identiferToHashSetOfQualifiersDictionary[identifier];
-				if (qualifierHashSet.Contains(qualifier))
+				qualifiersDictionary = _identiferToDictionaryOfQualifiersDictionary[identifier];
+				/*	If Upper Amount Bound on Identifiable side is greater than 1, we expect that multiple objects(up to Identifiable's Upper amount Bound)
+				 *	will be identified by the provided Qualifier.
+				 */
+				if (!(IdentifiableUpperAmountBound > 1) && qualifiersDictionary.ContainsKey(qualifier))
 				{
-					//	Todo implement exception for situation when the qualifier already exists.
-					throw new Exception("Such qualifier already exists!");
+					throw new InvalidQualifiedLinkingOperationException(this);
 				}
+				//	Retrieve the qualifier from the dictionary
+				associationQualifier = qualifiersDictionary[qualifier];
 			}
-			qualifierHashSet.Add(qualifier);
 
 			List<TIdentifable> identifiables;
 
 			if (!identifierExistsInAssociation)
 			{
 				identifiables = new List<TIdentifable>();
-				_qualifierToCollectionOfIdentifiablesDictonary.Add(qualifier, identifiables);
+				_qualifierToCollectionOfIdentifiablesDictonary.Add(associationQualifier, identifiables);
 			}
 			else
 			{
-				identifiables = _qualifierToCollectionOfIdentifiablesDictonary[qualifier];
+				identifiables = _qualifierToCollectionOfIdentifiablesDictonary[associationQualifier];
 			}
 			identifiables.Add(identifable);
 		}
@@ -189,7 +197,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 
 			//	Now check which is which
 			//	And link them
-			//	TODO recurrent association might prove silly here, innit?
 			if (firstObject is TIdentifier)
 			{
 				var identifier = firstObject as TIdentifier;
@@ -221,11 +228,20 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		}
 
 		/// <summary>
-		///     TODO Comment
+		///     Get all Identifiable objects linked with the Idetnifier using the qualifier object. 
 		/// </summary>
-		/// <param name="identifier"></param>
-		/// <param name="qualifier"></param>
-		/// <returns></returns>
+		/// <param name="identifier">
+		///		Identifier for which we are looking for Identifiables.
+		/// </param>
+		/// <param name="qualifier">
+		///		Qualifier with which Identifiables are connected.
+		/// </param>
+		/// <returns>
+		///		Collection of objects.
+		/// </returns>
+		/// <remarks>
+		///		If identifier is not present or qualifier is not connected with identifier in the association, an empty Collection will be returned.
+		/// </remarks>
 		public List<object> GetQualifiedLinkedObjects(TIdentifier identifier, TQualifier qualifier)
 		{
 			if (identifier == null) throw new ArgumentNullException("identifier");
@@ -236,13 +252,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			if (!identifierExistsInAssociation) return new List<object>();
 			//	If it is present, retrieve the hashset of qualifiers associated with it and check if provided qualifier exists 
 			//	said hashset.
-			var qualifierHashSetForProvidedIdentifier = _identiferToHashSetOfQualifiersDictionary[identifier];
-			var qualifierExistsInIdentifierAssociatedQualifierHashSet = qualifierHashSetForProvidedIdentifier.Contains(qualifier);
+			var qualifiersDictionaryForProvidedIdentifier = _identiferToDictionaryOfQualifiersDictionary[identifier];
+			var qualifierExistsInIdentifierAssociatedQualifierHashSet = qualifiersDictionaryForProvidedIdentifier.ContainsKey(qualifier);
 			//	If it doesn't exist, return empty collection.
 			if (!qualifierExistsInIdentifierAssociatedQualifierHashSet) return new List<object>();
 			//	If it does - retrieve it from the HashSet. We're doing it because we want the specific qualifier instance which later is used in qualifier-collection of identifiables
 			//	dictionary.
-			qualifier = qualifierHashSetForProvidedIdentifier.FirstOrDefault(qlfr => _qualifierEqualityComparer.Equals(qlfr, qualifier));
+			qualifier = qualifiersDictionaryForProvidedIdentifier[qualifier];
 			//	retrieve the collection of identifiables from qualifier-collection of identifaibles dictionary.
 			Debug.Assert(qualifier != null, "qualifier != null");
 			var identifiedIdenfiables = new List<object>(_qualifierToCollectionOfIdentifiablesDictonary[qualifier]);
@@ -251,7 +267,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		}
 
 		/// <summary>
-		///     TODO Comment
+		///     Returns 
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>

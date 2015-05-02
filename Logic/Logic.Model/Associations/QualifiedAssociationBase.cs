@@ -72,7 +72,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		///		Sets the maximum amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
 		protected QualifiedAssociationBase(Type identifierType, Type identifiableType, string name, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound)
-			: base(identifierType, identifiableType, name)
+			: base(identifierType, identifiableType, name, identifierLowerAmountBound, identifierUpperAmountBound, 0 , int.MaxValue)
 			//	Boundaries contain within AssociationBase are set to default values - lower to 0 and upper to int.MaxValue
 		{
 			_identifierLowerAmountBound = identifierLowerAmountBound;
@@ -152,10 +152,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <summary>
 		///		
 		/// </summary>
-		/// <param name="identifierObject"></param>
-		/// <param name="identifiableObject"></param>
+		/// <param name="firstObject"></param>
+		/// <param name="secondObject"></param>
 		/// <param name="qualifierObject"></param>
-		public abstract void Link(object identifierObject, object identifiableObject, TQualifier qualifierObject);
+		public abstract void Link(object firstObject, object secondObject, TQualifier qualifierObject);
 
 		/// <summary>
 		///		

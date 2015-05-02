@@ -60,6 +60,7 @@
     <Compile Include="Exceptions\AssociationAmountBoundariesExceededException.cs" />
     <Compile Include="Exceptions\AssociationNotFoundException.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyHasManagerException.cs" />
+    <Compile Include="Exceptions\InvalidQualifiedLinkingOperationException.cs" />
     <Compile Include="Exceptions\TypesNotConformingWithAssociationException.cs" />
     <Compile Include="Exceptions\ObjectTypeDoesntConformAssociationTypesException.cs" />
     <Compile Include="InterfaceAndBase\AssociatedObject.cs" />
