@@ -33,12 +33,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		///		Initializes an object of association with specified name and all boundaries for parametrized types.
 		/// </summary>
 		/// <param name="name">Name of the association.</param>
-		/// <param name="lowerBoundForFirstType">Lower cardinality boundary on the side of First Type.</param>
-		/// <param name="upperBoundForFirstType">Upper cardinality boundary on the side of First Type.</param>
-		/// <param name="lowerBoundForSecondType">Lower cardinality boundary on the side of Second Type.</param>
-		/// <param name="upperBoundForSecondType">Upper cardinality boundary on the side of Second Type.</param>
-		public StandardAssociation(string name, int lowerBoundForFirstType, int upperBoundForFirstType, int lowerBoundForSecondType, int upperBoundForSecondType)
-			:base(typeof(T1), typeof(T2), name, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
+		/// <param name="firstTypeLowerAmountBoundary">Lower cardinality boundary on the side of First Type.</param>
+		/// <param name="firstTypeUpperAmountBoundary">Upper cardinality boundary on the side of First Type.</param>
+		/// <param name="secondTypeLowerAmountBoundary">Lower cardinality boundary on the side of Second Type.</param>
+		/// <param name="secondTypeUpperAmountBoundary">Upper cardinality boundary on the side of Second Type.</param>
+		public StandardAssociation(string name, int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary)
+			:base(typeof(T1), typeof(T2), name, firstTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, secondTypeLowerAmountBoundary, secondTypeUpperAmountBoundary)
 		{
 			_firstTypeDictionary = new Dictionary<T1, List<T2>>();
 			_secondTypeDictionary = new Dictionary<T2, List<T1>>();

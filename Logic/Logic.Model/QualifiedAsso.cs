@@ -44,19 +44,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// <param name="secondType">
 		///  	Second class which will be used in new AssociationRole.
 		///   </param>
-		/// <param name="lowerBoundForFirstType">
+		/// <param name="firstTypeLowerAmountBoundary">
 		///		Lower bound for First class.
 		///		Should be greater, equal to zero.
 		/// </param>
-		/// <param name="upperBoundForFirstType">
+		/// <param name="firstTypeUpperAmountBoundary">
 		///  	Upper bound for First class.
 		///  	Should be greater than zero.
 		///   </param>
-		/// <param name="lowerBoundForSecondType">
+		/// <param name="partLowerAmountBoundary">
 		///		Lower bound for Second class.
 		///		Should be greater, equal to zero.
 		/// </param>
-		/// <param name="upperBoundForSecondType">
+		/// <param name="secondTypeUpperAmountBoundary">
 		///  	Upper bound for Second class.
 		///  	Should be greater than zero.
 		/// </param>
@@ -64,10 +64,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		/// 	Comparer of the Qualifier objects.
 		/// </param>
 		public QualifiedAsso(	string name, Type firstType, Type secondType,
-								int lowerBoundForFirstType, int upperBoundForFirstType,
-								int lowerBoundForSecondType, int upperBoundForSecondType,
+								int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary,
+								int partLowerAmountBoundary, int secondTypeUpperAmountBoundary,
 								IEqualityComparer<TQualifier> qualifierComparer)
-			: base(name, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
+			: base(name, firstTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, partLowerAmountBoundary, secondTypeUpperAmountBoundary)
 		{
 			_qualifierComparer = qualifierComparer;
 		}
@@ -136,7 +136,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///		Comparer of the Qualifier objects.
 		/// </param>
 		public QualifiedAsso(StandardAssociation<T1, T2> standardAssociation, IEqualityComparer<TQualifier> qualifierComparer)
-			: this(standardAssociation.Name, standardAssociation.Type1, standardAssociation.Type2, standardAssociation.LowerBoundaryForFirstType, standardAssociation.LowerBoundaryForSecondType, standardAssociation.UpperBoundaryForFirstType, standardAssociation.UpperBoundaryForSecondType, qualifierComparer)
+			: this(standardAssociation.Name, standardAssociation.Type1, standardAssociation.Type2, standardAssociation.FirstTypeLowerAmountBoundary, standardAssociation.PartLowerAmountBoundary, standardAssociation.FirstTypeUpperAmountBoundary, standardAssociation.SecondTypeUpperAmountBoundary, qualifierComparer)
 		{
 		}
 
@@ -170,26 +170,26 @@ namespace en.AndrewTorski.CineOS.Logic.Model
 		///  <param name="secondType">
 		///   	Second class which will be used in new AssociationRole.
 		///    </param>
-		///  <param name="lowerBoundForFirstType">
+		///  <param name="firstTypeLowerAmountBoundary">
 		/// 		Lower bound for First class.
 		/// 		Should be greater, equal to zero.
 		///  </param>
-		///  <param name="upperBoundForFirstType">
+		///  <param name="firstTypeUpperAmountBoundary">
 		///   	Upper bound for First class.
 		///   	Should be greater than zero.
 		///    </param>
-		///  <param name="lowerBoundForSecondType">
+		///  <param name="partLowerAmountBoundary">
 		/// 		Lower bound for Second class.
 		/// 		Should be greater, equal to zero.
 		///  </param>
-		///  <param name="upperBoundForSecondType">
+		///  <param name="secondTypeUpperAmountBoundary">
 		///   	Upper bound for Second class.
 		///   	Should be greater than zero.
 		///  </param>
 		public QualifiedAsso(	string name, Type firstType, Type secondType,
-								int lowerBoundForFirstType, int upperBoundForFirstType,
-								int lowerBoundForSecondType, int upperBoundForSecondType)
-			: this(name, firstType, secondType, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType, null)
+								int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary,
+								int partLowerAmountBoundary, int secondTypeUpperAmountBoundary)
+			: this(name, firstType, secondType, firstTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, partLowerAmountBoundary, secondTypeUpperAmountBoundary, null)
 		{
 		}
 

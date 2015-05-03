@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace en.AndrewTorski.CineOS.Test.Experimental.Basic_Associations
 {
 	[TestFixture]
-	public class ExperimentalAssociationTest
+	public class StandardAssociationTest
 	{
 		[Test]
 		public void TestIfAssocationConstructorConstructsTuplesCorrectly()

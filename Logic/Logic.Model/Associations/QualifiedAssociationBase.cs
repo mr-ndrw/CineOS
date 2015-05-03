@@ -22,22 +22,22 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <summary>
 		/// 
 		/// </summary>
-		private readonly int _identifierLowerAmountBound;
+		private readonly int _identifierLowerAmountBoundary;
 
 		/// <summary>
 		/// 
 		/// </summary>
-		private readonly int _identifierUpperAmountBound;
+		private readonly int _identifierUpperAmountBoundary;
 
 		/// <summary>
 		/// 
 		/// </summary>
-		private readonly int _identifiableLowerAmountBound;
+		private readonly int _identifiableLowerAmountBoundary;
 
 		/// <summary>
 		/// 
 		/// </summary>
-		private readonly int _identifiableUpperAmountBound;
+		private readonly int _identifiableUpperAmountBoundary;
 
 		#endregion
 
@@ -55,30 +55,30 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="identifiableType">
 		///		Type of the Identifable.
 		/// </param>
-		/// <param name="identifierLowerAmountBound">
+		/// <param name="identifierLowerAmountBoundary">
 		///		Lower bound on the side of the the Identifier.
 		///		Sets the least amount of Identifier objects with which one Identifiable object may be linked.
 		/// </param>
-		/// <param name="identifierUpperAmountBound">
+		/// <param name="identifierUpperAmountBoundary">
 		///		Upper bound on the side of the the Identifier.
 		///		Sets the maximum amount of Identifier objects with which one Identifiable object may be linked.
 		/// </param>
-		/// <param name="identifiableLowerAmountBound">
+		/// <param name="identifiableLowerAmountBoundary">
 		///		Lower bound on the side of the the Identifiable.
 		///		Sets the least amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
-		/// <param name="identifiableUpperAmountBound">
+		/// <param name="identifiableUpperAmountBoundary">
 		///		Upper bound on the side of the the Identifiable.
 		///		Sets the maximum amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
-		protected QualifiedAssociationBase(Type identifierType, Type identifiableType, string name, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound)
-			: base(identifierType, identifiableType, name, identifierLowerAmountBound, identifierUpperAmountBound, 0 , int.MaxValue)
+		protected QualifiedAssociationBase(Type identifierType, Type identifiableType, string name, int identifierLowerAmountBoundary, int identifierUpperAmountBoundary, int identifiableLowerAmountBoundary, int identifiableUpperAmountBoundary)
+			: base(identifierType, identifiableType, name, identifierLowerAmountBoundary, identifierUpperAmountBoundary, 0 , int.MaxValue)
 			//	Boundaries contain within AssociationBase are set to default values - lower to 0 and upper to int.MaxValue
 		{
-			_identifierLowerAmountBound = identifierLowerAmountBound;
-			_identifierUpperAmountBound = identifierUpperAmountBound;
-			_identifiableLowerAmountBound = identifiableLowerAmountBound;
-			_identifiableUpperAmountBound = identifiableUpperAmountBound;
+			_identifierLowerAmountBoundary = identifierLowerAmountBoundary;
+			_identifierUpperAmountBoundary = identifierUpperAmountBoundary;
+			_identifiableLowerAmountBoundary = identifiableLowerAmountBoundary;
+			_identifiableUpperAmountBoundary = identifiableUpperAmountBoundary;
 			_qualifierType = typeof (TQualifier);
 		}
 
@@ -116,33 +116,33 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <summary>
 		/// 
 		/// </summary>
-		public int IdentifierLowerAmountBound
+		public int IdentifierLowerAmountBoundary
 		{
-			get { return _identifierLowerAmountBound; }
+			get { return _identifierLowerAmountBoundary; }
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public int IdentifierUpperAmountBound
+		public int IdentifierUpperAmountBoundary
 		{
-			get { return _identifierUpperAmountBound; }
+			get { return _identifierUpperAmountBoundary; }
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public int IdentifiableLowerAmountBound
+		public int IdentifiableLowerAmountBoundary
 		{
-			get { return _identifiableLowerAmountBound; }
+			get { return _identifiableLowerAmountBoundary; }
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public int IdentifiableUpperAmountBound
+		public int IdentifiableUpperAmountBoundary
 		{
-			get { return _identifiableUpperAmountBound; }
+			get { return _identifiableUpperAmountBoundary; }
 		}
 
 		#endregion

@@ -53,12 +53,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Associated Object\AssociatedObjectCompositionTest.cs" />
     <Compile Include="Associated Object\AssociatedObjectQualifedAssociationTest.cs" />
-    <Compile Include="Basic Associations\ExperimentalAssociationTest.cs" />
+    <Compile Include="CompositionTest.cs" />
+    <Compile Include="StandardAssociationTest.cs" />
     <Compile Include="ExampleClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Associated Object\AssociatedObjectTest.cs" />
-    <Compile Include="Qualified Associations\QualifiedAssociationTest.cs" />
+    <Compile Include="QualifiedAssociationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -73,10 +75,7 @@
       <Name>Shared.HelperLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Attribute Associations\" />
-    <Folder Include="Compositions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

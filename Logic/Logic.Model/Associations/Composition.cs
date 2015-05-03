@@ -32,16 +32,16 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="name">
 		///		Name of the association.
 		/// </param>
-		/// <param name="lowerBoundForSecondType">
+		/// <param name="partLowerAmountBoundary">
 		///		Lower amount bound on the side of the Part.
 		///		Greater or equal to 0.
 		/// </param>
-		/// <param name="upperBoundForSecondType">
+		/// <param name="partUpperAmountBoundary">
 		///		Upper amount bound on the side of the Part.
 		///		Greater than 0.
 		/// </param>
-		public Composition(string name, int lowerBoundForSecondType, int upperBoundForSecondType) 
-			: base(typeof(TOwner), typeof(TPart), name, 0, 1, lowerBoundForSecondType, upperBoundForSecondType)
+		public Composition(string name, int partLowerAmountBoundary, int partUpperAmountBoundary)
+			: base(typeof(TOwner), typeof(TPart), name, 0, 1, partLowerAmountBoundary, partUpperAmountBoundary)
 		{
 			_ownersAndCollectionsOfPartsDictionary = new Dictionary<TOwner, List<TPart>>();
 			_partsToOwnersDictionary = new Dictionary<TPart, TOwner>();
@@ -153,13 +153,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			if (owner == null) throw new ArgumentNullException("owner");
 			if (part == null) throw new ArgumentNullException("part");
 			//	Check if Part is already associatied with any Owner.
-			if (!_partsToOwnersDictionary.ContainsKey(part))
+			if (_partsToOwnersDictionary.ContainsKey(part))
 			{
 				throw new PartAlreadyOwnedException(part);
 			}
 
 			List<TPart> ownersPartList;
-			//	Check 
+			//	Check if the owner exists somewhere in the Composition.
 			if (!_ownersAndCollectionsOfPartsDictionary.ContainsKey(owner))
 			{
 				ownersPartList = new List<TPart>();
@@ -171,9 +171,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			}
 			//	Check if adding a new Part to Owner's collection would result in PartCollection.Count being greater than 
 			//	upper amount bound.
-			if (ownersPartList.Count + 1 > UpperBoundaryForSecondType)
+			if (ownersPartList.Count + 1 > SecondTypeUpperAmountBoundary)
 			{
-				throw new AssociationAmountBoundariesExceededException(this, 1, UpperBoundaryForSecondType);
+				throw new AssociationAmountBoundariesExceededException(this, 1, SecondTypeUpperAmountBoundary);
 			}
 			//	if it doesn't exceed the upper boundary, add the part to collection and create a new entry in partsToOwnersDictionary
 			ownersPartList.Add(part);

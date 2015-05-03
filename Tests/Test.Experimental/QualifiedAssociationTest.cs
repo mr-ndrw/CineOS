@@ -53,15 +53,15 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Qualified_Associations
 			var qualifiedAssociation2 = new QualifiedAssociation<Identifier, Identifiable, Qualifier>("test", identifierLowerBound, identifierUpperBound, identifiableLowerBound, identifiableUpperBound, QualifierEqualityComparer);
 
 			//	Act
-			var qualifiedAssociation1IdentifierUpperBound = qualifiedAssociation1.IdentifierUpperAmountBound;
-			var qualifiedAssociation1IdentifierLowerBound = qualifiedAssociation1.IdentifierLowerAmountBound;
-			var qualifiedAssociation1IdentifiableUpperBound = qualifiedAssociation1.IdentifiableUpperAmountBound;
-			var qualifiedAssociationIdentifiableLowerBound = qualifiedAssociation1.IdentifiableLowerAmountBound;
+			var qualifiedAssociation1IdentifierUpperBound = qualifiedAssociation1.IdentifierUpperAmountBoundary;
+			var qualifiedAssociation1IdentifierLowerBound = qualifiedAssociation1.IdentifierLowerAmountBoundary;
+			var qualifiedAssociation1IdentifiableUpperBound = qualifiedAssociation1.IdentifiableUpperAmountBoundary;
+			var qualifiedAssociationIdentifiableLowerBound = qualifiedAssociation1.IdentifiableLowerAmountBoundary;
 
-			var qualifiedAssociation2IdentifierUpperBound = qualifiedAssociation2.IdentifierUpperAmountBound;
-			var qualifiedAssociation2IdentifierLowerBound = qualifiedAssociation2.IdentifierLowerAmountBound;
-			var qualifiedAssociation2IdentifiableUpperBound = qualifiedAssociation2.IdentifiableUpperAmountBound;
-			var qualifiedAssociation2dentifiableLowerBound = qualifiedAssociation2.IdentifiableLowerAmountBound;
+			var qualifiedAssociation2IdentifierUpperBound = qualifiedAssociation2.IdentifierUpperAmountBoundary;
+			var qualifiedAssociation2IdentifierLowerBound = qualifiedAssociation2.IdentifierLowerAmountBoundary;
+			var qualifiedAssociation2IdentifiableUpperBound = qualifiedAssociation2.IdentifiableUpperAmountBoundary;
+			var qualifiedAssociation2dentifiableLowerBound = qualifiedAssociation2.IdentifiableLowerAmountBoundary;
 
 			//	Assert
 			Assert.That(qualifiedAssociation1IdentifierUpperBound, Is.EqualTo(identifierUpperBound));

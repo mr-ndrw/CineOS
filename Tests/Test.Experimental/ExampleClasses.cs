@@ -3,6 +3,7 @@ using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Test.Experimental
 {
+	#region Qualified Association Exemplary Classes
 	public class Identifier : AssociatedObject
 	{
 		public string Name { get; set; }
@@ -37,5 +38,20 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 				return hash;
 			}
 		}
+	} 
+	#endregion
+
+	#region Composition Exemplary Classes
+
+	public class Owner
+	{
+		
 	}
+
+	public class Part
+	{
+		
+	}
+
+	#endregion
 }

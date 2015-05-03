@@ -71,28 +71,28 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="name">
 		///     Name of the association.
 		/// </param>
-		/// <param name="identifierLowerAmountBound">
+		/// <param name="identifierLowerAmountBoundary">
 		///     Lower bound on the side of the the Identifier.
 		///     Sets the least amount of Identifier objects with which one Identifiable object may be linked.
 		/// </param>
-		/// <param name="identifierUpperAmountBound">
+		/// <param name="identifierUpperAmountBoundary">
 		///     Upper bound on the side of the the Identifier.
 		///     Sets the maximum amount of Identifier objects with which one Identifiable object may be linked.
 		/// </param>
-		/// <param name="identifiableLowerAmountBound">
+		/// <param name="identifiableLowerAmountBoundary">
 		///     Lower bound on the side of the the Identifiable.
 		///     Sets the least amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
-		/// <param name="identifiableUpperAmountBound">
+		/// <param name="identifiableUpperAmountBoundary">
 		///     Upper bound on the side of the the Identifiable.
 		///     Sets the maximum amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
 		/// <param name="qualifierEqualityComparer">
 		///     Comprarer for the qualifier.
 		/// </param>
-		public QualifiedAssociation(string name, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound,
+		public QualifiedAssociation(string name, int identifierLowerAmountBoundary, int identifierUpperAmountBoundary, int identifiableLowerAmountBoundary, int identifiableUpperAmountBoundary,
 			IEqualityComparer<TQualifier> qualifierEqualityComparer)
-			: base(typeof(TIdentifier), typeof(TIdentifable), name, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound)
+			: base(typeof(TIdentifier), typeof(TIdentifable), name, identifierLowerAmountBoundary, identifierUpperAmountBoundary, identifiableLowerAmountBoundary, identifiableUpperAmountBoundary)
 		{
 			if (qualifierEqualityComparer == null) throw new ArgumentNullException("qualifierEqualityComparer");
 			_qualifierEqualityComparer = qualifierEqualityComparer;
@@ -110,19 +110,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="name">
 		///     Name of the association.
 		/// </param>
-		/// <param name="identifierUpperAmountBound">
+		/// <param name="identifierUpperAmountBoundary">
 		///     Upper bound on the side of the the Identifier.
 		///     Sets the maximum amount of Identifier objects with which one Identifiable object may be linked.
 		/// </param>
-		/// <param name="identifiableUpperAmountBound">
+		/// <param name="identifiableUpperAmountBoundary">
 		///     Upper bound on the side of the the Identifiable.
 		///     Sets the maximum amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
 		/// <param name="qualifierEqualityComparer">
 		///     Comprarer for the qualifier.
 		/// </param>
-		public QualifiedAssociation(string name, int identifierUpperAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer)
-			: this(name, 0, identifierUpperAmountBound, 0, identifiableUpperAmountBound, qualifierEqualityComparer)
+		public QualifiedAssociation(string name, int identifierUpperAmountBoundary, int identifiableUpperAmountBoundary, IEqualityComparer<TQualifier> qualifierEqualityComparer)
+			: this(name, 0, identifierUpperAmountBoundary, 0, identifiableUpperAmountBoundary, qualifierEqualityComparer)
 		{
 		} 
 		#endregion
@@ -168,7 +168,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 				/*	If Upper Amount Bound on Identifiable side is greater than 1, we expect that multiple objects(up to Identifiable's Upper amount Bound)
 				 *	will be identified by the provided Qualifier.
 				 */
-				if (!(IdentifiableUpperAmountBound > 1) && qualifiersDictionary.ContainsKey(qualifier))
+				if (!(IdentifiableUpperAmountBoundary > 1) && qualifiersDictionary.ContainsKey(qualifier))
 				{
 					throw new InvalidQualifiedLinkingOperationException(this);
 				}

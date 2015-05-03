@@ -5,7 +5,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 {
 	public abstract class StandardAssociationBase : AssociationBase
 	{
-		protected StandardAssociationBase(Type type1, Type type2, string name, int lowerBoundForFirstType, int upperBoundForFirstType, int lowerBoundForSecondType, int upperBoundForSecondType) : base(type1, type2, name, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType)
+		protected StandardAssociationBase(Type type1, Type type2, string name, int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary) 
+			: base(type1, type2, name, firstTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, secondTypeLowerAmountBoundary, secondTypeUpperAmountBoundary)
 		{
 		}
 

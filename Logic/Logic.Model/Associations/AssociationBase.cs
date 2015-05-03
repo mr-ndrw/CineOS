@@ -32,22 +32,22 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <summary>
 		///     Lower cardinality boundary on the side of First Type.
 		/// </summary>
-		private readonly int _lowerBoundForFirstType;
+		private readonly int _firstTypeLowerAmountBoundary;
 
 		/// <summary>
 		///     Upper cardinality boundary on the side of First Type.
 		/// </summary>
-		private readonly int _upperBoundForFirstType;
+		private readonly int _firstTypeUpperAmountBoundary;
 
 		/// <summary>
 		///     Lower cardinality boundary on the side of Second Type.
 		/// </summary>
-		private readonly int _lowerBoundForSecondType;
+		private readonly int _secondTypeLowerAmountBoundary;
 
 		/// <summary>
 		///     Upper cardinality boundary on the side of Second Type.
 		/// </summary>
-		private readonly int _upperBoundForSecondType;
+		private readonly int _secondTypeUpperAmountBoundary;
 
 		#endregion
 
@@ -57,21 +57,21 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		///     Initializes an object of association with specified name and all boundaries for parametrized types.
 		/// </summary>
 		/// <param name="name">Name of the association.</param>
-		/// <param name="lowerBoundForFirstType">Lower cardinality boundary on the side of First Type.</param>
-		/// <param name="upperBoundForFirstType">Upper cardinality boundary on the side of First Type.</param>
-		/// <param name="lowerBoundForSecondType">Lower cardinality boundary on the side of Second Type.</param>
-		/// <param name="upperBoundForSecondType">Upper cardinality boundary on the side of Second Type.</param>
+		/// <param name="firstTypeLowerAmountBoundary">Lower cardinality boundary on the side of First Type.</param>
+		/// <param name="firstTypeUpperAmountBoundary">Upper cardinality boundary on the side of First Type.</param>
+		/// <param name="secondTypeLowerAmountBoundary">Lower cardinality boundary on the side of Second Type.</param>
+		/// <param name="secondTypeUpperAmountBoundary">Upper cardinality boundary on the side of Second Type.</param>
 		/// <param name="type1"></param>
 		/// <param name="type2"></param>
-		protected AssociationBase(Type type1, Type type2, string name, int lowerBoundForFirstType, int upperBoundForFirstType, int lowerBoundForSecondType, int upperBoundForSecondType)
+		protected AssociationBase(Type type1, Type type2, string name, int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary)
 		{
 			_type1 = type1;
 			_type2 = type2;
 			_name = name;
-			_lowerBoundForFirstType = lowerBoundForFirstType;
-			_upperBoundForFirstType = upperBoundForFirstType;
-			_lowerBoundForSecondType = lowerBoundForSecondType;
-			_upperBoundForSecondType = upperBoundForSecondType;
+			_firstTypeLowerAmountBoundary = firstTypeLowerAmountBoundary;
+			_firstTypeUpperAmountBoundary = firstTypeUpperAmountBoundary;
+			_secondTypeLowerAmountBoundary = secondTypeLowerAmountBoundary;
+			_secondTypeUpperAmountBoundary = secondTypeUpperAmountBoundary;
 		}
 
 		/// <summary>
@@ -131,33 +131,33 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <summary>
 		///     Gets the lower boundary on the side of First Type.
 		/// </summary>
-		public int LowerBoundaryForFirstType
+		public int FirstTypeLowerAmountBoundary
 		{
-			get { return _lowerBoundForFirstType; }
+			get { return _firstTypeLowerAmountBoundary; }
 		}
 
 		/// <summary>
 		///     Gets the Upper boundary on the side of First Type
 		/// </summary>
-		public int UpperBoundaryForFirstType
+		public int FirstTypeUpperAmountBoundary
 		{
-			get { return _upperBoundForFirstType; }
+			get { return _firstTypeUpperAmountBoundary; }
 		}
 
 		/// <summary>
 		///     Gets the lower boundary on the side of Second Type
 		/// </summary>
-		public int LowerBoundaryForSecondType
+		public int SecondTypeLowerAmountBoundary
 		{
-			get { return _lowerBoundForSecondType; }
+			get { return _secondTypeLowerAmountBoundary; }
 		}
 
 		/// <summary>
 		///     Gets the Upper boundary on the side of Second Type
 		/// </summary>
-		public int UpperBoundaryForSecondType
+		public int SecondTypeUpperAmountBoundary
 		{
-			get { return _upperBoundForSecondType; }
+			get { return _secondTypeUpperAmountBoundary; }
 		}
 
 		#endregion //	Properties
@@ -174,7 +174,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// </returns>
 		public Tuple<int, int, int, int> GetAmountBoundaries()
 		{
-			return new Tuple<int, int, int, int>(_lowerBoundForFirstType, _upperBoundForFirstType, _lowerBoundForSecondType, _upperBoundForSecondType);
+			return new Tuple<int, int, int, int>(_firstTypeLowerAmountBoundary, _firstTypeUpperAmountBoundary, _secondTypeLowerAmountBoundary, _secondTypeUpperAmountBoundary);
 		}
 
 		/// <summary>
@@ -266,7 +266,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			}
 
 			//	Check if they exceed boundaries and throw excpetion if such thing occurs.
-			if (firstList.Count + 1 > association.UpperBoundaryForSecondType || secondList.Count + 1 > association.UpperBoundaryForFirstType)
+			if (firstList.Count + 1 > association.SecondTypeUpperAmountBoundary || secondList.Count + 1 > association.FirstTypeUpperAmountBoundary)
 			{
 				throw new AssociationAmountBoundariesExceededException(association, (firstList.Count + 1), (secondList.Count + 1));
 			}

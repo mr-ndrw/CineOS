@@ -146,7 +146,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 			if (OwnerAndPartsDictionary.Values.Any(ownerPartCollection => ownerPartCollection.Contains(targetPartObject)))
 			{
-				throw new PartAlreadyOwnedException();
+				throw new PartAlreadyOwnedException(targetPartObject);
 			}
 			AddAssociation(associationRole, reverseAssociationRole, targetPartObject, qualifier);
 
