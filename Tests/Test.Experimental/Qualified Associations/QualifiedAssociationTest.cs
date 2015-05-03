@@ -2,53 +2,11 @@
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Associations;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
+using en.AndrewTorski.CineOS.Test.Experimental;
 using NUnit.Framework;
 
 namespace en.AndrewTorski.CineOS.Test.Experimental.Qualified_Associations
 {
-	//	Act
-	//	Arrange
-	//	Assert
-
-	#region Test Classes
-
-	internal class Identifier
-	{
-		public string Name { get; set; }
-	}
-
-	internal class Identifiable
-	{
-		public int X { get; set; }
-		public int Y { get; set; }
-	}
-
-	internal class Qualifier
-	{
-		public int X { get; set; }
-		public int Y { get; set; }
-	}
-
-	internal class QulifierEqualityComparer : IEqualityComparer<Qualifier>
-	{
-		public bool Equals(Qualifier x, Qualifier y)
-		{
-			return x.X == y.X && x.Y == y.Y;
-		}
-
-		public int GetHashCode(Qualifier obj)
-		{
-			unchecked
-			{
-				var hash = 17;
-				hash *= 23 + obj.X;
-				hash *= 29 + obj.Y;
-				return hash;
-			}
-		}
-	}
-
-	#endregion
 
 	[TestFixture]
 	public class QualifiedAssociationTest

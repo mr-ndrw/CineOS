@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Associations
@@ -22,8 +21,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 	///     IMPORTANT!: Make sure that the interface IEqualityComparer for TQualifier that you will implement and
 	///     provide implements correctly GetHashCode(obj) method. By correct what is meant is that for different objects
 	/// </remarks>
-	public class QualifiedAssociation<TIdentifier, TIdentifable, TQualifier>
-		: QualifiedAssociationBase<TQualifier>
+	public class QualifiedAssociation<TIdentifier, TIdentifable, TQualifier> : QualifiedAssociationBase<TQualifier>
 		where TIdentifier : class
 		where TIdentifable : class
 	{
@@ -65,6 +63,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 
 		#endregion
 
+		#region Constructors
 		/// <summary>
 		///     Intitializes a new instance of QualifiedAssociation class with specified name and specified amount bounds for
 		///     Identifiers and for Identifiables.
@@ -93,8 +92,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// </param>
 		public QualifiedAssociation(string name, int identifierLowerAmountBound, int identifierUpperAmountBound, int identifiableLowerAmountBound, int identifiableUpperAmountBound,
 			IEqualityComparer<TQualifier> qualifierEqualityComparer)
-			: base(typeof (TIdentifier), typeof (TIdentifable), name, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound)
+			: base(typeof(TIdentifier), typeof(TIdentifable), name, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound)
 		{
+			if (qualifierEqualityComparer == null) throw new ArgumentNullException("qualifierEqualityComparer");
 			_qualifierEqualityComparer = qualifierEqualityComparer;
 			_identifierToIdentifiablesDictionary = new Dictionary<TIdentifier, List<TIdentifable>>();
 			_identifiableToIdentifiersDictionary = new Dictionary<TIdentifable, List<TIdentifier>>();
@@ -119,21 +119,34 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		///     Sets the maximum amount of Identifiable objects with which one Identifier object may be linked.
 		/// </param>
 		/// <param name="qualifierEqualityComparer">
-		///		Comprarer for the qualifier.
+		///     Comprarer for the qualifier.
 		/// </param>
 		public QualifiedAssociation(string name, int identifierUpperAmountBound, int identifiableUpperAmountBound, IEqualityComparer<TQualifier> qualifierEqualityComparer)
 			: this(name, 0, identifierUpperAmountBound, 0, identifiableUpperAmountBound, qualifierEqualityComparer)
 		{
-		}
+		} 
+		#endregion
+
+		#region Methods
 
 		/// <summary>
 		///     Links Identifier and Identifiable using a Qualifier.
 		/// </summary>
-		/// <param name="identifier"></param>
-		/// <param name="identifable"></param>
-		/// <param name="qualifier"></param>
+		/// <param name="identifier">
+		///		Object which is the identifier in newly created link.
+		/// </param>
+		/// <param name="identifable">
+		///		Object will be Identified in newly created link.
+		/// </param>
+		/// <param name="qualifier">
+		///		Qualifier which will be used to identifiy the Identifiable.
+		/// </param>
 		public void Link(TIdentifier identifier, TIdentifable identifable, TQualifier qualifier)
 		{
+			if (identifier == null) throw new ArgumentNullException("identifier");
+			if (identifable == null) throw new ArgumentNullException("identifable");
+			if (qualifier == null) throw new ArgumentNullException("qualifier");
+
 			LinkObjects(this, _identifierToIdentifiablesDictionary, _identifiableToIdentifiersDictionary, identifier, identifable);
 
 			var identifierExistsInAssociation = _identiferToDictionaryOfQualifiersDictionary.ContainsKey(identifier);
@@ -190,24 +203,21 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			if (secondObject == null) throw new ArgumentNullException("secondObject");
 
 			//	First identify whether these objects conform with this AssociationRole's types.
-			if (!ConformsWith(firstObject.GetType(), secondObject.GetType()))
-			{
-				throw new TypesNotConformingWithAssociationException(this, firstObject.GetType(), secondObject.GetType());
-			}
-
-			//	Now check which is which
-			//	And link them
-			if (firstObject is TIdentifier)
+			if (firstObject is TIdentifier && secondObject is TIdentifable)
 			{
 				var identifier = firstObject as TIdentifier;
 				var identifable = secondObject as TIdentifable;
 				Link(identifier, identifable, qualifierObject);
 			}
-			else
+			else if (firstObject is TIdentifable && secondObject is TIdentifier)
 			{
 				var identifable = firstObject as TIdentifable;
 				var identifier = secondObject as TIdentifier;
 				Link(identifier, identifable, qualifierObject);
+			}
+			else // Possibly both are identifiers or both are identifiables.
+			{
+				throw new TypesNotConformingWithAssociationException(this, firstObject.GetType(), secondObject.GetType());
 			}
 		}
 
@@ -222,25 +232,26 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			if (identifierObject == null) throw new ArgumentNullException("identifierObject");
 			if (qualifier == null) throw new ArgumentNullException("qualifier");
 
-			if (identifierObject.GetType() == typeof (TIdentifier)) throw new ObjectTypeDoesntConformAssociationTypesException(this, identifierObject.GetType(), identifierObject);
+			if (identifierObject.GetType() != typeof(TIdentifier)) throw new ObjectTypeDoesntConformAssociationTypesException(this, identifierObject.GetType(), identifierObject);
 
-			return GetQualifiedLinkedObjects((TIdentifier) identifierObject, qualifier);
+			return GetQualifiedLinkedObjects((TIdentifier)identifierObject, qualifier);
 		}
 
 		/// <summary>
-		///     Get all Identifiable objects linked with the Idetnifier using the qualifier object. 
+		///     Get all Identifiable objects linked with the Idetnifier using the qualifier object.
 		/// </summary>
 		/// <param name="identifier">
-		///		Identifier for which we are looking for Identifiables.
+		///     Identifier for which we are looking for Identifiables.
 		/// </param>
 		/// <param name="qualifier">
-		///		Qualifier with which Identifiables are connected.
+		///     Qualifier with which Identifiables are connected.
 		/// </param>
 		/// <returns>
-		///		Collection of objects.
+		///     Collection of objects.
 		/// </returns>
 		/// <remarks>
-		///		If identifier is not present or qualifier is not connected with identifier in the association, an empty Collection will be returned.
+		///     If identifier is not present or qualifier is not connected with identifier in the association, an empty Collection
+		///     will be returned.
 		/// </remarks>
 		public List<object> GetQualifiedLinkedObjects(TIdentifier identifier, TQualifier qualifier)
 		{
@@ -267,13 +278,16 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		}
 
 		/// <summary>
-		///     Returns 
+		///     Returns
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
 		public override List<object> GetLinkedObjects(object obj)
 		{
+			if (obj == null) throw new ArgumentNullException("obj");
 			return GetLinkedObjects(this, _identifierToIdentifiablesDictionary, _identifiableToIdentifiersDictionary, obj);
 		}
+
+		#endregion
 	}
 }

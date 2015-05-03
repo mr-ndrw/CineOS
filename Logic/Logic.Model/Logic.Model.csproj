@@ -39,12 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Associations\AssociationOfProvidedNameAlreadyExistsException.cs" />
+    <Compile Include="Associations\Composition.cs" />
     <Compile Include="Associations\QualifiedAssociation.cs" />
     <Compile Include="Associations\QualifiedAssociationBase.cs" />
     <Compile Include="Associations\StandardAssociation.cs" />
     <Compile Include="Associations\AssociationBase.cs" />
     <Compile Include="Associations\RecurrentStandardAssociationBase.cs" />
     <Compile Include="Associations\StandardAssociationBase.cs" />
+    <Compile Include="Associations\WrongAssociationTypeException.cs" />
     <Compile Include="Entity\Cinema.cs" />
     <Compile Include="Entity\Client.cs" />
     <Compile Include="Entity\Employee.cs" />

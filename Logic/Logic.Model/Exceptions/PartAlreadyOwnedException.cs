@@ -9,13 +9,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Exceptions
 	/// </summary>
 	public class PartAlreadyOwnedException : Exception
 	{
+		public object OwnedPart { get; set; }
+
 		/// <summary>
 		///		Initializes a new instance of the PartAlreadyOwnedException class.
 		/// </summary>
-		public PartAlreadyOwnedException()
-			: base("The part object is already owned!")
+		public PartAlreadyOwnedException(object ownedPart)
+			: base("The part object is already owned.")
 		{
-			
+			OwnedPart = ownedPart;
 		}
 
 		/// <summary>
@@ -26,7 +28,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Exceptions
 		///		The inner exception reference.
 		/// </param>
 		public PartAlreadyOwnedException(Exception inner)
-			: base("The part object is already owned!", inner)
+			: base("The part object is already owned.", inner)
 		{
 			
 		}

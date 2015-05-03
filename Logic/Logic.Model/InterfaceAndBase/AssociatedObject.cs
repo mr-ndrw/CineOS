@@ -7,7 +7,7 @@ using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 {
 	/// <summary>
-	///		TODO COMMENT
+	///     TODO COMMENT
 	/// </summary>
 	public class AssociatedObject : ObjectWithExtent
 	{
@@ -21,7 +21,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <summary>
 		///     Dictionary of Associations' names and their correspondent Associations.
 		/// </summary>
-		private static readonly Dictionary<string, AssociationBase> Assos;
+		private static readonly Dictionary<string, AssociationBase> AssociationsDictionary;
 
 		#endregion //	Private Fields
 
@@ -38,7 +38,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		static AssociatedObject()
 		{
 			OwnerAndPartsDictionary = new Dictionary<AssociatedObject, List<AssociatedObject>>();
-			Assos = new Dictionary<string, AssociationBase>();
+			AssociationsDictionary = new Dictionary<string, AssociationBase>();
 		}
 
 		#endregion //	Constructors
@@ -90,7 +90,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			}
 			if (DoesAssociationExist(associationName))
 			{
-				throw new Exception("AssociationRole by such name already exists.");
+				throw new AssociationOfProvidedNameAlreadyExistsException(associationName);
 			}
 		}
 
@@ -275,7 +275,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		{
 			var association = ConstructStandardAssociation<T1, T2>(associationName, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType);
 
-			Assos.Add(associationName, association);
+			AssociationsDictionary.Add(associationName, association);
 		}
 
 		/// <summary>
@@ -346,8 +346,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			{
 				throw new Exception("Association of name " + associationName + " doesn't exist.");
 			}
+			var foundAssociation = AssociationsDictionary[associationName];
+			if (!(foundAssociation is StandardAssociationBase))
+			{
+				throw new WrongAssociationTypeException(associationName, foundAssociation.GetType(), typeof(StandardAssociationBase));
+			}
 			//	Get this association from dictionary.
-			var association = (StandardAssociationBase) Assos[associationName];
+			var association = (StandardAssociationBase) AssociationsDictionary[associationName];
 			//	And link objects.
 			association.Link(firstObject, secondObject);
 		}
@@ -404,7 +409,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		{
 			var qualifiedAssociation = ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierLowerAmountBound, identifierUpperAmountBound, identifiableLowerAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
 
-			Assos.Add(associationName, qualifiedAssociation);
+			AssociationsDictionary.Add(associationName, qualifiedAssociation);
 		}
 
 		/// <summary>
@@ -440,13 +445,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		{
 			var qualifiedAssociation = ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierUpperAmountBound, identifiableUpperAmountBound, qualifierEqualityComparer);
 
-			Assos.Add(associationName, qualifiedAssociation);
+			AssociationsDictionary.Add(associationName, qualifiedAssociation);
 		}
 
 		#region QUalified Association Link Methods
 
 		/// <summary>
-		/// 
+		///     Links two object using the qualifier in the qualified association specified by it's name.
 		/// </summary>
 		/// <typeparam name="TIdentifier">
 		///     Type of the class that will be the Idenditifer in this Association.
@@ -460,11 +465,17 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <param name="associationName">
 		///     Name of the association.
 		/// </param>
-		/// <param name="identifier"></param>
-		/// <param name="identifiable"></param>
-		/// <param name="qualifier"></param>
-		public static void Link<TIdentifier, TIdentifiable, TQualifier>(string associationName, TIdentifier identifier, TIdentifiable identifiable, TQualifier qualifier) 
-			where TIdentifier : class 
+		/// <param name="identifier">
+		///     Identifier which identifies Identifiables using Qualifier.
+		/// </param>
+		/// <param name="identifiable">
+		///     Object which is identifiable by the qualifier.
+		/// </param>
+		/// <param name="qualifier">
+		///     Qualifier which is used to identify linked objects.
+		/// </param>
+		public static void Link<TIdentifier, TIdentifiable, TQualifier>(string associationName, TIdentifier identifier, TIdentifiable identifiable, TQualifier qualifier)
+			where TIdentifier : class
 			where TIdentifiable : class
 		{
 			//	Check if association exists, else throw exception
@@ -474,17 +485,39 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			}
 			//	If it exists, retrieve it and check if it's a qualified association of paramterized types. 
 			//	Perform safe cast.
-			var association = Assos[associationName];
+			var association = AssociationsDictionary[associationName];
 
 			if (!(association is QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>))
 			{
-				/*TODO invalid association cast exception?*/throw new Exception("Invalid association cast exception?");
+				throw new WrongAssociationTypeException(associationName, association.GetType(), typeof(QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>));
 			}
-			var qualifiedAssociation = (QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>)association;
+			var qualifiedAssociation = (QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>) association;
 			//	And link it.
 			qualifiedAssociation.Link(identifier, identifiable, qualifier);
 		}
 
+		/// <summary>
+		///     Links two object using the qualifier in the qualified association specified by it's name.
+		/// </summary>
+		/// <typeparam name="TQualifier">
+		///     Type of the Qualifier which is used to identify linked objects.
+		/// </typeparam>
+		/// <param name="associationName">
+		///     Name of the association.
+		/// </param>
+		/// <param name="firstObject">
+		///     First object to link. May be either identifier or identifiable.
+		/// </param>
+		/// <param name="secondObject">
+		///     Second object to link. May be either identifier or identifiable.
+		/// </param>
+		/// <param name="qualifier">
+		///     Qualifier which will be used to determine the identifiable.
+		/// </param>
+		/// <remarks>
+		///     Qualified Association has means of determining which provided object is identifier and which one is a identifiable.
+		///     The order in which you will supply the identifier or identifiable to the method doesn't matter.
+		/// </remarks>
 		public static void Link<TQualifier>(string associationName, object firstObject, object secondObject, TQualifier qualifier)
 		{
 			//	Check if it exists.
@@ -494,7 +527,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			}
 			//	If it exists, retrieve it and check if it's a qualified association of parametrized Qualifier type.. 
 			//	Perform safe cast.
-			var association = Assos[associationName];
+			var association = AssociationsDictionary[associationName];
 
 			if (!(association is QualifiedAssociationBase<TQualifier>))
 			{
@@ -506,6 +539,36 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 			//	Link it!
 			qualifiedAssociation.Link(firstObject, secondObject, qualifier);
+		}
+
+		/// <summary>
+		///     Returns the Collection of objects linked with this AssociatedObject from the qualified association using the
+		///     provided qualifier.
+		/// </summary>
+		/// <typeparam name="TQualifier">
+		///     Type of the Qualifier which is used to identify linked objects.
+		/// </typeparam>
+		/// <param name="associationName">
+		///     Name of the association.
+		/// </param>
+		/// <param name="qualifier">
+		///     Qualifier which is used to identify linked objects.
+		/// </param>
+		/// <returns>
+		///     Collection of objects.
+		/// </returns>
+		public List<object> GetQualifiedLinkedObject<TQualifier>(string associationName, TQualifier qualifier)
+		{
+			if (!DoesAssociationExist(associationName))
+			{
+				throw new AssociationNotFoundException(associationName);
+			}
+
+			var qualifiedAssociation = (QualifiedAssociationBase<TQualifier>) AssociationsDictionary[associationName];
+
+			var result = qualifiedAssociation.GetQualifiedLinkedObjects(this, qualifier);
+
+			return result;
 		}
 
 		#endregion
@@ -527,7 +590,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </returns>
 		public static bool DoesAssociationExist(string associationName)
 		{
-			return Assos.ContainsKey(associationName);
+			return AssociationsDictionary.ContainsKey(associationName);
 		}
 
 		/// <summary>
@@ -551,7 +614,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 				return new Tuple<int, int, int, int>(-1, -1, -1, -1);
 			}
 
-			var association = Assos[associationName];
+			var association = AssociationsDictionary[associationName];
 
 			return association.GetAmountBoundaries();
 		}
@@ -577,7 +640,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			{
 				throw new AssociationNotFoundException(associationName);
 			}
-			var association = (StandardAssociationBase) Assos[associationName];
+			var association = (StandardAssociationBase) AssociationsDictionary[associationName];
 
 			var collectionOfLinkedObjects = association.GetAssociatedObjects(this)
 				.Cast<AssociatedObject>()
@@ -600,6 +663,25 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			Link(associationName, this, linkedObject);
 		}
 
+		/// <summary>
+		///     Links this AssociatedObject and the supplied AssociatedObject using the qualifier in the qualified association specified by it's name.
+		/// </summary>
+		/// <typeparam name="TQualifier">
+		///     Type of the Qualifier which is used to identify linked objects.
+		/// </typeparam>
+		/// <param name="associationName">
+		///     Name of the association.
+		/// </param>
+		/// <param name="linkedObject">
+		///     Object which we are going to link with this AssociatedObject.
+		/// </param>
+		/// <param name="qualifier">
+		///     Qualifier which will be used to determine the identifiable.
+		/// </param>
+		/// <remarks>
+		///     Qualified Association has means of determining which provided object is identifier and which one is a identifiable.
+		///     It won't matter if you'll call this method on the identifier or the identifiable.
+		/// </remarks>
 		public void Link<TQualifier>(string associationName, AssociatedObject linkedObject, TQualifier qualifier)
 		{
 			Link<TQualifier>(associationName, this, linkedObject, qualifier);

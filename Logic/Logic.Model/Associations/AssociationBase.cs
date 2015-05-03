@@ -75,7 +75,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		}
 
 		/// <summary>
-		///     Initializes an object of association with specified name and upper amount boundaries for parametrized types. Lower ones are by default set to 0.
+		///     Initializes an object of association with specified name and upper amount boundaries for parametrized types. Lower
+		///     ones are by default set to 0.
 		/// </summary>
 		/// <param name="name">Name of the association.</param>
 		/// <param name="upperBoundForFirstType">Upper cardinality boundary on the side of First Type.</param>
@@ -83,18 +84,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="type1"></param>
 		/// <param name="type2"></param>
 		protected AssociationBase(Type type1, Type type2, string name, int upperBoundForFirstType, int upperBoundForSecondType)
-			:this(type1, type2, name, 0, upperBoundForFirstType, 0, upperBoundForSecondType)
+			: this(type1, type2, name, 0, upperBoundForFirstType, 0, upperBoundForSecondType)
 		{
 		}
 
 		/// <summary>
-		///     Initializes an object of association with specified name and default values for boundaries. Upper boundaries are set to int.MaxValue and lower boundaries to 0.
+		///     Initializes an object of association with specified name and default values for boundaries. Upper boundaries are
+		///     set to int.MaxValue and lower boundaries to 0.
 		/// </summary>
 		/// <param name="name">Name of the association.</param>
 		/// <param name="type1"></param>
 		/// <param name="type2"></param>
 		protected AssociationBase(Type type1, Type type2, string name)
-			:this(type1, type2, name, int.MaxValue, int.MaxValue)
+			: this(type1, type2, name, int.MaxValue, int.MaxValue)
 		{
 		}
 
@@ -220,8 +222,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 			return (type == Type1 || type == Type2) || (type == Type2 || type == Type1);
 		}
 
+		/// TODO Change to object method?
 		/// <summary>
-		///		TODO Comment
+		///     Generic and universal method of linking the objects into dictionaries.
 		/// </summary>
 		/// <typeparam name="T1"></typeparam>
 		/// <typeparam name="T2"></typeparam>
@@ -274,7 +277,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		}
 
 		/// <summary>
-		///		TODO COMMENT
+		///     TODO COMMENT
 		/// </summary>
 		/// <typeparam name="T1"></typeparam>
 		/// <typeparam name="T2"></typeparam>
@@ -283,8 +286,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary"></param>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		protected static List<object> GetLinkedObjects<T1, T2>(AssociationBase association, Dictionary<T1, List<T2>> firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary,
-			Dictionary<T2, List<T1>> secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary, object obj)
+		protected static List<object> GetLinkedObjects<T1, T2>(AssociationBase association, Dictionary<T1, List<T2>> firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary, Dictionary<T2, List<T1>> secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary, object obj)
 		{
 			if (obj == null) throw new ArgumentNullException("obj");
 
@@ -295,12 +297,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 
 			if (obj is T1)
 			{
-				var result = !firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary.ContainsKey((T1)obj) ? new List<object>() : firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary[(T1)obj].Cast<object>()
+				var result = !firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary.ContainsKey((T1) obj) ? new List<object>() : firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary[(T1) obj].Cast<object>()
 					.ToList();
 				return result;
 			}
 
-			return !secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary.ContainsKey((T2)obj) ? new List<object>() : secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary[(T2)obj].Cast<object>()
+			return !secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary.ContainsKey((T2) obj) ? new List<object>() : secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary[(T2) obj].Cast<object>()
 				.ToList();
 		}
 
