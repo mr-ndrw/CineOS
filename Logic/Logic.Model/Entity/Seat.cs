@@ -6,7 +6,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Seat in a Projection Room.
 	/// </summary>
-	public class Seat : ObjectWithAssociations
+	public class Seat : AssociatedObject
 	{
 		/// <summary>
 		///		Projection Room in which the Seat is situated.
@@ -19,7 +19,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			ColumnNumber = columnNumber;
 			_projectionRoom = projectionRoom;
 
-			this.AddAsPartOf(AssociationRole.FromSeatToProjectionRoom, AssociationRole.FromProjectionRoomToSeat, projectionRoom);
+			//this.AddAsPartOf(AssociationRole.FromSeatToProjectionRoom, AssociationRole.FromProjectionRoomToSeat, projectionRoom);
 		}
 
 		/// <summary>

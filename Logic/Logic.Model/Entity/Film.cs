@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -8,7 +7,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents a Film entity.
 	/// </summary>
-	public class Film : ObjectWithAssociations
+	public class Film : AssociatedObject
 	{
 
 		public Film()

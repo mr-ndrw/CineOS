@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Associations;
+using en.AndrewTorski.CineOS.Logic.Model.Association;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
-using en.AndrewTorski.CineOS.Test.Experimental;
 using NUnit.Framework;
 
-namespace en.AndrewTorski.CineOS.Test.Experimental.Qualified_Associations
+namespace en.AndrewTorski.CineOS.Test.Experimental
 {
 
 	[TestFixture]
@@ -61,7 +60,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Qualified_Associations
 			var qualifiedAssociation2IdentifierUpperBound = qualifiedAssociation2.IdentifierUpperAmountBoundary;
 			var qualifiedAssociation2IdentifierLowerBound = qualifiedAssociation2.IdentifierLowerAmountBoundary;
 			var qualifiedAssociation2IdentifiableUpperBound = qualifiedAssociation2.IdentifiableUpperAmountBoundary;
-			var qualifiedAssociation2dentifiableLowerBound = qualifiedAssociation2.IdentifiableLowerAmountBoundary;
+			var qualifiedAssociation2IdentifiableLowerBound = qualifiedAssociation2.IdentifiableLowerAmountBoundary;
 
 			//	Assert
 			Assert.That(qualifiedAssociation1IdentifierUpperBound, Is.EqualTo(identifierUpperBound));
@@ -72,7 +71,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Qualified_Associations
 			Assert.That(qualifiedAssociation2IdentifierUpperBound, Is.EqualTo(identifierUpperBound));
 			Assert.That(qualifiedAssociation2IdentifierLowerBound, Is.EqualTo(identifierLowerBound));
 			Assert.That(qualifiedAssociation2IdentifiableUpperBound, Is.EqualTo(identifiableUpperBound));
-			Assert.That(qualifiedAssociation2dentifiableLowerBound, Is.EqualTo(identifiableLowerBound));
+			Assert.That(qualifiedAssociation2IdentifiableLowerBound, Is.EqualTo(identifiableLowerBound));
 		}
 
 		[Test]

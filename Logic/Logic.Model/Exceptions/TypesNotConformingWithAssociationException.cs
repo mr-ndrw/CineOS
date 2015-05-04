@@ -1,5 +1,5 @@
 ﻿using System;
-using en.AndrewTorski.CineOS.Logic.Model.Associations;
+using en.AndrewTorski.CineOS.Logic.Model.Association;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Exceptions
 {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -12,7 +11,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <remarks>
 	///		May be either geographical or political.
 	/// </remarks>
-	public class Region : ObjectWithAssociations
+	public class Region : AssociatedObject
 	{
 		#region Properties
 
@@ -31,11 +30,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public IEnumerable<Cinema> Cinemas
 		{
-			get
-			{
-				return GetAssociations(AssociationRole.FromRegionToCinema)
-					.Cast<Cinema>();
-			}
+			get { return null; }
 		} 
 
 		#endregion

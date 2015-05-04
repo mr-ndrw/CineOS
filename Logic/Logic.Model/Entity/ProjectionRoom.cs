@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary.EqualityComparer;
 
@@ -11,13 +9,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///     Represents a Projection Room structure within the Cinema which is capable
 	///     of holding Projections.
 	/// </summary>
-	public class ProjectionRoom : ObjectWithAssociations
+	public class ProjectionRoom : AssociatedObject
 	{
 		public ProjectionRoom(string number, Cinema cinema)
 		{
 			Number = number;
 			//	Add this Projection Room to the composition owner - Cinema.
-			this.AddAsPartOf(AssociationRole.FromProjectionRoomToCinema, AssociationRole.FromCinemaToProjectionRoom, cinema);
+			//this.AddAsPartOf(AssociationRole.FromProjectionRoomToCinema, AssociationRole.FromCinemaToProjectionRoom, cinema);
 		}
 
 		#region Properties
@@ -49,11 +47,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Cinema Cinema
 		{
-			get
-			{
-				return GetAssociations(AssociationRole.FromProjectionRoomToCinema)
-					.FirstOrDefault() as Cinema;
-			}
+			get { throw new NotImplementedException(); }
 		}
 
 		/// <summary>
@@ -61,11 +55,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public IEnumerable<Projection> Projections
 		{
-			get
-			{
-				return GetAssociations(AssociationRole.FromProjectionRoomToProjection)
-					.Cast<Projection>();
-			}
+			get { throw new NotImplementedException(); }
 		}
 
 		/// <summary>
@@ -73,11 +63,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public IEnumerable<Seat> Seats
 		{
-			get
-			{
-				return GetAssociations(AssociationRole.FromProjectionRoomToSeat)
-					.Cast<Seat>();
-			}
+			get { throw new NotImplementedException(); }
 		}
 
 		#endregion
@@ -98,7 +84,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </returns>
 		public Seat GetSeat(string rowNumber, string columnNumber)
 		{
-			return GetQualifiedAssociation(AssociationRole.FromProjectionRoomToSeat, new Tuple<string, string>(rowNumber, columnNumber), new PairComparer<string, string>()) as Seat;
+			throw new NotImplementedException();
 		}
 
 		#endregion

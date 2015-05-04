@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
 	/// <summary>
 	///     Serves as a base class for classes which will provide means of containing data about an association such as:
@@ -63,7 +63,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="secondTypeUpperAmountBoundary">Upper cardinality boundary on the side of Second Type.</param>
 		/// <param name="type1"></param>
 		/// <param name="type2"></param>
-		protected AssociationBase(Type type1, Type type2, string name, int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary)
+		protected AssociationBase(Type type1, Type type2, string name,
+			int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary,
+			int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary)
 		{
 			_type1 = type1;
 			_type2 = type2;
@@ -83,7 +85,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="upperBoundForSecondType">Upper cardinality boundary on the side of Second Type.</param>
 		/// <param name="type1"></param>
 		/// <param name="type2"></param>
-		protected AssociationBase(Type type1, Type type2, string name, int upperBoundForFirstType, int upperBoundForSecondType)
+		protected AssociationBase(Type type1, Type type2, string name,
+			int upperBoundForFirstType, int upperBoundForSecondType)
 			: this(type1, type2, name, 0, upperBoundForFirstType, 0, upperBoundForSecondType)
 		{
 		}
@@ -174,7 +177,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// </returns>
 		public Tuple<int, int, int, int> GetAmountBoundaries()
 		{
-			return new Tuple<int, int, int, int>(_firstTypeLowerAmountBoundary, _firstTypeUpperAmountBoundary, _secondTypeLowerAmountBoundary, _secondTypeUpperAmountBoundary);
+			return new Tuple<int, int, int, int>(_firstTypeLowerAmountBoundary, _firstTypeUpperAmountBoundary,
+				_secondTypeLowerAmountBoundary, _secondTypeUpperAmountBoundary);
 		}
 
 		/// <summary>
@@ -232,7 +236,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="secondTypeToCollectionOfFirstTypeDictionary"></param>
 		/// <param name="firstObject"></param>
 		/// <param name="secondObject"></param>
-		protected static void LinkObjects<T1, T2>(AssociationBase association, Dictionary<T1, List<T2>> firstTypeToCollectionOfSecondTypeDictionary,
+		protected static void LinkObjects<T1, T2>(AssociationBase association,
+			Dictionary<T1, List<T2>> firstTypeToCollectionOfSecondTypeDictionary,
 			Dictionary<T2, List<T1>> secondTypeToCollectionOfFirstTypeDictionary,
 			T1 firstObject, T2 secondObject)
 		{
@@ -286,7 +291,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 		/// <param name="secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary"></param>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		protected static List<object> GetLinkedObjects<T1, T2>(AssociationBase association, Dictionary<T1, List<T2>> firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary, Dictionary<T2, List<T1>> secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary, object obj)
+		protected static List<object> GetLinkedObjects<T1, T2>(AssociationBase association,
+			Dictionary<T1, List<T2>> firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary,
+			Dictionary<T2, List<T1>> secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary,
+			object obj)
 		{
 			if (obj == null) throw new ArgumentNullException("obj");
 
@@ -297,13 +305,17 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Associations
 
 			if (obj is T1)
 			{
-				var result = !firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary.ContainsKey((T1) obj) ? new List<object>() : firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary[(T1) obj].Cast<object>()
-					.ToList();
+				var result = !firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary.ContainsKey((T1) obj)
+					? new List<object>()
+					: firstTypeObjetsToCollectionOfSecondTypeObjectsDictionary[(T1) obj].Cast<object>()
+						.ToList();
 				return result;
 			}
 
-			return !secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary.ContainsKey((T2) obj) ? new List<object>() : secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary[(T2) obj].Cast<object>()
-				.ToList();
+			return !secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary.ContainsKey((T2) obj)
+				? new List<object>()
+				: secondTypeObjectsToCollectionOfFirstTypeObjectsDictionary[(T2) obj].Cast<object>()
+					.ToList();
 		}
 
 		#endregion

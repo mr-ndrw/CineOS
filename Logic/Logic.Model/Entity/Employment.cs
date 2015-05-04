@@ -1,5 +1,4 @@
 ﻿using System;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -8,15 +7,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Represents an employment relation ship between a Cinema and an Employee
 	///		during a certain time.
 	/// </summary>
-	public class Employment : ObjectWithAssociations
+	public class Employment : AssociatedObject
 	{
 		public Employment(Cinema cinema, Employee employee)
 		{
 			//	Create Assosciations between this and Cinema
-			AddAssociation(AssociationRole.FromEmploymentToCinema, AssociationRole.FromCinemaToEmployment, cinema);
+			throw new NotImplementedException();
 
 			//	Create Assosciations between this and Employee
-			AddAssociation(AssociationRole.FromEmploymentToEmployee, AssociationRole.FromEmployeeToEmployment, employee);
+			throw new NotImplementedException();
 		}
 
 		/// <summary>

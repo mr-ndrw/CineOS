@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Associations;
+using en.AndrewTorski.CineOS.Logic.Model.Association;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 {
 	/// <summary>
-	///     TODO COMMENT
+	///		Serves as the base class for class that come into associations with eachother.
 	/// </summary>
-	public class AssociatedObject : ObjectWithExtent
+	public class AssociatedObject : PartOfExtent
 	{
 		#region Private Fields
-
-		/// <summary>
-		///     Dictionary of Owner Object and their Part Objects pairs.
-		/// </summary>
-		private static readonly Dictionary<AssociatedObject, List<AssociatedObject>> OwnerAndPartsDictionary;
 
 		/// <summary>
 		///     Dictionary of Associations' names and their correspondent Associations.
@@ -27,8 +22,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		#region Constructors
 
-		/// <summary>
-		/// </summary>
 		protected AssociatedObject()
 		{
 		}
@@ -37,7 +30,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </summary>
 		static AssociatedObject()
 		{
-			OwnerAndPartsDictionary = new Dictionary<AssociatedObject, List<AssociatedObject>>();
 			AssociationsDictionary = new Dictionary<string, AssociationBase>();
 		}
 
@@ -77,18 +69,23 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <exception cref="ArgumentException">
 		///     Thrown if associationName is null, empty or whitespace.
 		/// </exception>
-		private static void CheckRegistrationParameters(string associationName, int firstTypeLowerAmountBoundary, int upperBoundForFirstType,
+		private static void CheckRegistrationParameters(string associationName, 
+			int firstTypeLowerAmountBoundary, int upperBoundForFirstType,
 			int lowerBoundForSecondType, int upperBoundForSecondType)
 		{
-			if (firstTypeLowerAmountBoundary < 0) throw new ArgumentOutOfRangeException("firstTypeLowerAmountBoundary", "Lower bound for first type must be greater or equal to zero.");
-			if (upperBoundForFirstType <= 0) throw new ArgumentOutOfRangeException("upperBoundForFirstType", "Lower bound for first type must be greater than zero.");
-			if (lowerBoundForSecondType < 0) throw new ArgumentOutOfRangeException("lowerBoundForSecondType", "Lower bound for first type must be greater or equal to zero.");
-			if (upperBoundForSecondType <= 0) throw new ArgumentOutOfRangeException("upperBoundForSecondType", "Lower bound for first type must be greater than zero.");
+			if (firstTypeLowerAmountBoundary < 0) throw new ArgumentOutOfRangeException("firstTypeLowerAmountBoundary", 
+				"Lower bound for first type must be greater or equal to zero.");
+			if (upperBoundForFirstType <= 0) throw new ArgumentOutOfRangeException("upperBoundForFirstType", 
+				"Lower bound for first type must be greater than zero.");
+			if (lowerBoundForSecondType < 0) throw new ArgumentOutOfRangeException("lowerBoundForSecondType", 
+				"Lower bound for first type must be greater or equal to zero.");
+			if (upperBoundForSecondType <= 0) throw new ArgumentOutOfRangeException("upperBoundForSecondType", 
+				"Lower bound for first type must be greater than zero.");
 			if (string.IsNullOrWhiteSpace(associationName))
 			{
 				throw new ArgumentException("AssociationRole name cannot be null, empty or whitespace.", "associationName");
 			}
-			if (DoesAssociationExist(associationName))
+			if (ContainsAssociation(associationName))
 			{
 				throw new AssociationOfProvidedNameAlreadyExistsException(associationName);
 			}
@@ -132,13 +129,18 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <exception cref="ArgumentException">
 		///     Thrown if associationName is null, empty or whitespace.
 		/// </exception>
-		private static StandardAssociationBase ConstructStandardAssociation<T1, T2>(string associationName, int firsTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, int lowerBoundForSecondType, int upperBoundForSecondType)
+		private static StandardAssociationBase ConstructStandardAssociation<T1, T2>(string associationName, 
+			int firsTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, 
+			int lowerBoundForSecondType, int upperBoundForSecondType)
 			where T1 : class
 			where T2 : class
 		{
-			CheckRegistrationParameters(associationName, firsTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, lowerBoundForSecondType, upperBoundForSecondType);
+			CheckRegistrationParameters(associationName, firsTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, 
+				lowerBoundForSecondType, upperBoundForSecondType);
 
-			var standardAssociation = new StandardAssociation<T1, T2>(associationName, firsTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, lowerBoundForSecondType, upperBoundForSecondType);
+			var standardAssociation = new StandardAssociation<T1, T2>(associationName, 
+				firsTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, 
+				lowerBoundForSecondType, upperBoundForSecondType);
 
 			return standardAssociation;
 		}
@@ -182,15 +184,24 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <returns>
 		///     New instance of the QualifiedAssociation class.
 		/// </returns>
-		private static QualifiedAssociationBase<TQualifier> ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierLowerAmountBoundary, int identifierUpperAmountBoundary, int identifiableLowerAmountBoundary, int identifiableUpperAmountBoundary, IEqualityComparer<TQualifier> qualifierEqualityComparer)
+		private static QualifiedAssociationBase<TQualifier> 
+			ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, 
+			int identifierLowerAmountBoundary, int identifierUpperAmountBoundary, 
+			int identifiableLowerAmountBoundary, int identifiableUpperAmountBoundary, 
+			IEqualityComparer<TQualifier> qualifierEqualityComparer)
 			where TIdentifier : class
 			where TIdentifiable : class
 		{
 			if (qualifierEqualityComparer == null) throw new ArgumentNullException("qualifierEqualityComparer");
 
-			CheckRegistrationParameters(associationName, identifierLowerAmountBoundary, identifierUpperAmountBoundary, identifiableLowerAmountBoundary, identifiableUpperAmountBoundary);
+			CheckRegistrationParameters(associationName, 
+				identifierLowerAmountBoundary, identifierUpperAmountBoundary, 
+				identifiableLowerAmountBoundary, identifiableUpperAmountBoundary);
 
-			var qualifiedAssociation = new QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, identifierLowerAmountBoundary, identifierUpperAmountBoundary, identifiableLowerAmountBoundary, identifiableUpperAmountBoundary, qualifierEqualityComparer);
+			var qualifiedAssociation = new QualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, 
+				identifierLowerAmountBoundary, identifierUpperAmountBoundary, 
+				identifiableLowerAmountBoundary, identifiableUpperAmountBoundary, 
+				qualifierEqualityComparer);
 
 			return qualifiedAssociation;
 		}
@@ -226,11 +237,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <returns>
 		///     New instance of the QualifiedAssociation class.
 		/// </returns>
-		private static QualifiedAssociationBase<TQualifier> ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, int identifierUpperAmountBoundary, int identifiableUpperAmountBoundary, IEqualityComparer<TQualifier> qualifierEqualityComparer)
+		private static QualifiedAssociationBase<TQualifier> ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(string associationName, 
+			int identifierUpperAmountBoundary, int identifiableUpperAmountBoundary, 
+			IEqualityComparer<TQualifier> qualifierEqualityComparer)
 			where TIdentifier : class
 			where TIdentifiable : class
 		{
-			return ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, 0, identifierUpperAmountBoundary, 0, identifiableUpperAmountBoundary, qualifierEqualityComparer);
+			return ConstructQualifiedAssociation<TIdentifier, TIdentifiable, TQualifier>(associationName, 0, identifierUpperAmountBoundary, 
+				0, identifiableUpperAmountBoundary, 
+				qualifierEqualityComparer);
 		}
 
 		#region Association Registration Methods
@@ -273,7 +288,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			where T1 : class
 			where T2 : class
 		{
-			var association = ConstructStandardAssociation<T1, T2>(associationName, lowerBoundForFirstType, upperBoundForFirstType, lowerBoundForSecondType, upperBoundForSecondType);
+			var association = ConstructStandardAssociation<T1, T2>(associationName, 
+				lowerBoundForFirstType, upperBoundForFirstType, 
+				lowerBoundForSecondType, upperBoundForSecondType);
 
 			AssociationsDictionary.Add(associationName, association);
 		}
@@ -340,7 +357,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		public static void Link(string associationName, AssociatedObject firstObject, AssociatedObject secondObject)
 		{
 			//	First check if such association exists. Else throw an exception.
-			if (!DoesAssociationExist(associationName))
+			if (!ContainsAssociation(associationName))
 			{
 				throw new Exception("Association of name " + associationName + " doesn't exist.");
 			}
@@ -477,7 +494,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			where TIdentifiable : class
 		{
 			//	Check if association exists, else throw exception
-			if (!DoesAssociationExist(associationName))
+			if (!ContainsAssociation(associationName))
 			{
 				throw new Exception("Association of name " + associationName + " doesn't exist.");
 			}
@@ -519,7 +536,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		public static void Link<TQualifier>(string associationName, object firstObject, object secondObject, TQualifier qualifier)
 		{
 			//	Check if it exists.
-			if (!DoesAssociationExist(associationName))
+			if (!ContainsAssociation(associationName))
 			{
 				throw new Exception("Association of name " + associationName + " doesn't exist.");
 			}
@@ -557,7 +574,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </returns>
 		public List<object> GetQualifiedLinkedObject<TQualifier>(string associationName, TQualifier qualifier)
 		{
-			if (!DoesAssociationExist(associationName))
+			if (!ContainsAssociation(associationName))
 			{
 				throw new AssociationNotFoundException(associationName);
 			}
@@ -579,6 +596,33 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		#region Composition Association Registration Methods
 
+		/// <summary>
+		///		Registers a composition in the system.
+		/// </summary>
+		/// <typeparam name="TOwner">
+		///		Object that fulfills the role of the owner in this association.
+		/// </typeparam>
+		/// <typeparam name="TPart">
+		///		Object that fills the role of the part in this association. Can only be owned by one owner.
+		/// </typeparam>
+		/// <param name="associatioName">
+		///		Name of the new Composition association.
+		/// </param>
+		/// <param name="partLowerAmountBoundary">
+		///		Lower amount boundary on the side of the part.
+		///		Should be greater or equal to 0.
+		/// </param>
+		/// <param name="partUpperAmountBoundary">
+		///		Upper amount boundary on the side of the part.
+		///		Should be greater than 0.
+		/// </param>
+		/// <remarks>
+		///		Upper and lower amount boundaries on the side of the owner are equal to 1, which is compliant with the
+		///		idea of a compositon - a part may only be owned by one owner and cannot exist without a owner.
+		/// 
+		///		Use standard Link(string,AssociatedObject,AssociatedObject) method to link objects which come into relation
+		///		within this association.
+		/// </remarks>
 		public static void RegisterComposition<TOwner, TPart>(string associatioName, int partLowerAmountBoundary, int partUpperAmountBoundary) 
 			where TOwner : class 
 			where TPart : class
@@ -589,6 +633,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			}
 
 			var composition = new Composition<TOwner, TPart>(associatioName, partLowerAmountBoundary, partUpperAmountBoundary);
+
+			AssociationsDictionary.Add(composition.Name, composition);
 		}
 
 		#endregion	//	/Composition Association Registration Methods
@@ -606,7 +652,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <returns>
 		///     Bool value.
 		/// </returns>
-		public static bool DoesAssociationExist(string associationName)
+		public static bool ContainsAssociation(string associationName)
 		{
 			return AssociationsDictionary.ContainsKey(associationName);
 		}
@@ -627,7 +673,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </returns>
 		public static Tuple<int, int, int, int> GetAmountBoundariesForAssociation(string associationName)
 		{
-			if (!DoesAssociationExist(associationName))
+			if (!ContainsAssociation(associationName))
 			{
 				return new Tuple<int, int, int, int>(-1, -1, -1, -1);
 			}
@@ -654,7 +700,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </returns>
 		public List<AssociatedObject> GetLinkedObjects(string associationName)
 		{
-			if (!DoesAssociationExist(associationName))
+			if (!ContainsAssociation(associationName))
 			{
 				throw new AssociationNotFoundException(associationName);
 			}
@@ -682,7 +728,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		}
 
 		/// <summary>
-		///     Links this AssociatedObject and the supplied AssociatedObject using the qualifier in the qualified association specified by it's name.
+		///     Links this AssociatedObject and the supplied AssociatedObject using the qualifier in the qualified association specified 
+		///		by it's name.
 		/// </summary>
 		/// <typeparam name="TQualifier">
 		///     Type of the Qualifier which is used to identify linked objects.

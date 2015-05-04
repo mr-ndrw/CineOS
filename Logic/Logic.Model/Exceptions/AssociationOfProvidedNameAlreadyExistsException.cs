@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Exceptions
 {
 	/// <summary>
 	///		An exception that is thrown when an attempt is made to register an association which already exists with provided name in associations scoppe .

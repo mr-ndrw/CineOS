@@ -18,9 +18,9 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			AssociatedObject.RegisterAssociation<TestClass1, TestClass2>("test2", 0, 10, 0, 10);
 
 			//	Assert
-			Assert.IsTrue(AssociatedObject.DoesAssociationExist("test"));
-			Assert.IsTrue(AssociatedObject.DoesAssociationExist("test1"));
-			Assert.IsTrue(AssociatedObject.DoesAssociationExist("test2"));
+			Assert.IsTrue(AssociatedObject.ContainsAssociation("test"));
+			Assert.IsTrue(AssociatedObject.ContainsAssociation("test1"));
+			Assert.IsTrue(AssociatedObject.ContainsAssociation("test2"));
 		}
 
 		[Test]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 
@@ -10,7 +9,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents a Cinema unit.
 	/// </summary>
-	public class Cinema : ObjectWithAssociations
+	public class Cinema : AssociatedObject
 	{
 
 		/// <summary>
@@ -21,7 +20,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Cinema(Region region)
 		{
-			this.AddAsPartOf(AssociationRole.FromCinemaToRegion, AssociationRole.FromRegionToCinema, region);
+			throw new NotImplementedException();
 		}
 
 		#region Properties
@@ -51,7 +50,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Region Region 
 		{
-			get { return GetAssociations(AssociationRole.FromCinemaToRegion).FirstOrDefault() as Region; }
+			get { throw new NotImplementedException(); }
 		}
 
 		/// <summary>
@@ -66,7 +65,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromCinemaToProjectionRoom).Cast<ProjectionRoom>();
+				throw new NotImplementedException();
 			}
 		}
 
@@ -77,7 +76,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromCinemaToProjection).Cast<Projection>();
+				throw new NotImplementedException();
 			}
 		}
  		 
@@ -97,7 +96,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </returns>
 		public ProjectionRoom GetProjectionRoom(string projectionRoomNumber)
 		{
-			return GetQualifiedAssociation(AssociationRole.FromCinemaToProjectionRoom, projectionRoomNumber) as ProjectionRoom;
+			throw new NotImplementedException();
 		}
 
 		/// <summary>

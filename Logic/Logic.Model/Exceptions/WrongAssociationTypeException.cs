@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Exceptions
 {
 	/// <summary>
 	///		An exception which is thrown when an attempt has been made to use certain kind of association as different kind of association.

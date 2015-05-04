@@ -1,7 +1,7 @@
-﻿using en.AndrewTorski.CineOS.Logic.Model.Associations;
+﻿using en.AndrewTorski.CineOS.Logic.Model.Association;
 using NUnit.Framework;
 
-namespace en.AndrewTorski.CineOS.Test.Experimental.Basic_Associations
+namespace en.AndrewTorski.CineOS.Test.Experimental
 {
 	[TestFixture]
 	public class StandardAssociationTest

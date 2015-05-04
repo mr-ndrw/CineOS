@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -8,7 +7,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents a physical medium on which a Film can be stored.
 	/// </summary>
-	public class Medium : ObjectWithAssociations
+	public class Medium : AssociatedObject
 	{
 		#region Private Members
 
@@ -35,7 +34,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			_storedFrom = dateFrom;
 			_storedTo = dateTo;
 
-			AddAsPartOf(AssociationRole.FromMediumToFilm, AssociationRole.FromFilmToMedium, film);
+			throw new NotImplementedException();
 		}
 
 		#region Properties
@@ -81,8 +80,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromMediumToFilm)
-					.FirstOrDefault() as Film;
+				throw new NotImplementedException();
 			}
 		}
 
@@ -96,7 +94,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			if (projection.Mediums.Count() > 2) return;
 
-			AddAssociation(AssociationRole.FromMediumToProjection, AssociationRole.FromProjectionToMedium, projection);
+			throw new NotImplementedException();
 		}
 		#endregion
 	}

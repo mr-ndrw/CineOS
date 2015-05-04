@@ -43,12 +43,12 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 
 	#region Composition Exemplary Classes
 
-	public class Owner
+	public class Owner : AssociatedObject
 	{
 		
 	}
 
-	public class Part
+	public class Part : AssociatedObject
 	{
 		
 	}

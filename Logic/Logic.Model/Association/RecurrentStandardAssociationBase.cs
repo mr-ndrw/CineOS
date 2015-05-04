@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
 	public abstract class RecurrentStandardAssociationBase : AssociationBase
 	{

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
 	/// <summary>
 	///		Provides means of containing data about an association such as: what is the associations name, what classes does it

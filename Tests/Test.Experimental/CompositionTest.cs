@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting;
-using en.AndrewTorski.CineOS.Logic.Model.Associations;
+using en.AndrewTorski.CineOS.Logic.Model.Association;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 using NUnit.Framework;
 

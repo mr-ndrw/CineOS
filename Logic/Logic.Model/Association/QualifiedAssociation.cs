@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
 	/// <summary>
 	///     Association which enables objects to interact with each other on grounds of  identification of objects.

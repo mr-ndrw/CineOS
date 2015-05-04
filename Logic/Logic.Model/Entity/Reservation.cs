@@ -6,7 +6,7 @@ using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
-	public class Reservation : ObjectWithAssociations
+	public class Reservation : AssociatedObject
 	{
 		/// <summary>
 		///		Date And Time on which this Reservation was made.
@@ -21,14 +21,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			//	Iterate over seats and associate them with this Reservation.
 			foreach (var seat in seats)
 			{
-				AddAssociation(AssociationRole.FromReservationToSeat, AssociationRole.FromSeatToReservation, seat);
+				//AddAssociation(AssociationRole.FromReservationToSeat, AssociationRole.FromSeatToReservation, seat);
 			}
 
 			//	Associate this Reservation with the Client who has made the Reservation.
-			AddAssociation(AssociationRole.FromReservationToClient, AssociationRole.FromClientToReservation, client);
+			//AddAssociation(AssociationRole.FromReservationToClient, AssociationRole.FromClientToReservation, client);
 
 			//	Compose this Reservation into Projection for which this Reservation is made.
-			this.AddAsPartOf(AssociationRole.FromReservationToProjection, AssociationRole.FromProjectionToReservation,  projection);
+			//this.AddAsPartOf(AssociationRole.FromReservationToProjection, AssociationRole.FromProjectionToReservation,  projection);
 		}
 		
 		#region Properties

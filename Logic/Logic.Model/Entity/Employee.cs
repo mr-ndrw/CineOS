@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -9,7 +8,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents an Employee entity.
 	/// </summary>
-	public class Employee : ObjectWithAssociations
+	public class Employee : AssociatedObject
 	{
 		#region Properties
 		/// <summary>
@@ -29,8 +28,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromEmployeeToEmployment)
-					.Cast<Employment>();
+				throw new NotImplementedException();
 			} 
 		}
 
@@ -41,8 +39,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromSubordinateToManager)
-					.FirstOrDefault() as Employee;
+				throw new NotImplementedException();
 
 			}
 		}
@@ -54,8 +51,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromManagerToSubordinate)
-					.Cast<Employee>();
+				throw new NotImplementedException();
 			}
 		}
 
@@ -71,7 +67,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public void AddSubordinate(Employee employee)
 		{
 			if (Manager != null) return;
-			AddAssociation(AssociationRole.FromManagerToSubordinate, AssociationRole.FromSubordinateToManager, employee);
+			throw new NotImplementedException();
 		}
 
 		#endregion

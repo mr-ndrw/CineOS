@@ -40,13 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\AssociationOfProvidedNameAlreadyExistsException.cs" />
-    <Compile Include="Associations\Composition.cs" />
-    <Compile Include="Associations\QualifiedAssociation.cs" />
-    <Compile Include="Associations\QualifiedAssociationBase.cs" />
-    <Compile Include="Associations\StandardAssociation.cs" />
-    <Compile Include="Associations\AssociationBase.cs" />
-    <Compile Include="Associations\RecurrentStandardAssociationBase.cs" />
-    <Compile Include="Associations\StandardAssociationBase.cs" />
+    <Compile Include="Association\Composition.cs" />
+    <Compile Include="Association\QualifiedAssociation.cs" />
+    <Compile Include="Association\QualifiedAssociationBase.cs" />
+    <Compile Include="Association\StandardAssociation.cs" />
+    <Compile Include="Association\AssociationBase.cs" />
+    <Compile Include="Association\RecurrentStandardAssociationBase.cs" />
+    <Compile Include="Association\StandardAssociationBase.cs" />
     <Compile Include="Exceptions\ObjectsAlreadyLinkedException.cs" />
     <Compile Include="Exceptions\WrongAssociationTypeException.cs" />
     <Compile Include="Entity\Cinema.cs" />
@@ -60,7 +60,6 @@
     <Compile Include="Entity\Region.cs" />
     <Compile Include="Entity\Reservation.cs" />
     <Compile Include="Entity\Seat.cs" />
-    <Compile Include="Enums\AssociationRole.cs" />
     <Compile Include="Exceptions\AssociationAmountBoundariesExceededException.cs" />
     <Compile Include="Exceptions\AssociationNotFoundException.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyHasManagerException.cs" />
@@ -68,12 +67,9 @@
     <Compile Include="Exceptions\TypesNotConformingWithAssociationException.cs" />
     <Compile Include="Exceptions\ObjectTypeDoesntConformAssociationTypesException.cs" />
     <Compile Include="InterfaceAndBase\AssociatedObject.cs" />
-    <Compile Include="InterfaceAndBase\IQualifierIdentifierEqualityComparer.cs" />
-    <Compile Include="InterfaceAndBase\ObjectWithAssociations.cs" />
-    <Compile Include="InterfaceAndBase\ObjectWithExtent.cs" />
+    <Compile Include="InterfaceAndBase\PartOfExtent.cs" />
     <Compile Include="Exceptions\PartAlreadyOwnedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QualifiedAsso.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">

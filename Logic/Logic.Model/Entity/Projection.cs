@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -14,7 +13,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		the presence of a reference to a Cinema object in the constructor's parameters.
 	///		This is not a composition!!!
 	/// </remarks>
-	public class Projection : ObjectWithAssociations
+	public class Projection : AssociatedObject
 	{
 
 		/// <summary>
@@ -26,7 +25,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Projection(Cinema cinema)
 		{
-			AddAssociation(AssociationRole.FromProjectionToCinema, AssociationRole.FromCinemaToProjection, cinema);
+			throw new NotImplementedException();
 		}
 
 		#region Properties
@@ -54,8 +53,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return	GetAssociations(AssociationRole.FromProjectionToProjectionRoom)
-						.FirstOrDefault() as ProjectionRoom;
+				throw new NotImplementedException();
+						
 			}
 		}
 
@@ -74,8 +73,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromProjectionToMedium)
-					.Cast<Medium>();
+				throw new NotImplementedException();
 			}
 		} 
 

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
-namespace en.AndrewTorski.CineOS.Logic.Model.Associations
+namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
 	/// <summary>
 	///		Association which strongly connects Owners and Parts allowing a Part to be linked with only one Owner.
 	///		Morever Parts cannot exist without a Owner, but that cannot be directly implemented in this class.
 	/// </summary>
-	public class Composition<TOwner, TPart> : StandardAssociationBase where TOwner : class where TPart : class
+	public class Composition<TOwner, TPart> : StandardAssociationBase 
+		where TOwner : class 
+		where TPart : class
 	{
 		#region Private Fields
 

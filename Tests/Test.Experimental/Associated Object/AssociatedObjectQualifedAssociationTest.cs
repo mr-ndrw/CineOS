@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
-using en.AndrewTorski.CineOS.Logic.Model.Associations;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using NUnit.Framework;
@@ -19,7 +18,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Qualified_Registration_Methods_Works", 1, 1, QualifierEqualityComparer);
 	
 			//	Act & Assert
-			Assert.That(AssociatedObject.DoesAssociationExist("Test_If_Qualified_Registration_Methods_Works"));
+			Assert.That(AssociatedObject.ContainsAssociation("Test_If_Qualified_Registration_Methods_Works"));
 		}
 
 		[Test]
