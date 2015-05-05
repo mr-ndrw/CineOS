@@ -1,5 +1,4 @@
-﻿using en.AndrewTorski.CineOS.Logic.Model.Enums;
-using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
+﻿using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {

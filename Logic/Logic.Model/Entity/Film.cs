@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
@@ -56,8 +57,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				return GetAssociations(AssociationRole.FromFilmToMedium)
-					.Cast<Medium>();
+				throw new NotImplementedException();
 			}
 		}
 	}

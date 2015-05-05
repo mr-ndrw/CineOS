@@ -54,4 +54,12 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 	}
 
 	#endregion
+
+	#region Attribute Association Exmplary Classes
+
+	public class TestClass1 : AssociatedObject {}
+	public class TestClass2 : AssociatedObject {}
+	public class AttributeExample {}
+
+	#endregion
 }

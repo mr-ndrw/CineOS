@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
@@ -155,6 +156,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 
 			TQualifier associationQualifier;
 
+			bool qualifierExists = false;
+
 			if (!identifierExistsInAssociation)
 			{
 				qualifiersDictionary = new Dictionary<TQualifier, TQualifier>(_qualifierEqualityComparer);
@@ -168,7 +171,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 				/*	If Upper Amount Bound on Identifiable side is greater than 1, we expect that multiple objects(up to Identifiable's Upper amount Bound)
 				 *	will be identified by the provided Qualifier.
 				 */
-				if (!(IdentifiableUpperAmountBoundary > 1) && qualifiersDictionary.ContainsKey(qualifier))
+				qualifierExists = qualifiersDictionary.ContainsKey(qualifier);
+
+				if (!qualifierExists)
+				{
+					qualifiersDictionary.Add(qualifier, qualifier);
+				}
+
+				if (!(IdentifiableUpperAmountBoundary > 1) && qualifierExists)
 				{
 					throw new InvalidQualifiedLinkingOperationException(this);
 				}
@@ -185,6 +195,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 			}
 			else
 			{
+				if (!qualifierExists)
+				{
+					_qualifierToCollectionOfIdentifiablesDictonary.Add(associationQualifier, new List<TIdentifable>());
+				}
 				identifiables = _qualifierToCollectionOfIdentifiablesDictonary[associationQualifier];
 			}
 			identifiables.Add(identifable);
@@ -201,6 +215,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 			//	First determine which object is identifier and which one is identifiable.
 			if (firstObject == null) throw new ArgumentNullException("firstObject");
 			if (secondObject == null) throw new ArgumentNullException("secondObject");
+			if (qualifierObject == null) throw new ArgumentNullException("qualifierObject");
 
 			//	First identify whether these objects conform with this AssociationRole's types.
 			if (firstObject is TIdentifier && secondObject is TIdentifable)

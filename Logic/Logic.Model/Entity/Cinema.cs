@@ -46,7 +46,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public string TelephoneNumber { get; set; }
 
 		/// <summary>
-		///		Region in which this Cinema is situated.
+		///		Region in which this Cinema is situated	.
 		/// </summary>
 		public Region Region 
 		{

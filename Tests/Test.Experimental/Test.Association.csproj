@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Associated Object\AssociatedObjectCompositionTest.cs" />
     <Compile Include="Associated Object\AssociatedObjectQualifedAssociationTest.cs" />
+    <Compile Include="AttributeAssociationTest.cs" />
     <Compile Include="CompositionTest.cs" />
     <Compile Include="StandardAssociationTest.cs" />
     <Compile Include="ExampleClasses.cs" />

@@ -231,5 +231,41 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 
 			Assert.IsTrue(foundIdentifiables2.SequenceEqual(listOfIdentifiablesForIdentifier2));
 		}
+
+		[Test]
+		public void Test_Using_Int_As_Qualifier()
+		{
+			const string associatioName = "Test_Using_Int_As_Qualifier";
+			//	Arrange
+			var identifier = new Identifier();
+			var identifiable1 = new Identifiable(){X=1};
+			var identifiable2 = new Identifiable(){X=2};
+			var identifiable3 = new Identifiable(){X=3};
+			var identifiable4 = new Identifiable(){X=4};
+
+			var qualifier1 = 1;
+			var qualifier2 = 2;
+			var qualifier3 = 3;
+			var qualifier4 = 4;
+
+			var qualifiedAssociation = new QualifiedAssociation<Identifier, Identifiable, int>(associatioName, 4, 1, EqualityComparer<int>.Default);
+
+			//	Act
+			qualifiedAssociation.Link(identifier, identifiable1, qualifier1);
+			qualifiedAssociation.Link(identifier, identifiable2, qualifier2);
+			qualifiedAssociation.Link(identifier, identifiable3, qualifier3);
+			qualifiedAssociation.Link(identifier, identifiable4, qualifier4);
+
+			//	Assert
+			var foundObjectUsingQualifier1 = qualifiedAssociation.GetQualifiedLinkedObjects(identifier, qualifier1).FirstOrDefault();
+			var foundObjectUsingQualifier2 = qualifiedAssociation.GetQualifiedLinkedObjects(identifier, qualifier2).FirstOrDefault();
+			var foundObjectUsingQualifier3 = qualifiedAssociation.GetQualifiedLinkedObjects(identifier, qualifier3).FirstOrDefault();
+			var foundObjectUsingQualifier4 = qualifiedAssociation.GetQualifiedLinkedObjects(identifier, qualifier4).FirstOrDefault();
+
+			Assert.That(foundObjectUsingQualifier1, Is.EqualTo(identifiable1));
+			Assert.That(foundObjectUsingQualifier2, Is.EqualTo(identifiable2));
+			Assert.That(foundObjectUsingQualifier3, Is.EqualTo(identifiable3));
+			Assert.That(foundObjectUsingQualifier4, Is.EqualTo(identifiable4));
+		}
 	}
 }

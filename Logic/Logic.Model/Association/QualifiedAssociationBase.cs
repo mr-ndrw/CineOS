@@ -20,22 +20,26 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		private readonly Type _qualifierType;
 
 		/// <summary>
-		/// 
+		///		Lower amount boundary on the side of the identifier.
+		///		Provides information about how little Identifiers which may be connected with one Identifiable.
 		/// </summary>
 		private readonly int _identifierLowerAmountBoundary;
 
 		/// <summary>
-		/// 
+		///		Upper amount boundary on the side of the identifier.
+		///		Provides information about how many Identifiers which may be connected with one Identifiable.
 		/// </summary>
 		private readonly int _identifierUpperAmountBoundary;
 
 		/// <summary>
-		/// 
+		///		Lower amount boundary on the side of the identifier.
+		///		Provides information about how little Identifiables may be identified using one Qualifier.
 		/// </summary>
 		private readonly int _identifiableLowerAmountBoundary;
 
 		/// <summary>
-		/// 
+		///		Upper amount boundary on the side of the identifier.
+		///		Provides information about how many Identifiables may be identified using one Qualifier.
 		/// </summary>
 		private readonly int _identifiableUpperAmountBoundary;
 

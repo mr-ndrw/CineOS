@@ -18,13 +18,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///		Dictionary composed of TOwner objects as keys and collections of TPart objects as values.
 		/// </summary>
-		private Dictionary<TOwner, List<TPart>> _ownersAndCollectionsOfPartsDictionary;
+		private readonly Dictionary<TOwner, List<TPart>> _ownersAndCollectionsOfPartsDictionary;
 
 		/// <summary>
 		///		Dictionary which is used to quickly identify if Part object already is composed into some Owner and
 		///		is also used to determine what Owner object is the owner of given Part.
 		/// </summary>
-		private Dictionary<TPart, TOwner> _partsToOwnersDictionary; 
+		private readonly Dictionary<TPart, TOwner> _partsToOwnersDictionary; 
 
 		#endregion
 		

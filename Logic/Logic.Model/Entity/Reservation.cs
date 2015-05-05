@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using en.AndrewTorski.CineOS.Logic.Model.Enums;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -51,7 +49,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Projection Projection
 		{
-			get { return GetAssociations(AssociationRole.FromReservationToProjection).FirstOrDefault() as Projection; }
+			get { throw new NotImplementedException(); }
 		}
 
 		/// <summary>
@@ -59,7 +57,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Client Client
 		{
-			get { return GetAssociations(AssociationRole.FromReservationToClient).FirstOrDefault() as Client; }
+			get { throw new NotImplementedException(); }
 		}
 
 		#endregion
