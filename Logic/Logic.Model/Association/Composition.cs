@@ -66,7 +66,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// 
 		///		If the provided object doesn't exist in the association's, method will return an empty collection.
 		/// </remarks>
-		public override List<object> GetAssociatedObjects(object obj)
+		public override List<object> GetLinkedObjects(object obj)
 		{
 			if (obj == null) throw new ArgumentNullException("obj");
 

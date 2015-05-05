@@ -11,23 +11,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		}
 
 		/// <summary>
-		///		Returns the collection of objects assocaited with provided object.
-		/// </summary>
-		/// <param name="obj">
-		///		Object for which we retrieve linked objects.
-		/// </param>
-		/// <returns>
-		///		Collection of objects.
-		/// </returns>
-		/// <remarks>
-		///		You may provide either of the types as the parametrized object. Method will recognize
-		///		what type was provided(and whether it is conforming with the association.
-		/// 
-		///		If the provided object doesn't exist in the association's, method will return an empty collection.
-		/// </remarks>
-		public abstract List<object> GetAssociatedObjects(object obj);
-
-		/// <summary>
 		///		Creates a link between two objects within this association.
 		/// </summary>
 		/// <param name="firstObject">

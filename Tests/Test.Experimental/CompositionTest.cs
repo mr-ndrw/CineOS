@@ -31,7 +31,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 			composition.Link(owner, part3);
 
 			//	Assert
-			var foundParts = composition.GetAssociatedObjects(owner);
+			var foundParts = composition.GetLinkedObjects(owner);
 
 			Assert.IsTrue(foundParts.SequenceEqual(partList));
 		}

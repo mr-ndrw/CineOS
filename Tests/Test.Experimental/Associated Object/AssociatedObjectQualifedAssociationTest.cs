@@ -32,7 +32,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			var qualifier = new Qualifier {X = 2, Y = 2};
 
 			//	Act
-			identifier.Link<Qualifier>("Test_Linking_Objects_With_Qualifier", identifiable, qualifier);
+			identifier.LinkWithQualifier<Qualifier>("Test_Linking_Objects_With_Qualifier", identifiable, qualifier);
 
 			//	Assert
 			var foundObjects = identifier.GetQualifiedLinkedObject("Test_Linking_Objects_With_Qualifier", new Qualifier { X = 2, Y = 2 });
@@ -50,7 +50,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			var qualifier = new Qualifier { X = 2, Y = 2 };
 
 			//	Act
-			identifier.Link<Qualifier>("Test_Linking_Objects_With_Qualifier_Wrong_Qualifier_Objects_Not_Found", identifiable, qualifier);
+			identifier.LinkWithQualifier<Qualifier>("Test_Linking_Objects_With_Qualifier_Wrong_Qualifier_Objects_Not_Found", identifiable, qualifier);
 
 			//	Assert
 			var foundObjects = identifier.GetQualifiedLinkedObject("Test_Linking_Objects_With_Qualifier_Wrong_Qualifier_Objects_Not_Found", new Qualifier { X = 3, Y = 2 });
@@ -90,7 +90,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			//	Act
 			try
 			{
-				identifier1.Link<Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiers", identifier2, qualifier);
+				identifier1.LinkWithQualifier<Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiers", identifier2, qualifier);
 			}
 			catch (TypesNotConformingWithAssociationException)
 			{
@@ -116,7 +116,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			//	Act
 			try
 			{
-				identifiable1.Link<Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiables", identifiable2, qualifier);
+				identifiable1.LinkWithQualifier<Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiables", identifiable2, qualifier);
 			}
 			catch (TypesNotConformingWithAssociationException)
 			{

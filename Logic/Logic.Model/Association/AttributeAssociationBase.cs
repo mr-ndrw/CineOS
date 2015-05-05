@@ -101,17 +101,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		public abstract List<Tuple<TAttribute, object>> GetLinkedAttributesAndObjects(object obj);
 
 		/// <summary>
-		///		Returns the collection of objects associated with provided object.
-		/// </summary>
-		/// <param name="obj">
-		///		Object for which we are looking for linked objects.
-		/// </param>
-		/// <returns>
-		///		Collection of objects.
-		/// </returns>
-		public abstract List<object> GetLinkedObjects(object obj);
-
-		/// <summary>
 		///		Returns a collection of all attributes for all the links created for the provided object.
 		/// </summary>
 		/// <param name="obj">

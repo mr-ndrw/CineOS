@@ -15,12 +15,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		#region Private Fields
 
 		/// <summary>
-		///     First Type registered with this AssociationRole.
+		///     First type of class registered with this AssociationRole.
 		/// </summary>
 		private readonly Type _type1;
 
 		/// <summary>
-		///     First Type registered with this AssociationRole.
+		///     Second type of class registered with this AssociationRole.
 		/// </summary>
 		private readonly Type _type2;
 
@@ -56,13 +56,27 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///     Initializes an object of association with specified name and all boundaries for parametrized types.
 		/// </summary>
-		/// <param name="name">Name of the association.</param>
-		/// <param name="firstTypeLowerAmountBoundary">Lower cardinality boundary on the side of First Type.</param>
-		/// <param name="firstTypeUpperAmountBoundary">Upper cardinality boundary on the side of First Type.</param>
-		/// <param name="secondTypeLowerAmountBoundary">Lower cardinality boundary on the side of Second Type.</param>
-		/// <param name="secondTypeUpperAmountBoundary">Upper cardinality boundary on the side of Second Type.</param>
-		/// <param name="type1"></param>
-		/// <param name="type2"></param>
+		/// <param name="name">
+		///		Name of the association.
+		/// </param>
+		/// <param name="firstTypeLowerAmountBoundary">
+		///		Lower cardinality boundary on the side of First Type.
+		/// </param>
+		/// <param name="firstTypeUpperAmountBoundary">
+		///		Upper cardinality boundary on the side of First Type.
+		/// </param>
+		/// <param name="secondTypeLowerAmountBoundary">
+		///		Lower cardinality boundary on the side of Second Type.
+		/// </param>
+		/// <param name="secondTypeUpperAmountBoundary">
+		///		Upper cardinality boundary on the side of Second Type.
+		/// </param>
+		/// <param name="type1">
+		///		Type of the first associated class.
+		/// </param>
+		/// <param name="type2">
+		///		Type of the second associated class.
+		/// </param>
 		protected AssociationBase(Type type1, Type type2, string name,
 			int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary,
 			int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary)
@@ -81,10 +95,18 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		///     ones are by default set to 0.
 		/// </summary>
 		/// <param name="name">Name of the association.</param>
-		/// <param name="upperBoundForFirstType">Upper cardinality boundary on the side of First Type.</param>
-		/// <param name="upperBoundForSecondType">Upper cardinality boundary on the side of Second Type.</param>
-		/// <param name="type1"></param>
-		/// <param name="type2"></param>
+		/// <param name="upperBoundForFirstType">
+		///		Upper cardinality boundary on the side of First Type.
+		/// </param>
+		/// <param name="upperBoundForSecondType">
+		///		Upper cardinality boundary on the side of Second Type.
+		/// </param>
+		/// <param name="type1">
+		///		Type of the first associated class.
+		/// </param>
+		/// <param name="type2">
+		///		Type of the second associated class.
+		/// </param>
 		protected AssociationBase(Type type1, Type type2, string name,
 			int upperBoundForFirstType, int upperBoundForSecondType)
 			: this(type1, type2, name, 0, upperBoundForFirstType, 0, upperBoundForSecondType)
@@ -96,8 +118,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		///     set to int.MaxValue and lower boundaries to 0.
 		/// </summary>
 		/// <param name="name">Name of the association.</param>
-		/// <param name="type1"></param>
-		/// <param name="type2"></param>
+		/// <param name="type1">
+		///		Type of the first ssociated class.
+		/// </param>
+		/// <param name="type2">
+		///		Type of the second ssociated class.
+		/// </param>
 		protected AssociationBase(Type type1, Type type2, string name)
 			: this(type1, type2, name, int.MaxValue, int.MaxValue)
 		{
@@ -116,7 +142,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		}
 
 		/// <summary>
-		///     Gets the first firstType registered with this AssociationRole.
+		///     Gets the type of the first class registered with this Association.
 		/// </summary>
 		public Type Type1
 		{
@@ -124,7 +150,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		}
 
 		/// <summary>
-		///     Gets the second firstType registered with this AssociationRole.
+		///     Gets the type of the second class registered with this Association.
 		/// </summary>
 		public Type Type2
 		{
@@ -166,6 +192,23 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		#endregion //	Properties
 
 		#region Methods
+
+		/// <summary>
+		///		Returns the collection of objects assocaited with provided object.
+		/// </summary>
+		/// <param name="obj">
+		///		Object for which we retrieve linked objects.
+		/// </param>
+		/// <returns>
+		///		Collection of objects.
+		/// </returns>
+		/// <remarks>
+		///		You may provide either of the types as the parametrized object. Method will recognize
+		///		what type was provided(and whether it is conforming with the association.
+		/// 
+		///		If the provided object doesn't exist in the association's, method will return an empty collection.
+		/// </remarks>
+		public abstract List<object> GetLinkedObjects(object obj);
 
 		/// <summary>
 		///     Returns the amount boundaries for this association in a Tuple in the following order:
@@ -230,12 +273,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///     Generic and universal method of linking the objects into dictionaries.
 		/// </summary>
-		/// <typeparam name="T1"></typeparam>
-		/// <typeparam name="T2"></typeparam>
-		/// <param name="firstTypeToCollectionOfSecondTypeDictionary"></param>
-		/// <param name="secondTypeToCollectionOfFirstTypeDictionary"></param>
-		/// <param name="firstObject"></param>
-		/// <param name="secondObject"></param>
+		/// <typeparam name="T1">
+		///		Type of the first class associated.
+		/// </typeparam>
+		/// <typeparam name="T2">
+		///		Type of the first class associated.
+		/// </typeparam>
 		protected static void LinkObjects<T1, T2>(AssociationBase association,
 			Dictionary<T1, List<T2>> firstTypeToCollectionOfSecondTypeDictionary,
 			Dictionary<T2, List<T1>> secondTypeToCollectionOfFirstTypeDictionary,

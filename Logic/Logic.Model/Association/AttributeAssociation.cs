@@ -220,26 +220,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 			return result;
 		}
 
-		/// <summary>
-		///     Returns the collection of objects associated with provided object.
-		/// </summary>
-		/// <param name="obj">
-		///     Object for which we are looking for linked objects.
-		/// </param>
-		/// <returns>
-		///     Collection of objects.
-		/// </returns>
-		public override List<object> GetLinkedObjects(object obj)
-		{
-			if (obj == null) throw new ArgumentNullException("obj");
-
-			var tupleCollectionForObject = GetLinkedAttributesAndObjects(obj);
-
-			var result = tupleCollectionForObject.Select(tuple => tuple.Item2)
-				.ToList();
-
-			return result;
-		}
 
 		/// <summary>
 		///     Returns a collection of all attributes for all the links created for the provided object.
@@ -257,6 +237,27 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 			var tupleCollectionForObject = GetLinkedAttributesAndObjects(obj);
 
 			var result = tupleCollectionForObject.Select(tuple => tuple.Item1)
+				.ToList();
+
+			return result;
+		}
+
+		/// <summary>
+		///		Returns the collection of objects associated with provided object.
+		/// </summary>
+		/// <param name="obj">
+		///		Object for which we are looking for linked objects.
+		/// </param>
+		/// <returns>
+		///		Collection of objects.
+		/// </returns>
+		public override List<object> GetLinkedObjects(object obj)
+		{
+			if (obj == null) throw new ArgumentNullException("obj");
+
+			var tupleCollectionForObject = GetLinkedAttributesAndObjects(obj);
+
+			var result = tupleCollectionForObject.Select(tuple => tuple.Item2)
 				.ToList();
 
 			return result;

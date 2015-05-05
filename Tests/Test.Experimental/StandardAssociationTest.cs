@@ -62,7 +62,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 			association.Link(obj1, obj4);
 
 			//	Assert
-			var associatedObjects = association.GetAssociatedObjects(obj1);
+			var associatedObjects = association.GetLinkedObjects(obj1);
 			Assert.IsTrue(associatedObjects.Contains(obj2));
 			Assert.IsTrue(associatedObjects.Contains(obj3));
 			Assert.IsTrue(associatedObjects.Contains(obj4));

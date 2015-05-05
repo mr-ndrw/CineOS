@@ -169,13 +169,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <returns></returns>
 		public abstract List<object> GetQualifiedLinkedObjects(object identifierObject, TQualifier qualifier);
 
-		/// <summary>
-		///		
-		/// </summary>
-		/// <param name="obj"></param>
-		/// <returns></returns>
-		public abstract List<object> GetLinkedObjects(object obj); 
-
 		#endregion
 	}
 }

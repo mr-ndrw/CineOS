@@ -22,7 +22,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	///     IMPORTANT!: Make sure that the interface IEqualityComparer for TQualifier that you will implement and
 	///     provide implements correctly GetHashCode(obj) method. By correct what is meant is that for different objects
 	/// </remarks>
-	public class QualifiedAssociation<TIdentifier, TIdentifable, TQualifier> : QualifiedAssociationBase<TQualifier>
+	public class QualifiedAssociation<TIdentifier, TIdentifable, TQualifier> 
+		: QualifiedAssociationBase<TQualifier>
 		where TIdentifier : class
 		where TIdentifable : class
 	{
@@ -292,8 +293,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 			return identifiedIdenfiables;
 		}
 
+		#endregion
+
 		/// <summary>
-		///     Returns
+		///		
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
@@ -303,6 +306,5 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 			return GetLinkedObjects(this, _identifierToIdentifiablesDictionary, _identifiableToIdentifiersDictionary, obj);
 		}
 
-		#endregion
 	}
 }
