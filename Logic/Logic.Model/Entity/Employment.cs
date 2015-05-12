@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -7,6 +8,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Represents an employment relation ship between a Cinema and an Employee
 	///		during a certain time.
 	/// </summary>
+	[DataContract]
 	public class Employment : AssociatedObject
 	{
 		public Employment(Cinema cinema, Employee employee)
@@ -17,20 +19,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			//	Create Assosciations between this and Employee
 			throw new NotImplementedException();
 		}
-
-		/// <summary>
-		///		Cinema in which the Employee was employed.
-		/// </summary>
-		public Cinema Cinema { get; set; }
-
-		/// <summary>
-		///		Employee which was employed in the Cinema.
-		/// </summary>
-		public Employee Employee { get; set; }
-
 		/// <summary>
 		///		Date of employment.
 		/// </summary>
+		[DataMember]
 		public DateTime DateOfEmployment { get; set; }
 
 		/// <summary>
@@ -39,16 +31,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <remarks>
 		///		Initially null.
 		/// </remarks>
+		[DataMember]
 		public DateTime? DateOfDischarge { get; set; }
 
 		/// <summary>
 		///		Employee's position in the Cinema.
 		/// </summary>
+		[DataMember]
 		public string Position { get; set; }
 
 		/// <summary>
 		///		Employee's salary.
 		/// </summary>
+		[DataMember]
 		public int Salary { get; set; }
 		//	TODO: remove \ lata pracy from cd diagram.
 

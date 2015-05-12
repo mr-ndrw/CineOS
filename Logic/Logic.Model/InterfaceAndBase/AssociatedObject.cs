@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.Association;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
@@ -9,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 	/// <summary>
 	///     Serves as the base class for class that come into associations with eachother.
 	/// </summary>
+	[DataContract]
 	public class AssociatedObject : PartOfExtent
 	{
 		#region Private Fields
@@ -16,6 +18,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <summary>
 		///     Dictionary of Associations' names and their correspondent Associations.
 		/// </summary>
+		[DataMember]
 		private static readonly Dictionary<string, AssociationBase> AssociationsDictionary;
 
 		#endregion //	Private Fields

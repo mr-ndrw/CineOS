@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 {
 	/// <summary>
 	///		Base class for all the classes which need quick access to all the objects of their class.
 	/// </summary>
+	[DataContract]
     public abstract class PartOfExtent
 	{
 		/// <summary>
 		///		Gets or sets the Dictionary of Key: Types and Values: Collection of objects which are of this tTpe.
 		/// </summary>
+		[DataMember]
 		public static Dictionary<Type, List<object>> ExtentDictionary { get; set; }
 
 		static PartOfExtent()

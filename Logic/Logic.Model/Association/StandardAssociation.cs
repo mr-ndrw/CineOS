@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
@@ -9,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	///		Provides means of containing data about an association such as: what is the associations name, what classes does it
 	///		associate and what are the numeric amounts and bounds for each of the classes.
 	/// </summary>
+	[DataContract]
 	public class StandardAssociation<T1, T2> : StandardAssociationBase 
 		where T1 : class 
 		where T2 : class
@@ -18,11 +20,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///		Collection of First Type objects registered with this AssociationRole.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<T1, List<T2>> _firstTypeDictionary;
 
 		/// <summary>
 		///		Collection of Second Type objects registered with this AssociationRole.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<T2, List<T1>> _secondTypeDictionary;
 
 		#endregion //	Private Fields

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary.EqualityComparer;
 
@@ -9,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///     Represents a Projection Room structure within the Cinema which is capable
 	///     of holding Projections.
 	/// </summary>
+	[DataContract]
 	public class ProjectionRoom : AssociatedObject
 	{
 		public ProjectionRoom(string number, Cinema cinema)
@@ -23,6 +25,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///     Unique identifier of the Projection Room.
 		/// </summary>
+		[DataMember]
 		public int Id { get; set; }
 
 		/// <summary>
@@ -32,6 +35,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		///     Is a a string just in case, someone would decide to use either Roman numerals
 		///     or any other numbering system.
 		/// </remarks>
+		[DataMember]
 		public string Number { get; set; }
 
 		/// <summary>
@@ -40,6 +44,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <remarks>
 		///     May be null. Type? operator doesn't work on string. Beware.
 		/// </remarks>
+		[DataMember]
 		public string Name { get; set; }
 
 		/// <summary>

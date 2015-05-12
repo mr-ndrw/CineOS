@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,7 +48,6 @@
     <Compile Include="Association\QualifiedAssociationBase.cs" />
     <Compile Include="Association\StandardAssociation.cs" />
     <Compile Include="Association\AssociationBase.cs" />
-    <Compile Include="Association\RecurrentStandardAssociationBase.cs" />
     <Compile Include="Association\StandardAssociationBase.cs" />
     <Compile Include="Exceptions\ObjectsAlreadyLinkedException.cs" />
     <Compile Include="Exceptions\WrongAssociationTypeException.cs" />

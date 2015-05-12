@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
@@ -9,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	///		Association which strongly connects Owners and Parts allowing a Part to be linked with only one Owner.
 	///		Morever Parts cannot exist without a Owner, but that cannot be directly implemented in this class.
 	/// </summary>
+	[DataContract]
 	public class Composition<TOwner, TPart> : StandardAssociationBase 
 		where TOwner : class 
 		where TPart : class
@@ -18,12 +20,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///		Dictionary composed of TOwner objects as keys and collections of TPart objects as values.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<TOwner, List<TPart>> _ownersAndCollectionsOfPartsDictionary;
 
 		/// <summary>
 		///		Dictionary which is used to quickly identify if Part object already is composed into some Owner and
 		///		is also used to determine what Owner object is the owner of given Part.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<TPart, TOwner> _partsToOwnersDictionary; 
 
 		#endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 
@@ -9,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents a Cinema unit.
 	/// </summary>
+	[DataContract]
 	public class Cinema : AssociatedObject
 	{
 
@@ -27,22 +29,26 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Unique identifier of the Cinema.
 		/// </summary>
+		[DataMember]
 		public int Id { get; set; }
 
 		/// <summary>
 		///		Name of the Cinema.
 		/// </summary>
+		[DataMember]
 		public string Name { get; set; }
 
 		/// <summary>
 		///		Address of the Cinema.
 		/// </summary>
 		/// TODO: Create Address complex class.
+		[DataMember]
 		public string Address { get; set; }
 
 		/// <summary>
 		///		Cinema's telephone number.
 		/// </summary>
+		[DataMember]
 		public string TelephoneNumber { get; set; }
 
 		/// <summary>

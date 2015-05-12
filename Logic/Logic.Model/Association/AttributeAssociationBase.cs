@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
+using System.Runtime.Serialization;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
@@ -13,6 +14,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	///		Type which will serve as the attribute in this association. Provides more information about the
 	///		relationship between two objects.
 	/// </typeparam>
+	[DataContract]
 	public abstract class AttributeAssociationBase<TAttribute> : AssociationBase
 	{
 		#region Private Fields
@@ -20,6 +22,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///		Type of the attribute.
 		/// </summary>
+		[DataMember]
 		private readonly Type _attributeType;
 
 		#endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
@@ -10,6 +11,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	///     what is the association name, what classes does it associate and what are the numeric amounts and bounds for each
 	///     of the classes.
 	/// </summary>
+	[DataContract]
 	public abstract class AssociationBase : IEquatable<AssociationBase>
 	{
 		#region Private Fields
@@ -17,36 +19,43 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///     First type of class registered with this AssociationRole.
 		/// </summary>
+		[DataMember]
 		private readonly Type _type1;
 
 		/// <summary>
 		///     Second type of class registered with this AssociationRole.
 		/// </summary>
+		[DataMember]
 		private readonly Type _type2;
 
 		/// <summary>
 		///     Name of the association.
 		/// </summary>
+		[DataMember]
 		private readonly string _name;
 
 		/// <summary>
 		///     Lower cardinality boundary on the side of First Type.
 		/// </summary>
+		[DataMember]
 		private readonly int _firstTypeLowerAmountBoundary;
 
 		/// <summary>
 		///     Upper cardinality boundary on the side of First Type.
 		/// </summary>
+		[DataMember]
 		private readonly int _firstTypeUpperAmountBoundary;
 
 		/// <summary>
 		///     Lower cardinality boundary on the side of Second Type.
 		/// </summary>
+		[DataMember]
 		private readonly int _secondTypeLowerAmountBoundary;
 
 		/// <summary>
 		///     Upper cardinality boundary on the side of Second Type.
 		/// </summary>
+		[DataMember]
 		private readonly int _secondTypeUpperAmountBoundary;
 
 		#endregion

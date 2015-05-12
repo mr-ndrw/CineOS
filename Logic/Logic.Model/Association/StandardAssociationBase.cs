@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
+	[DataContract]
 	public abstract class StandardAssociationBase : AssociationBase
 	{
 		protected StandardAssociationBase(Type type1, Type type2, string name, int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary, int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary) 

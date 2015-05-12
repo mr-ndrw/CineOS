@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -13,6 +14,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		the presence of a reference to a Cinema object in the constructor's parameters.
 	///		This is not a composition!!!
 	/// </remarks>
+	[DataContract]
 	public class Projection : AssociatedObject
 	{
 
@@ -33,17 +35,20 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Unique identifier of the Projection.
 		/// </summary>
+		[DataMember]
 		public int Id { get; set; }
 
 		/// <summary>
 		///		Get or sets the date and time of the Projection.
 		/// </summary>
+		[DataMember]
 		public DateTime DateTime { get; set; }
 
 		/// <summary>
 		///		Get or sets the duration of the whole projection in minutes.
 		/// </summary>
 		/// TODO change to film's length
+		[DataMember]
 		public int Length { get; set; }
 
 		/// <summary>

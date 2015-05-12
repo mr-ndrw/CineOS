@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
 {
@@ -9,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	/// <typeparam name="TQualifier">
 	/// 
 	/// </typeparam>
+	[DataContract]
 	public abstract class QualifiedAssociationBase<TQualifier> : AssociationBase
 	{
 
@@ -17,30 +19,35 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <summary>
 		///		TODO COMMENT
 		/// </summary>
+		[DataMember]
 		private readonly Type _qualifierType;
 
 		/// <summary>
 		///		Lower amount boundary on the side of the identifier.
 		///		Provides information about how little Identifiers which may be connected with one Identifiable.
 		/// </summary>
+		[DataMember]
 		private readonly int _identifierLowerAmountBoundary;
 
 		/// <summary>
 		///		Upper amount boundary on the side of the identifier.
 		///		Provides information about how many Identifiers which may be connected with one Identifiable.
 		/// </summary>
+		[DataMember]
 		private readonly int _identifierUpperAmountBoundary;
 
 		/// <summary>
 		///		Lower amount boundary on the side of the identifier.
 		///		Provides information about how little Identifiables may be identified using one Qualifier.
 		/// </summary>
+		[DataMember]
 		private readonly int _identifiableLowerAmountBoundary;
 
 		/// <summary>
 		///		Upper amount boundary on the side of the identifier.
 		///		Provides information about how many Identifiables may be identified using one Qualifier.
 		/// </summary>
+		[DataMember]
 		private readonly int _identifiableUpperAmountBoundary;
 
 		#endregion

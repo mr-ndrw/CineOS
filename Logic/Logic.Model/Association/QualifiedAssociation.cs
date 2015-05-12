@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 using System.Threading;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
@@ -22,6 +23,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	///     IMPORTANT!: Make sure that the interface IEqualityComparer for TQualifier that you will implement and
 	///     provide implements correctly GetHashCode(obj) method. By correct what is meant is that for different objects
 	/// </remarks>
+	[DataContract]
 	public class QualifiedAssociation<TIdentifier, TIdentifable, TQualifier> 
 		: QualifiedAssociationBase<TQualifier>
 		where TIdentifier : class
@@ -33,17 +35,20 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		///     Equality comparer for TQualifier which will help HashSet associated with TQualifier properly
 		///     administrate memory assignment.
 		/// </summary>
+		[DataMember]
 		private readonly IEqualityComparer<TQualifier> _qualifierEqualityComparer;
 
 		//	Note: Below two dictionaries exist for the sole purpose of providing us the ability to quickly retrieve linked objects.
 		/// <summary>
 		///     Dictionary of TIdentifiers and associated Collections of TIdentifiables.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<TIdentifier, List<TIdentifable>> _identifierToIdentifiablesDictionary;
 
 		/// <summary>
 		///     Dictionary of TIdentifiables and associated Collections of TIdentifiers.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<TIdentifable, List<TIdentifier>> _identifiableToIdentifiersDictionary;
 
 		/// <summary>
@@ -53,6 +58,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		///     When searching for certain TIdentifiable(s) for certain TIdenifier using TQualifier, this Dictionary serves as our
 		///     starting point.
 		/// </remarks>
+		[DataMember]
 		private readonly Dictionary<TIdentifier, Dictionary<TQualifier, TQualifier>> _identiferToDictionaryOfQualifiersDictionary;
 
 		/// <summary>
@@ -61,6 +67,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		/// <remarks>
 		///     When searching for certain TIdentifiable(s) qualified by TQualifier, this Dictionary will serve as our end point.
 		/// </remarks>
+		[DataMember]
 		private readonly Dictionary<TQualifier, List<TIdentifable>> _qualifierToCollectionOfIdentifiablesDictonary;
 
 		#endregion

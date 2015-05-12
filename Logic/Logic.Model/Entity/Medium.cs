@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -7,6 +8,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents a physical medium on which a Film can be stored.
 	/// </summary>
+	[DataContract]
 	public class Medium : AssociatedObject
 	{
 		#region Private Members
@@ -14,16 +16,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Serial number of the Medium.
 		/// </summary>
+		[DataMember]
 		private readonly string _serialNumber;
 
 		/// <summary>
 		///		Date from which this Medium is stored.
 		/// </summary>
+		[DataMember]
 		private readonly DateTime _storedFrom;
 
 		/// <summary>
 		///		Date to which this Medium is stored.
 		/// </summary>
+		[DataMember]
 		private readonly DateTime _storedTo;
 		#endregion
 
@@ -41,6 +46,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Unique identifier of the Medium.
 		/// </summary>
+		[DataMember]
 		public int Id { get; set; }
 
 		/// <summary>

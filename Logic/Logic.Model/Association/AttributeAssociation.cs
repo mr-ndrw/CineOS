@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.Exceptions;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Association
@@ -19,6 +20,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 	/// <typeparam name="T2">
 	///     Second class to associated with an attribute.
 	/// </typeparam>
+	[DataContract]
 	public class AttributeAssociation<T1, T2, TAttribute> : AttributeAssociationBase<TAttribute>
 		where T1 : class
 		where T2 : class
@@ -29,12 +31,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Association
 		///		Dictionary of links between objects of type T1 and objects of type T2 as well as
 		///		attributes for each link.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<T1, List<Tuple<TAttribute, T2>>> _firstTypeToTuplesDictionary;
 
 		/// <summary>
 		///		Dictionary of links between objects of type T2 and objects of type T1 as well as
 		///		attributes for each link.
 		/// </summary>
+		[DataMember]
 		private readonly Dictionary<T2, List<Tuple<TAttribute, T1>>> _secondTypeToTuplesDictionary;
 
 		#endregion
