@@ -18,21 +18,24 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public Reservation(Client client, Projection projection, IEnumerable<Seat> seats)
 		{
 			_dateTime = DateTime.Now;
-			
-			//	Iterate over seats and associate them with this Reservation.
-			foreach (var seat in seats)
-			{
-				//AddAssociation(AssociationRole.FromReservationToSeat, AssociationRole.FromSeatToReservation, seat);
-			}
 
-			//	Associate this Reservation with the Client who has made the Reservation.
-			//AddAssociation(AssociationRole.FromReservationToClient, AssociationRole.FromClientToReservation, client);
-
-			//	Compose this Reservation into Projection for which this Reservation is made.
-			//this.AddAsPartOf(AssociationRole.FromReservationToProjection, AssociationRole.FromProjectionToReservation,  projection);
+			Id = NextFreeId;
+			NextFreeId++;
 		}
-		
+
 		#region Properties
+
+		/// <summary>
+		///		Unique identifier of this object.
+		/// </summary>
+		[DataMember]
+		public int Id { get; private set; }
+
+		/// <summary>
+		///		Next free identifier number which will be ascribed to next newly created instance of this class.
+		/// </summary>
+		[DataMember]
+		public static int NextFreeId { get; set; }
 
 		/// <summary>
 		///		Get or sets wheter this reservation redemption status.
@@ -55,6 +58,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get { throw new NotImplementedException(); }
 		}
+
+
 
 		/// <summary>
 		///		Gets the Client for whom this Reservation was made.

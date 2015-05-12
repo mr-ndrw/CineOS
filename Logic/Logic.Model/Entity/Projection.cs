@@ -27,16 +27,23 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Projection(Cinema cinema)
 		{
-			throw new NotImplementedException();
+			Id = NextFreeId;
+			NextFreeId++;
 		}
 
 		#region Properties
-		
+
 		/// <summary>
-		///		Unique identifier of the Projection.
+		///		Unique identifier of this object.
 		/// </summary>
 		[DataMember]
-		public int Id { get; set; }
+		public int Id { get; private set; }
+
+		/// <summary>
+		///		Next free identifier number which will be ascribed to next newly created instance of this class.
+		/// </summary>
+		[DataMember]
+		public static int NextFreeId { get; set; }
 
 		/// <summary>
 		///		Get or sets the date and time of the Projection.

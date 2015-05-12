@@ -16,9 +16,22 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			//	Create Assosciations between this and Cinema
 			throw new NotImplementedException();
 
-			//	Create Assosciations between this and Employee
-			throw new NotImplementedException();
+			Id = NextFreeId;
+			NextFreeId++;
 		}
+
+		/// <summary>
+		///		Unique identifier of this object.
+		/// </summary>
+		[DataMember]
+		public int Id { get; private set; }
+
+		/// <summary>
+		///		Next free identifier number which will be ascribed to next newly created instance of this class.
+		/// </summary>
+		[DataMember]
+		public static int NextFreeId { get; set; }
+
 		/// <summary>
 		///		Date of employment.
 		/// </summary>

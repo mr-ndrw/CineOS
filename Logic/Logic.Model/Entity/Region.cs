@@ -15,14 +15,26 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	[DataContract]
 	public class Region : AssociatedObject
 	{
+		public Region()
+		{
+
+			Id = NextFreeId;
+			NextFreeId++;
+		}
+
 		#region Properties
 
 		/// <summary>
-		///		Unique identifier of the Region.
+		///		Unique identifier of this object.
 		/// </summary>
 		[DataMember]
-		public int Id { get; set; }
+		public int Id { get; private set; }
 
+		/// <summary>
+		///		Next free identifier number which will be ascribed to next newly created instance of this class.
+		/// </summary>
+		[DataMember]
+		public static int NextFreeId { get; set; }
 		/// <summary>
 		///		Name of the Region.
 		/// </summary>

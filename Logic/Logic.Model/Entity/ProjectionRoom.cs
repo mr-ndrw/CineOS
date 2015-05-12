@@ -16,17 +16,23 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public ProjectionRoom(string number, Cinema cinema)
 		{
 			Number = number;
-			//	Add this Projection Room to the composition owner - Cinema.
-			//this.AddAsPartOf(AssociationRole.FromProjectionRoomToCinema, AssociationRole.FromCinemaToProjectionRoom, cinema);
+			Id = NextFreeId;
+			NextFreeId++;
 		}
 
 		#region Properties
 
 		/// <summary>
-		///     Unique identifier of the Projection Room.
+		///		Unique identifier of this object.
 		/// </summary>
 		[DataMember]
-		public int Id { get; set; }
+		public int Id { get; private set; }
+
+		/// <summary>
+		///		Next free identifier number which will be ascribed to next newly created instance of this class.
+		/// </summary>
+		[DataMember]
+		public static int NextFreeId { get; set; }
 
 		/// <summary>
 		///     Projection room's number.
