@@ -51,5 +51,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			get { throw new NotImplementedException(); } 
 		}
 
+		public static string SeatToProjectionRoomAssociationName { get; set; }
+
+		public static string SeatToReservationAssociationName { get; set; }
+
+
 	}
 }

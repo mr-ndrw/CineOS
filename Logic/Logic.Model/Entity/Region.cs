@@ -47,7 +47,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public IEnumerable<Cinema> Cinemas
 		{
 			get { return null; }
-		} 
+		}
+
+		public static string RegionToCinemaAssociationName { get; set; }
 
 		#endregion
 

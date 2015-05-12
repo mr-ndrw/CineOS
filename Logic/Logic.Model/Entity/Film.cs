@@ -53,7 +53,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		///		Actors which star in the Film.
 		/// </summary>
 		[DataMember]
-		public string Actors { get; set; }
+		public string[] Actors { get; set; }
 
 		/// <summary>
 		///		ESRB rating of the Film.
@@ -77,5 +77,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 				throw new NotImplementedException();
 			}
 		}
+
+		public static string FilmToProjectionAssociationName { get; set; }
+
+		public static string FilmToMediumAssociationName { get; set; }
+
+		public static string FilmToClientAssociationName { get; set; }
 	}
 }

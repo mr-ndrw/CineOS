@@ -92,8 +92,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 				throw new NotImplementedException();
 			}
 		}
- 		 
+
+		public static string RegionToCinemaAssociationName { get; set; }
+
+		public static string CinemaToProjectionRoomAssociationName { get; set; }
+
+		public static string CinemaToEmployeeAssociationName { get; set; }
+
 		#endregion
+
 
 
 		#region Methods

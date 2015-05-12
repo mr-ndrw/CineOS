@@ -87,7 +87,17 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			{
 				throw new NotImplementedException();
 			}
-		} 
+		}
+
+		public static string ProjectionToProjectionRoomAssociationName { get; set; }
+
+		public static string ProjectionToEmployeeAssociatioName { get; set; }
+
+		public static string ProjectionToReservationAssociationName { get; set; }
+
+		public static string ProjectionToFilmAssociationName { get; set; }
+
+		public static string ProjectionToMediumAssociationName { get; set; }
 
 		#endregion
 

@@ -72,6 +72,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
+		public static string EmployeeToCinemaAssociationName { get; set; }
+
+		public static string EmployeeToProjectionRoomAssociationName { get; set; }
+
 		#endregion		
 
 		#region Methods

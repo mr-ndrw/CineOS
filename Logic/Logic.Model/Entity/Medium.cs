@@ -98,6 +98,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
+		public static string MediumToProjectionAssociationName { get; set; }
+
+		public static string MediumToFilmAssociationName { get; set; }
+
+
+		#endregion
+
 		/// <summary>
 		///		Assigns this Medium to given Projection by creating an association.
 		/// </summary>
@@ -110,6 +117,5 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 			throw new NotImplementedException();
 		}
-		#endregion
 	}
 }
