@@ -10,30 +10,51 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 	/// <summary>
 	///     Serves as the base class for class that come into associations with eachother.
 	/// </summary>
-	[DataContract]
-	public class AssociatedObject : PartOfExtent
+	public class AssociatedObject
 	{
-		#region Private Fields
+		public static DictionaryContainer DictionaryContainer { get; set; }
 
 		/// <summary>
-		///     Dictionary of Associations' names and their correspondent Associations.
+		///     Gets the Dictionary of Associations' names and their correspondent Associations.
 		/// </summary>
-		[DataMember]
-		private static readonly Dictionary<string, AssociationBase> AssociationsDictionary;
+		public static Dictionary<string, AssociationBase> AssociationsDictionary { get { return DictionaryContainer.AssociationsDictionary; } }
 
-		#endregion //	Private Fields
+		/// <summary>
+		///		Gets the Dictionary of Key: Types and Values: Collection of objects which are of this tTpe.
+		/// </summary>
+		public static Dictionary<Type, List<object>> ExtentDictionary { get { return DictionaryContainer.ExtentDictionary; } }
 
 		#region Constructors
 
-		protected AssociatedObject()
-		{
-		}
+		/// <summary>
+		///		Intializes a new instance of the PartOfExtent class and subscribes this object
+		///		to the Dictionary of Types and Collection of Objects of that type.
+		/// </summary>
+	    protected AssociatedObject()
+        {
+            var self = this;
+            var selfType = self.GetType();
+
+            List<object> classExtentList;
+            if (ExtentDictionary.ContainsKey(selfType))
+            {
+                classExtentList = ExtentDictionary[selfType];
+            }
+            else
+            {             
+                classExtentList = new List<object>();
+                ExtentDictionary.Add(selfType, classExtentList);
+            }
+
+            classExtentList.Add(self);
+        }
+
 
 		/// <summary>
 		/// </summary>
 		static AssociatedObject()
 		{
-			AssociationsDictionary = new Dictionary<string, AssociationBase>();
+			DictionaryContainer = new DictionaryContainer(){AssociationsDictionary =  new Dictionary<string, AssociationBase>(), ExtentDictionary = new Dictionary<Type, List<object>>()};
 		}
 
 		#endregion //	Constructors
@@ -102,6 +123,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		#region Static Methods
 
+		#region Construction Methods
 		/// <summary>
 		///     Returns initialized new instance of Association class using provided name and all boundaries for first class type
 		///     and second class type.
@@ -287,7 +309,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// </returns>
 		private static AttributeAssociationBase<TAttribute> ConstructAttributeAssociation<T1, T2, TAttribute>(string associationName,
 			int firstTypeLowerAmountBoundary, int firstTypeUpperAmountBoundary,
-			int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary) where T1 : class where T2 : class
+			int secondTypeLowerAmountBoundary, int secondTypeUpperAmountBoundary)
+			where T1 : class
+			where T2 : class
 		{
 			CheckRegistrationParameters(associationName, firstTypeLowerAmountBoundary, firstTypeUpperAmountBoundary, secondTypeLowerAmountBoundary, secondTypeUpperAmountBoundary);
 
@@ -295,9 +319,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 				secondTypeLowerAmountBoundary, secondTypeUpperAmountBoundary);
 
 			return attributeAssociaton;
-		}
+		} 
+		#endregion
 
-		#region Association Registration Methods
+		#region Standard Association
 
 		/// <summary>
 		///     Registers new AssociationRole with specified name, classes used on both ends and all amount boundaries for said
@@ -399,10 +424,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			RegisterAssociation<T1, T2>(associationName, int.MaxValue, int.MaxValue);
 		}
 
-		#endregion //	Associations Registration Methods
-
-		#region Association Link Methods
-
 		public static void Link(string associationName, AssociatedObject firstObject, AssociatedObject secondObject)
 		{
 			//	First check if such association exists. Else throw an exception.
@@ -413,24 +434,17 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			var foundAssociation = AssociationsDictionary[associationName];
 			if (!(foundAssociation is StandardAssociationBase))
 			{
-				throw new WrongAssociationTypeException(associationName, foundAssociation.GetType(), typeof (StandardAssociationBase));
+				throw new WrongAssociationTypeException(associationName, foundAssociation.GetType(), typeof(StandardAssociationBase));
 			}
 			//	Get this association from dictionary.
-			var association = (StandardAssociationBase) AssociationsDictionary[associationName];
+			var association = (StandardAssociationBase)AssociationsDictionary[associationName];
 			//	And link objects.
 			association.Link(firstObject, secondObject);
 		}
 
-		public static void Link<T1, T2>(string firstTypeRoleName, T1 firstObject, string secondTypeRoleName, T2 secondObject)
-		{
-			//	recurrent association
-		}
-
-		#endregion
+		#endregion //	Standard Association
 
 		#region Qualified Associations
-
-		#region Qualifiead Associations Registration Methods
 
 		/// <summary>
 		///     Registers a qualified association with specified name, classes used on both ends and all amount boundaries for
@@ -511,8 +525,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 			AssociationsDictionary.Add(associationName, qualifiedAssociation);
 		}
-
-		#region QUalified Association Link Methods
 
 		/// <summary>
 		///     Links two object using the qualifier in the qualified association specified by it's name.
@@ -637,13 +649,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		#endregion
 
-		#endregion
-
-		#endregion
-
 		#region Composition Association
-
-		#region Composition Association Registration Methods
 
 		/// <summary>
 		///     Registers a composition in the system.
@@ -684,8 +690,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 			AssociationsDictionary.Add(composition.Name, composition);
 		}
-
-		#endregion	//	/Composition Association Registration Methods
 
 		#endregion	// /Composition Association
 
@@ -951,6 +955,20 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		#endregion //	Static Methods
 
 		#region Methods
+
+		/// <summary>
+		///		Returns the collection of all existing objects of given type in the system.
+		/// </summary>
+		/// <returns>
+		///		Collection of objects.
+		/// </returns>
+		/// <remarks>
+		///		Returns empty collection if no such class exists in the system..
+		/// </remarks>
+		protected static IEnumerable<object> RetrieveExtentFor(Type type)
+		{
+			return !ExtentDictionary.ContainsKey(type) ? new List<object>() : ExtentDictionary[type];
+		}
 
 		/// <summary>
 		///     Returns the collection of linked objects in the specified association.

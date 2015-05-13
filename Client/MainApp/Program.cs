@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Xml;
+using en.AndrewTorski.CineOS.Logic.Model;
 using en.AndrewTorski.CineOS.Logic.Model.Entity;
+using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 
 namespace en.AndrewTorski.CineOS.Client.MainApp
@@ -8,34 +14,71 @@ namespace en.AndrewTorski.CineOS.Client.MainApp
 	{
 		static void Main(string[] args)
 		{
-			var region1 = new Region();
+			const string name = "Best Thing";
 
-		    Cinema cinema1 = new Cinema(region1) {Name = "Nice"}, cinema2 = new Cinema(region1) {Name = "Cinema2"};
+			AssociatedObject.DictionaryContainer = ReadExtents("BestThing.xml");
 
-			ProjectionRoom projectionRoom1 = new ProjectionRoom("1", cinema1), projectionRoom2 = new ProjectionRoom("2", cinema1);
-
-			var projectionRoom1InCinema1 = cinema1.GetProjectionRoom("1");
-
-			Console.WriteLine("Projection room 1 number: {0}", projectionRoom1InCinema1.Number);
-
-
-			Seat seat1 = new Seat("1", "1", projectionRoom1), seat2 = new Seat("1", "2", projectionRoom1);
-
-			var foundSeat = projectionRoom1.GetSeat("1", "1");
-
-
-			if (foundSeat != null)
-				Console.WriteLine("Found seat's row number: {0} & column number: {1}", foundSeat.RowNumber, foundSeat.ColumnNumber);
-			else
-				Console.WriteLine("Was not found... :(");
-
-
-			var fromDate = new DateTime(2015, 1, 1);
-			var toDate = new DateTime(2015, 12, 1);
-
-			Console.WriteLine("Does it work? {0}", DateTime.Now.IsBetween(fromDate, toDate));
+			Console.WriteLine("{0} exists? = {1}", name, AssociatedObject.ContainsAssociation(name));
 
 		    Console.ReadKey();
 		}
+
+		static void WriteExtents(string path, DictionaryContainer dictionaryContainer)
+		{
+			try
+			{
+				using(var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+				using (var xmlWriter = XmlDictionaryWriter.CreateTextWriter(fileStream))
+				{
+					var serializer = new NetDataContractSerializer();
+					serializer.WriteObject(xmlWriter, dictionaryContainer);
+				}
+			}
+			catch (SerializationException se)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Serialization failed");
+				Console.ForegroundColor = ConsoleColor.White;
+				Console.WriteLine(se.Message);
+				throw se;
+			}
+			catch (Exception e)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Serialization operation: {0} StackTrace: {1}", e.Message, e.StackTrace);
+				Console.ForegroundColor = ConsoleColor.White;
+			}
+		}
+
+		static DictionaryContainer ReadExtents(string path)
+		{
+			try
+			{
+				DictionaryContainer dictionaryContainer;
+				using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+				using (var xmlReader = XmlDictionaryReader.CreateTextReader(fileStream, new XmlDictionaryReaderQuotas()))
+				{
+					var objectSerializer = new NetDataContractSerializer();
+					dictionaryContainer = (DictionaryContainer)objectSerializer.ReadObject(xmlReader, true);
+				}
+
+				return dictionaryContainer;
+			}
+			catch (SerializationException se)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Serialization failed");
+				Console.ForegroundColor = ConsoleColor.White;
+				Console.WriteLine(se.Message);
+			}
+			catch (Exception e)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Serialization operation: {0} StackTrace: {1}", e.Message, e.StackTrace);
+				Console.ForegroundColor = ConsoleColor.White;
+			}
+
+			return null;
+		} 
 	}
 }

@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{067707E7-DA5E-4A41-BD98-E4D7F1EAB052}</ProjectGuid>
+    <ProjectGuid>{1F4C442C-F7BC-4171-B83D-617C00C33754}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>en.AndrewTorski.CineOS.Test.Logic.Model</RootNamespace>
-    <AssemblyName>en.AndrewTorski.CineOS.Test.Logic.Model</AssemblyName>
+    <RootNamespace>Test.Adaptation</RootNamespace>
+    <AssemblyName>Test.Adaptation</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -53,34 +50,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Entity\CinemaTest.cs" />
-    <Compile Include="Entity\Client.cs" />
-    <Compile Include="Entity\Employee.cs" />
-    <Compile Include="Entity\Employment.cs" />
-    <Compile Include="Entity\Film.cs" />
-    <Compile Include="Entity\Medium.cs" />
-    <Compile Include="Entity\Projection.cs" />
-    <Compile Include="Entity\ProjectionRoom.cs" />
-    <Compile Include="Entity\RegionTest.cs" />
-    <Compile Include="Entity\Reservation.cs" />
-    <Compile Include="Entity\Seat.cs" />
-    <Compile Include="ExtentTest.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Logic\Logic.Model\Logic.Model.csproj">
-      <Project>{14c044b2-165e-4c84-87de-347ecb1b1b42}</Project>
-      <Name>Logic.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">
-      <Project>{933d38fe-1e35-4649-b0cd-3de751fac6ac}</Project>
-      <Name>Shared.HelperLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

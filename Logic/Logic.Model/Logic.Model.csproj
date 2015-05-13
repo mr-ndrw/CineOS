@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Association\AttributeAssociation.cs" />
     <Compile Include="Association\AttributeAssociationBase.cs" />
+    <Compile Include="DictionaryContainer.cs" />
     <Compile Include="Exceptions\AssociationOfProvidedNameAlreadyExistsException.cs" />
     <Compile Include="Association\Composition.cs" />
     <Compile Include="Association\QualifiedAssociation.cs" />

@@ -56,6 +56,23 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
+		/// <summary>
+		///		Gets the collection of existing Regions in the system.
+		/// </summary>
+		public static IEnumerable<Region> Extent
+		{
+			get
+			{
+				var result = RetrieveExtentFor(typeof (Region));
+
+				return result.Cast<Region>();
+			}
+		}
+
+		/// <summary>
+		///		Get or sets Name of the Region to Cinema Association which is used
+		///		to communicate with the AssociatedObject baseclass and the Association.
+		/// </summary>
 		public static string RegionToCinemaAssociationName { get; set; }
 
 		#endregion
@@ -63,7 +80,5 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		#region Methods
 
 		#endregion
-
-
 	}
 }
