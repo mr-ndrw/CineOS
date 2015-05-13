@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
@@ -46,7 +47,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public IEnumerable<Cinema> Cinemas
 		{
-			get { return null; }
+			get
+			{
+				var result = GetLinkedObjects(RegionToCinemaAssociationName)
+					.Cast<Cinema>();
+
+				return result;
+			}
 		}
 
 		public static string RegionToCinemaAssociationName { get; set; }

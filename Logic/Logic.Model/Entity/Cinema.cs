@@ -21,6 +21,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </param>
 		public Cinema(Region region)
 		{
+			Link(CinemaToRegionAssociationName, region);
+
 			Id = NextFreeId;
 			NextFreeId++;
 		}
@@ -63,7 +65,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Region Region 
 		{
-			get { throw new NotImplementedException(); }
+			get
+			{
+				var result = GetLinkedObjects(CinemaToRegionAssociationName)
+					.FirstOrDefault();
+
+				return (Region) result;
+			}
 		}
 
 		/// <summary>
@@ -93,7 +101,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
-		public static string RegionToCinemaAssociationName { get; set; }
+		public static string CinemaToRegionAssociationName { get; set; }
 
 		public static string CinemaToProjectionRoomAssociationName { get; set; }
 
