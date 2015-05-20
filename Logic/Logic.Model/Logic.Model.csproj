@@ -42,7 +42,11 @@
   <ItemGroup>
     <Compile Include="Association\AttributeAssociation.cs" />
     <Compile Include="Association\AttributeAssociationBase.cs" />
+    <Compile Include="Association\QualifiedComposition.cs" />
     <Compile Include="DictionaryContainer.cs" />
+    <Compile Include="EntityHelpers\ProjectionRoomCoordinates.cs" />
+    <Compile Include="EntityHelpers\SeatCoordinates.cs" />
+    <Compile Include="Entity\Person.cs" />
     <Compile Include="Exceptions\AssociationOfProvidedNameAlreadyExistsException.cs" />
     <Compile Include="Association\Composition.cs" />
     <Compile Include="Association\QualifiedAssociation.cs" />

@@ -10,7 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Represents an Employee entity.
 	/// </summary>
 	[DataContract]
-	public class Employee : AssociatedObject
+	public class Employee : Person
 	{
 		public Employee()
 		{
@@ -49,29 +49,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			} 
 		}
 
-		/// <summary>
-		///		Employee's manager.
-		/// </summary>
-		public Employee Manager
-		{
-			get
-			{
-				throw new NotImplementedException();
-
-			}
-		}
-
-		/// <summary>
-		///		Employee's/Manager's subordinate Employees.
-		/// </summary>
-		public IEnumerable<Employee> Subordinates
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
-
 		public static string EmployeeToCinemaAssociationName { get; set; }
 
 		public static string EmployeeToProjectionRoomAssociationName { get; set; }
@@ -79,17 +56,6 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		#endregion		
 
 		#region Methods
-
-		public void AddToCinema(Cinema cinema)
-		{
-			new Employment(cinema, this);
-		}
-
-		public void AddSubordinate(Employee employee)
-		{
-			if (Manager != null) return;
-			throw new NotImplementedException();
-		}
 
 		#endregion
 	}

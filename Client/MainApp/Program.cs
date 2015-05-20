@@ -14,11 +14,8 @@ namespace en.AndrewTorski.CineOS.Client.MainApp
 	{
 		static void Main(string[] args)
 		{
-			const string name = "Best Thing";
+			
 
-			AssociatedObject.DictionaryContainer = ReadExtents("BestThing.xml");
-
-			Console.WriteLine("{0} exists? = {1}", name, AssociatedObject.ContainsAssociation(name));
 
 		    Console.ReadKey();
 		}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using en.AndrewTorski.CineOS.Logic.Model.EntityHelpers;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary;
 
@@ -86,7 +87,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				throw new NotImplementedException();
+				var result = GetLinkedObjects(CinemaToProjectionRoomAssociationName)
+					.Cast<ProjectionRoom>();
+				return result;
 			}
 		}
 
@@ -97,7 +100,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				throw new NotImplementedException();
+				var projectionList = new List<Projection>();
+				foreach (var projectionRoom in ProjectionRooms)
+				{
+					projectionList.AddRange(projectionRoom.Projections);
+				}
+
+				return projectionList;
 			}
 		}
 
@@ -124,7 +133,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </returns>
 		public ProjectionRoom GetProjectionRoom(string projectionRoomNumber)
 		{
-			throw new NotImplementedException();
+			var result = GetQualifiedLinkedObject(CinemaToProjectionRoomAssociationName, new ProjectionRoomCoordinates(projectionRoomNumber)).FirstOrDefault();
+
+			return (ProjectionRoom) result;
 		}
 
 		/// <summary>

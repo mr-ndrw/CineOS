@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using en.AndrewTorski.CineOS.Logic.Model.EntityHelpers;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
@@ -10,14 +13,20 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	[DataContract]
 	public class Seat : AssociatedObject
 	{
-
-		public Seat(string rowNumber, string columnNumber)
+		/// <summary>
+		///		Initializes a new instance 
+		/// </summary>
+		/// <param name="rowNumber"></param>
+		/// <param name="columnNumber"></param>
+		public Seat(string rowNumber, string columnNumber, ProjectionRoom projectionRoom)
 		{
 			RowNumber = rowNumber;
 			ColumnNumber = columnNumber;
 
 			Id = NextFreeId;
 			NextFreeId++;
+
+			LinkWithQualifier(SeatToProjectionRoomAssociationName, projectionRoom, this.SeatQualifier);
 		}
 
 		/// <summary>
@@ -47,8 +56,33 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Gets the Projection Room in which the Seat is situated.
 		/// </summary>
-		public ProjectionRoom ProjectionRoom {
-			get { throw new NotImplementedException(); } 
+		public ProjectionRoom ProjectionRoom 
+		{
+			get
+			{
+				return (ProjectionRoom) GetLinkedObjects(SeatToProjectionRoomAssociationName)
+					.FirstOrDefault();
+			} 
+		}
+
+		public IEnumerable<Reservation> Reservation
+		{
+			get
+			{
+				return GetLinkedObjects(SeatToReservationAssociationName)
+					.Cast<Reservation>();
+			}
+		} 
+
+		/// <summary>
+		///		Gets new instace of SeatQualifier for this Seat.
+		/// </summary>
+		public SeatQualifier SeatQualifier
+		{
+			get
+			{
+				return new SeatQualifier(this);
+			}
 		}
 
 		public static string SeatToProjectionRoomAssociationName { get; set; }

@@ -19,6 +19,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			_dateTime = DateTime.Now;
 
+			Link(ReserevationToClientAssociationName, client);
+			Link(ReservationToProjectionAssociationName, projection);
+
+			foreach (var seat in seats)
+			{
+				Link(ReservationToSeatAssociationName, seat);
+			}
+
+
 			Id = NextFreeId;
 			NextFreeId++;
 		}
@@ -72,6 +81,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		public static string ReservationToSeatAssociationName { get; set; }
 
 		public static string ReservationToProjectionAssociationName { get; set; }
+
+		public static string ReserevationToClientAssociationName { get; set; }
 
 		#endregion
 	}

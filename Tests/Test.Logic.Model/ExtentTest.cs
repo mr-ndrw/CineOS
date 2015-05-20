@@ -9,7 +9,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model
 	public class ExtentTest
 	{
 		[Test]
-		public void Test_If_Retrieval_Of_Class_Extent_Function()
+		public void Test_If_Retrieval_Of_Class_Extent_Functions()
 		{
 			//	Arrange
 			var region1 = new Region();
@@ -25,7 +25,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model
 			var retrievedRegionList = Region.Extent;
 
 			//	Assert
-			Assert.IsTrue(retrievedRegionList.SequenceEqual(regionList));
+			Assert.IsTrue(retrievedRegionList.Intersect(retrievedRegionList).SequenceEqual(retrievedRegionList));
 		}
 	}
 }

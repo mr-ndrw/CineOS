@@ -9,26 +9,16 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	/// <summary>
 	///		Represents a Projection entity. An event during which a film is shown.
 	/// </summary>
-	/// <remarks>
-	///		This class is associated with a one-to-many relationship with Cinema class, hence
-	///		the presence of a reference to a Cinema object in the constructor's parameters.
-	///		This is not a composition!!!
-	/// </remarks>
 	[DataContract]
 	public class Projection : AssociatedObject
 	{
 
-		/// <summary>
-		///		Initializes a new instance of the Projection class using the mandatory refererence
-		///		to the Cinema.
-		/// </summary>
-		/// <param name="cinema">
-		///		Reference to the Cinema in which the Projection takes place.
-		/// </param>
-		public Projection(Cinema cinema)
+		public Projection(ProjectionRoom projectionRoom)
 		{
 			Id = NextFreeId;
 			NextFreeId++;
+
+			Link(ProjectionToProjectionRoomAssociationName, projectionRoom);
 		}
 
 		#region Properties
@@ -65,8 +55,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get
 			{
-				throw new NotImplementedException();
-						
+				return (ProjectionRoom) GetLinkedObjects(ProjectionToProjectionRoomAssociationName)
+					.FirstOrDefault();
+
 			}
 		}
 
@@ -83,11 +74,29 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public IEnumerable<Medium> Mediums
 		{
+			get { return GetLinkedObjects(ProjectionToMediumAssociationName).Cast<Medium>(); }
+		}
+
+		/// <summary>
+		///		Gets the Film which will be viewed on this Projection.
+		/// </summary>
+		public Film Film 
+		{
 			get
 			{
-				throw new NotImplementedException();
+				return (Film) GetLinkedObjects(ProjectionToFilmAssociationName)
+					.FirstOrDefault();
 			}
 		}
+
+		public IEnumerable<Reservation> Reservations
+		{
+			get
+			{
+				return GetLinkedObjects(ProjectionToReservationAssociationName)
+					.Cast<Reservation>();
+			}
+		} 
 
 		public static string ProjectionToProjectionRoomAssociationName { get; set; }
 

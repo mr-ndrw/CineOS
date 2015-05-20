@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace en.AndrewTorski.CineOS.Test.Logic.Model.Entity
 {
-	class Seat
+	class EmploymentTest
 	{
 	}
 }

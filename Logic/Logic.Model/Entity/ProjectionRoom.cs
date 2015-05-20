@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using en.AndrewTorski.CineOS.Logic.Model.EntityHelpers;
 using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 using en.AndrewTorski.CineOS.Shared.HelperLibrary.EqualityComparer;
 
@@ -18,7 +20,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			Number = number;
 			Id = NextFreeId;
 			NextFreeId++;
+
+			LinkWithQualifier(ProjectionRoomToCinemaAssociationName, cinema, this.Coordinates);
 		}
+
 
 		#region Properties
 
@@ -58,23 +63,31 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </summary>
 		public Cinema Cinema
 		{
-			get { throw new NotImplementedException(); }
+			get { return (Cinema) GetLinkedObjects(ProjectionRoomToCinemaAssociationName).FirstOrDefault(); }
 		}
 
 		/// <summary>
-		///     Collection of Projections which take place in this Projection Room.
+		///     Gets the collection of Projections which take place in this Projection Room.
 		/// </summary>
 		public IEnumerable<Projection> Projections
 		{
-			get { throw new NotImplementedException(); }
+			get { return GetLinkedObjects(ProjectionRoomToProjectionAssociationName).Cast<Projection>(); }
 		}
 
 		/// <summary>
-		///     Seats situated in this Projection Room.
+		///     Gets the collection of Seats situated in this Projection Room.
 		/// </summary>
 		public IEnumerable<Seat> Seats
 		{
-			get { throw new NotImplementedException(); }
+			get { return GetLinkedObjects(ProjectionRoomToSeatAssociationName).Cast<Seat>(); }
+		}
+
+		public ProjectionRoomCoordinates Coordinates
+		{
+			get
+			{
+				return new ProjectionRoomCoordinates(this);
+			}
 		}
 
 		#endregion
@@ -82,7 +95,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		#region Methods
 
 		/// <summary>
-		///     Returns the Seat contained in this Projection Room based on the Seat's row number and column number.
+		///     Returns the Seat contained in this Projection Room based on the Seat's specified row number and specified column number.
 		/// </summary>
 		/// <param name="rowNumber">
 		///     Seat's row number.
@@ -91,11 +104,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		///		Seat's column number.
 		/// </param>
 		/// <returns>
-		///     Returns reference to found Projection Room or null if no such Room was found.
+		///     Returns reference to found Seat or null if no such Seat was found.
 		/// </returns>
 		public Seat GetSeat(string rowNumber, string columnNumber)
 		{
-			throw new NotImplementedException();
+			return (Seat) GetQualifiedLinkedObject(ProjectionRoomToSeatAssociationName, new SeatQualifier(rowNumber, columnNumber)).FirstOrDefault();
 		}
 
 		public static string ProjectionRoomToCinemaAssociationName { get; set; }

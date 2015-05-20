@@ -54,16 +54,16 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entity\CinemaTest.cs" />
-    <Compile Include="Entity\Client.cs" />
-    <Compile Include="Entity\Employee.cs" />
-    <Compile Include="Entity\Employment.cs" />
-    <Compile Include="Entity\Film.cs" />
-    <Compile Include="Entity\Medium.cs" />
-    <Compile Include="Entity\Projection.cs" />
-    <Compile Include="Entity\ProjectionRoom.cs" />
+    <Compile Include="Entity\ClientTest.cs" />
+    <Compile Include="Entity\EmployeeTest.cs" />
+    <Compile Include="Entity\EmploymentTest.cs" />
+    <Compile Include="Entity\FilmTest.cs" />
+    <Compile Include="Entity\MediumTest.cs" />
+    <Compile Include="Entity\ProjectionTest.cs" />
+    <Compile Include="Entity\ProjectionRoomTest.cs" />
     <Compile Include="Entity\RegionTest.cs" />
-    <Compile Include="Entity\Reservation.cs" />
-    <Compile Include="Entity\Seat.cs" />
+    <Compile Include="Entity\ReservationTest.cs" />
+    <Compile Include="Entity\SeatTest.cs" />
     <Compile Include="ExtentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
