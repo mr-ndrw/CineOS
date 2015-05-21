@@ -48,6 +48,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		[DataMember]
 		public string Genre { get; set; }
 
+        /// <summary>
+        ///     Url of the poster. May be either web based or system file based.
+        /// </summary>
+        [DataMember]
+	    public string PosterUrl { get; set; }
+
 		/// <summary>
 		///     Actors which star in the Film.
 		/// </summary>
@@ -79,15 +85,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		}
 
 		/// <summary>
-		///     Gets the Projection on which this Film is shown.
+		///     Gets the Collection of Projections on which this Film is shown.
 		/// </summary>
-		public Projection Projection
+		public IEnumerable<Projection> Projection
 		{
-			get
-			{
-				return (Projection) GetLinkedObjects(FilmToProjectionAssociationName)
-					.FirstOrDefault();
-			}
+			get { return GetLinkedObjects(FilmToProjectionAssociationName).Cast<Projection>(); }
 		}
 
 		public IEnumerable<int> CumulativeRatings
@@ -103,6 +105,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		{
 			get { return GetLinkedAttributesAndObjects<int>(FilmToClientAssociationName).Cast<Tuple<int, Client>>(); }
 		}
+
+        /// <summary>
+        ///		Gets the collection of existing Films in the system.
+        /// </summary>
+	    public static IEnumerable<Film> Extent 
+        {
+	        get
+	        {
+                var result = RetrieveExtentFor(typeof(Film));
+
+                return result.Cast<Film>();
+	        }
+	    }
 
 		public static string FilmToProjectionAssociationName { get; set; }
 

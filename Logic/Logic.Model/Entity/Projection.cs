@@ -13,12 +13,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	public class Projection : AssociatedObject
 	{
 
-		public Projection(ProjectionRoom projectionRoom)
+		public Projection(ProjectionRoom projectionRoom, Film film, DateTime dateTime)
 		{
 			Id = NextFreeId;
 			NextFreeId++;
 
+		    DateTime = dateTime;
+
 			Link(ProjectionToProjectionRoomAssociationName, projectionRoom);
+            Link(ProjectionToFilmAssociationName, film);
 		}
 
 		#region Properties

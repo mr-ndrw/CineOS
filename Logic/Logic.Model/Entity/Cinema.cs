@@ -141,19 +141,36 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// <summary>
 		///		Returns the collection of Projections from the given date span.
 		/// </summary>
-		/// <param name="fromDate">
-		///		From DateTime.
-		/// </param>
-		/// <param name="toDate">
-		///		To DateTime
-		/// </param>
-		/// <returns>
-		///		Collection of Projections.
-		/// </returns>
 		public IEnumerable<Projection> GetProjections(DateTime fromDate, DateTime toDate)
 		{
 			return Projections.Where(projection => projection.DateTime.IsBetween(fromDate, toDate));
 		}
+
+	    ///  <summary>
+	    /// 		Returns the collection of Projections from the given date span for specified Film.
+	    ///  </summary>
+	    public IEnumerable<Projection> GetProjectionsFor(Film film, DateTime fromDate, DateTime toDate)
+        {
+            //  TODO Try with Distinct() and without.
+            return Projections.Where(projection => projection.DateTime.IsBetween(fromDate, toDate)).Where(projection => projection.Film == film).Distinct();
+        }
+
+
+        /// <summary>
+        ///     Gets the collection of Films that will be viewed in this Cinema.
+        /// </summary>
+	    public IEnumerable<Film> FilmsThatWillBeViewed
+	    {
+	        get
+	        {
+	            var now = DateTime.Now;
+                //  TODO There will be an issue with uniqueness of return films. Fix it.
+                //  TODO Will Distinct() fix it?
+	            return
+	                Projections.Where(projection => projection.DateTime >= now)
+	                    .Select(projection => projection.Film).Distinct();
+	        }
+	    } 
 
 		/// <summary>
 		///		Returns the collection of Projections for this Cinema for the next week.
@@ -168,6 +185,19 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 			return Projections.Where(projection => projection.DateTime.IsBetween(nowDateTime, nextWeekDateTime));
 		}
+
+        /// <summary>
+        ///		Gets the collection of existing Cinemas in the system.
+        /// </summary>
+        public static IEnumerable<Cinema> Extent
+        {
+            get
+            {
+                var result = RetrieveExtentFor(typeof(Cinema));
+
+                return result.Cast<Cinema>();
+            }
+        }
 
 		public void AddEmployee(Employee employee)
 		{

@@ -1,35 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using en.AndrewTorski.CineOS.Logic.Core.ViewModels;
 
 namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService.Controllers
 {
-    public class RegionsController : ApiController
+    public class RegionsController : CineOsController
     {
-        // GET: api/Regions
-        public IEnumerable<string> Get()
+
+        [Route("api/regions")]
+        [HttpGet]
+        public IEnumerable<RegionViewModel> GetRegions()
         {
-            return new string[] { "value1", "value2" };
+            var result = CineOsServices.GetRegions();
+            return result;
         }
 
-        // GET: api/Regions/5
-        public string Get(int id)
+        [Route("api/region/{id}/cinemas")]
+        [HttpGet]
+        public IEnumerable<CinemaViewModel> GetCinemasFor(int id)
         {
-            return "value";
+            var result = CineOsServices.GetCinemasFor(new RegionViewModel{Id=id});
+            return result;
         }
-
-        // POST: api/Regions
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Regions/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Regions/5
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
