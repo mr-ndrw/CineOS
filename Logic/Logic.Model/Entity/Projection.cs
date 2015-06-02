@@ -10,7 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Represents a Projection entity. An event during which a film is shown.
 	/// </summary>
 	[DataContract]
-	public class Projection : AssociatedObject
+	public class Projection : BusinessObject
 	{
 
 		public Projection(ProjectionRoom projectionRoom, Film film, DateTime dateTime)
@@ -99,9 +99,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 				return GetLinkedObjects(ProjectionToReservationAssociationName)
 					.Cast<Reservation>();
 			}
-		} 
+		}
 
-		public static string ProjectionToProjectionRoomAssociationName { get; set; }
+	    public static IEnumerable<Projection> Extent
+	    {
+	        get { return RetrieveExtentFor(typeof (Region)).Cast<Projection>(); }
+	    }
+
+	    public static string ProjectionToProjectionRoomAssociationName { get; set; }
 
 		public static string ProjectionToEmployeeAssociatioName { get; set; }
 
@@ -114,7 +119,23 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		#endregion
 
 		#region Methods
-		
+
+	    public IEnumerable<Seat> GetSeatsInProjectionRoom()
+	    {
+	        return ProjectionRoom.Seats;
+	    }
+
+	    public IEnumerable<Seat> GetSeatsReserved()
+	    {
+	        var result = new List<Seat>();
+	        foreach (var reservation in Reservations)
+	        {
+	            result.AddRange(reservation.ReservedSeats);
+	        }
+
+	        return result;
+	    } 
+
 		#endregion
 
 	}

@@ -3,8 +3,8 @@ using NUnit.Framework;
 
 namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 {
-	internal class TestClass1 : AssociatedObject { }
-	internal class TestClass2 : AssociatedObject { }
+	internal class TestClass1 : BusinessObject { }
+	internal class TestClass2 : BusinessObject { }
 
 	[TestFixture]
 	public class AssociatedObjectTest
@@ -13,14 +13,14 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 		public void Test_If_Associations_Are_Registered_Correctly()
 		{
 			//	Act
-			AssociatedObject.RegisterAssociation<TestClass1, TestClass2>("test");
-			AssociatedObject.RegisterAssociation<TestClass1, TestClass2>("test1", 10, 10);
-			AssociatedObject.RegisterAssociation<TestClass1, TestClass2>("test2", 0, 10, 0, 10);
+			BusinessObject.RegisterAssociation<TestClass1, TestClass2>("test");
+			BusinessObject.RegisterAssociation<TestClass1, TestClass2>("test1", 10, 10);
+			BusinessObject.RegisterAssociation<TestClass1, TestClass2>("test2", 0, 10, 0, 10);
 
 			//	Assert
-			Assert.IsTrue(AssociatedObject.ContainsAssociation("test"));
-			Assert.IsTrue(AssociatedObject.ContainsAssociation("test1"));
-			Assert.IsTrue(AssociatedObject.ContainsAssociation("test2"));
+			Assert.IsTrue(BusinessObject.ContainsAssociation("test"));
+			Assert.IsTrue(BusinessObject.ContainsAssociation("test1"));
+			Assert.IsTrue(BusinessObject.ContainsAssociation("test2"));
 		}
 
 		[Test]
@@ -31,10 +31,10 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			const string associationName = "test3";
 
 			//	Act
-			AssociatedObject.RegisterAssociation<TestClass1, TestClass2>(associationName, lowerFirst, upperFirst, lowerSecond, upperSecond);
+			BusinessObject.RegisterAssociation<TestClass1, TestClass2>(associationName, lowerFirst, upperFirst, lowerSecond, upperSecond);
 
 
-			var tuple = AssociatedObject.GetAmountBoundariesForAssociation(associationName);
+			var tuple = BusinessObject.GetAmountBoundariesForAssociation(associationName);
 
 			//	Assert
 			Assert.That(tuple.Item1, Is.EqualTo(lowerFirst));
@@ -50,7 +50,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			const string associationName = "test4";
 			var test1 = new TestClass1();
 			var test2 = new TestClass2();
-			AssociatedObject.RegisterAssociation<TestClass1, TestClass2>(associationName);
+			BusinessObject.RegisterAssociation<TestClass1, TestClass2>(associationName);
 
 			//	Act
 			test1.Link(associationName, test2);

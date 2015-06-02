@@ -14,7 +14,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		May be either geographical or political.
 	/// </remarks>
 	[DataContract]
-	public class Region : AssociatedObject
+	public class Region : BusinessObject
 	{
 		public Region()
 		{
@@ -71,7 +71,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 		/// <summary>
 		///		Get or sets Name of the Region to Cinema Association which is used
-		///		to communicate with the AssociatedObject baseclass and the Association.
+		///		to communicate with the BusinessObject baseclass and the Association.
 		/// </summary>
 		public static string RegionToCinemaAssociationName { get; set; }
 

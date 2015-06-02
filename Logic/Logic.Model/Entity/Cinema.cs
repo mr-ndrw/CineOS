@@ -12,7 +12,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Represents a Cinema unit.
 	/// </summary>
 	[DataContract]
-	public class Cinema : AssociatedObject
+	public class Cinema : BusinessObject
 	{
 		/// <summary>
 		///		Creates a Cinema in the parametrized Region.
@@ -152,9 +152,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	    public IEnumerable<Projection> GetProjectionsFor(Film film, DateTime fromDate, DateTime toDate)
         {
             //  TODO Try with Distinct() and without.
-            return Projections.Where(projection => projection.DateTime.IsBetween(fromDate, toDate)).Where(projection => projection.Film == film).Distinct();
+            return  Projections .Where(projection => 
+                                        projection.DateTime.IsBetween(fromDate, toDate))
+                                .Where(projection => 
+                                        projection.Film == film)
+                                .Distinct();
         }
-
 
         /// <summary>
         ///     Gets the collection of Films that will be viewed in this Cinema.

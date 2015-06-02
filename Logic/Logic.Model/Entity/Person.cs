@@ -9,7 +9,7 @@ using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 {
 	[DataContract]
-	public abstract class Person : AssociatedObject
+	public abstract class Person : BusinessObject
 	{
 		[DataMember]
 		public string Name { get; set; }

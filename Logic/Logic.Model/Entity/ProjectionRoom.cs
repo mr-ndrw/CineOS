@@ -13,7 +13,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///     of holding Projections.
 	/// </summary>
 	[DataContract]
-	public class ProjectionRoom : AssociatedObject
+	public class ProjectionRoom : BusinessObject
 	{
 		public ProjectionRoom(string number, Cinema cinema)
 		{
@@ -48,6 +48,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </remarks>
 		[DataMember]
 		public string Number { get; set; }
+
+        [DataMember]
+        public int RowCount { get; set; }
+
+        [DataMember]
+	    public int ColumnCount { get; set; }
 
 		/// <summary>
 		///     Projection room's name.

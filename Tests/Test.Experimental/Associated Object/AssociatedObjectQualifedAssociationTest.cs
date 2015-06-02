@@ -15,17 +15,17 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 		public void Test_If_Qualified_Registration_Methods_Works()
 		{
 			//	Arrange
-			AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Qualified_Registration_Methods_Works", 1, 1, QualifierEqualityComparer);
+			BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Qualified_Registration_Methods_Works", 1, 1, QualifierEqualityComparer);
 	
 			//	Act & Assert
-			Assert.That(AssociatedObject.ContainsAssociation("Test_If_Qualified_Registration_Methods_Works"));
+			Assert.That(BusinessObject.ContainsAssociation("Test_If_Qualified_Registration_Methods_Works"));
 		}
 
 		[Test]
 		public void Test_Linking_Objects_With_Qualifier()
 		{
 			//	Arrange
-			AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_Linking_Objects_With_Qualifier", 1, 1, QualifierEqualityComparer);
+			BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_Linking_Objects_With_Qualifier", 1, 1, QualifierEqualityComparer);
 
 			var identifier = new Identifier();
 			var identifiable = new Identifiable {X = 2, Y = 2};
@@ -43,7 +43,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 		public void Test_Linking_Objects_With_Qualifier_Wrong_Qualifier_Objects_Not_Found()
 		{
 			//	Arrange
-			AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_Linking_Objects_With_Qualifier_Wrong_Qualifier_Objects_Not_Found", 1, 1, QualifierEqualityComparer);
+			BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_Linking_Objects_With_Qualifier_Wrong_Qualifier_Objects_Not_Found", 1, 1, QualifierEqualityComparer);
 
 			var identifier = new Identifier();
 			var identifiable = new Identifiable { X = 2, Y = 2 };
@@ -64,8 +64,8 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			var wasExceptionThrown = false;
 			try
 			{
-				AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Exception_Is_Thrown_Upon_Registering_Association_Of_Already_Existing_Name", 1, 1, QualifierEqualityComparer);
-				AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Exception_Is_Thrown_Upon_Registering_Association_Of_Already_Existing_Name", 1, 1, QualifierEqualityComparer);
+				BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Exception_Is_Thrown_Upon_Registering_Association_Of_Already_Existing_Name", 1, 1, QualifierEqualityComparer);
+				BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_Exception_Is_Thrown_Upon_Registering_Association_Of_Already_Existing_Name", 1, 1, QualifierEqualityComparer);
 			}
 			catch (AssociationOfProvidedNameAlreadyExistsException)
 			{
@@ -79,7 +79,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 		public void Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiers()
 		{
 			//	Arrange
-			AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiers", 1, 1, QualifierEqualityComparer);
+			BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiers", 1, 1, QualifierEqualityComparer);
 
 			var identifier1 = new Identifier();
 			var identifier2 = new Identifier();
@@ -105,7 +105,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 		public void Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiables()
 		{
 			//	Arrange
-			AssociatedObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiables", 1, 1, QualifierEqualityComparer);
+			BusinessObject.RegisterQualifiedAssociation<Identifier, Identifiable, Qualifier>("Test_If_TypesNotConformingWithAssociationException_Is_Thrown_Upon_Linking_Two_Identifiables", 1, 1, QualifierEqualityComparer);
 
 			var identifiable1 = new Identifier();
 			var identifiable2 = new Identifier();

@@ -20,7 +20,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 
 			//	Act
 			//	Many to many
-			AssociatedObject.RegisterAttributeAssociation<TestClass1, TestClass2, AttributeExample>(associationName);
+			BusinessObject.RegisterAttributeAssociation<TestClass1, TestClass2, AttributeExample>(associationName);
 			firstObject.LinkWithAttribute(associationName, secondObject, attribute);
 
 			//	Assert

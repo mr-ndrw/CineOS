@@ -10,7 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///     Represents a Film entity.
 	/// </summary>
 	[DataContract]
-	public class Film : AssociatedObject
+	public class Film : BusinessObject
 	{
 		public Film()
 		{

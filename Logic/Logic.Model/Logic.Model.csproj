@@ -73,8 +73,7 @@
     <Compile Include="Exceptions\InvalidQualifiedLinkingOperationException.cs" />
     <Compile Include="Exceptions\TypesNotConformingWithAssociationException.cs" />
     <Compile Include="Exceptions\ObjectTypeDoesntConformAssociationTypesException.cs" />
-    <Compile Include="InterfaceAndBase\AssociatedObject.cs" />
-    <Compile Include="InterfaceAndBase\PartOfExtent.cs" />
+    <Compile Include="InterfaceAndBase\BusinessObject.cs" />
     <Compile Include="Exceptions\PartAlreadyOwnedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

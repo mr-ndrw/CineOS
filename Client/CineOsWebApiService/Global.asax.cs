@@ -21,15 +21,15 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService
         {
             var regionCinemaAssociationName = "RCC";
             Region.RegionToCinemaAssociationName = Cinema.CinemaToRegionAssociationName = regionCinemaAssociationName;
-            AssociatedObject.RegisterComposition<Region, Cinema>(regionCinemaAssociationName, 0, int.MaxValue);
+            BusinessObject.RegisterComposition<Region, Cinema>(regionCinemaAssociationName, 0, int.MaxValue);
 
             var region1 = new Region {Name = "Nice region"};
             var region2 = new Region {Name = "Best region"};
             var region3 = new Region {Name = "Smelly region"};
             var region4 = new Region {Name = "Hello region"};
 
-            var cinema1 = new Cinema(region1){Address = "Placeholder", Name = "Hello1"};
-            var cinema2 = new Cinema(region1) { Address = "Placeholder", Name = "Hello2" };
+            var cinema1 = new Cinema(region1){Address = "227 E 17th St, NYC", Name = "Odeon"};
+            var cinema2 = new Cinema(region1) { Address = "223 Sunshine BLVD, LA", Name = "West Best Cinema" };
             var cinema3 = new Cinema(region2) { Address = "Placeholder", Name = "Hello3" };
             var cinema4 = new Cinema(region2) { Address = "Placeholder", Name = "Hello4" };
             var cinema5 = new Cinema(region3) { Address = "Placeholder", Name = "Hello5" };
@@ -40,7 +40,7 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService
             Cinema.CinemaToProjectionRoomAssociationName =
                 ProjectionRoom.ProjectionRoomToCinemaAssociationName = cinemaProjectionRoomAssociatioName;
 
-            AssociatedObject.RegisterQualifiedAssociation<Cinema, ProjectionRoom, ProjectionRoomCoordinates>
+            BusinessObject.RegisterQualifiedAssociation<Cinema, ProjectionRoom, ProjectionRoomCoordinates>
                 (cinemaProjectionRoomAssociatioName, 0, 1, 0, 1, ProjectionRoomCoordinates.EqualityComparer);
 
             var pr1 = new ProjectionRoom("1", cinema1);
@@ -56,7 +56,7 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService
             ProjectionRoom.ProjectionRoomToSeatAssociationName =
                 Seat.SeatToProjectionRoomAssociationName = projectionRoomSeatAssociationName;
 
-            AssociatedObject.RegisterQualifiedAssociation<ProjectionRoom, Seat, SeatQualifier>(projectionRoomSeatAssociationName, 1, 1, SeatQualifier.EqualityComparer);
+            BusinessObject.RegisterQualifiedAssociation<ProjectionRoom, Seat, SeatQualifier>(projectionRoomSeatAssociationName, 1, 1, SeatQualifier.EqualityComparer);
 
             var seat111 = new Seat("1", "1", pr1);
             var seat121 = new Seat("1", "2", pr1);
@@ -123,13 +123,13 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService
             Projection.ProjectionToProjectionRoomAssociationName =
                 ProjectionRoom.ProjectionRoomToProjectionAssociationName = projectionProjectionRoomAssociationName;
 
-            AssociatedObject.RegisterAssociation<Projection, ProjectionRoom>(projectionProjectionRoomAssociationName, int.MaxValue, 1);
+            BusinessObject.RegisterAssociation<Projection, ProjectionRoom>(projectionProjectionRoomAssociationName, int.MaxValue, 1);
 
             var filmToProjectionRoomAssociationName = "FPR";
             Film.FilmToProjectionAssociationName =
                 Projection.ProjectionToFilmAssociationName = filmToProjectionRoomAssociationName;
 
-            AssociatedObject.RegisterAssociation<Film, Projection>(filmToProjectionRoomAssociationName, 0, 1, 0, int.MaxValue);
+            BusinessObject.RegisterAssociation<Film, Projection>(filmToProjectionRoomAssociationName, 0, 1, 0, int.MaxValue);
 
             new Projection(pr1, film2, now);
             new Projection(pr1, film3, now);

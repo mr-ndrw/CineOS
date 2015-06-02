@@ -45,6 +45,7 @@
     <Compile Include="ViewModels\FilmViewModel.cs" />
     <Compile Include="ViewModels\ProjectionViewModel.cs" />
     <Compile Include="ViewModels\RegionViewModel.cs" />
+    <Compile Include="ViewModels\SeatViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logic.Model\Logic.Model.csproj">

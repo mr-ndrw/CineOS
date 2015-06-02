@@ -16,7 +16,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model.Entity
 				.Name;
 
 			//	Todo Overload RegisterComposition<,> with default amount boundaries.
-			AssociatedObject.RegisterComposition<Region, Cinema>(associationName, 0, int.MaxValue);
+			BusinessObject.RegisterComposition<Region, Cinema>(associationName, 0, int.MaxValue);
 
 			Cinema.CinemaToRegionAssociationName = Region.RegionToCinemaAssociationName = associationName;
 

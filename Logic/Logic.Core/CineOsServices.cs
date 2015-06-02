@@ -16,14 +16,18 @@ namespace en.AndrewTorski.CineOS.Logic.Core
             return Region.Extent.Select(region => new RegionViewModel(region));
         }
 
+        public IEnumerable<CinemaViewModel> GetCinemas()
+        {
+            return Cinema.Extent.Select(cinema => new CinemaViewModel(cinema));
+        } 
+
         /// <summary>
         ///     Returns the collection of ViewModels of Cinema linked with specified RegionViewModel.
         /// </summary>
-        public IEnumerable<CinemaViewModel> GetCinemasFor(RegionViewModel regionViewModel)
+        public IEnumerable<CinemaViewModel> GetCinemasFor(int idRegion)
         {
-            if (regionViewModel == null) throw new ArgumentNullException("regionViewModel");
             //  Find Region which has the Id as the specified ViewModel.
-            var region = Region.Extent.FirstOrDefault(rgn => rgn.Id == regionViewModel.Id);
+            var region = Region.Extent.FirstOrDefault(rgn => rgn.Id == idRegion);
 
             //  If no such region was found, return an empty collection.
             return region == null
@@ -47,14 +51,10 @@ namespace en.AndrewTorski.CineOS.Logic.Core
         /// <summary>
         ///     Returns the collection of ProjectionViewModels for Projections for specified FilmViewModel for Film in specified CinemaViewModel for Cinema.
         /// </summary>
-        public IEnumerable<ProjectionViewModel> GetProjectionsInRangeFor(CinemaViewModel cinemaViewModel, FilmViewModel filmViewModel, DateTime from,
-            DateTime to)
+        public IEnumerable<ProjectionViewModel> GetProjectionsInRangeFor(int idCinema, int idFilm, DateTime from, DateTime to)
         {
-            if (cinemaViewModel == null) throw new ArgumentNullException("cinemaViewModel");
-            if (filmViewModel == null) throw new ArgumentNullException("filmViewModel");
-
-            var cinema = Cinema.Extent.FirstOrDefault(cnm => cnm.Id == cinemaViewModel.Id);
-            var film = Film.Extent.FirstOrDefault(flm => flm.Id == filmViewModel.Id);
+            var cinema = Cinema.Extent.FirstOrDefault(cnm => cnm.Id == idCinema);
+            var film = Film.Extent.FirstOrDefault(flm => flm.Id == idFilm);
 
             if (cinema == null || film == null)
             {
@@ -64,6 +64,47 @@ namespace en.AndrewTorski.CineOS.Logic.Core
             return cinema.GetProjectionsFor(film, from, to).Select(projection => new ProjectionViewModel(projection));
         }
 
+        public IEnumerable<IEnumerable<SeatViewModel>> GetSeatsWithStatusForProjection(int idProjection)
+        {
+            var projection = Projection.Extent.FirstOrDefault(proj => proj.Id == idProjection);
+
+            if (projection == null)
+            {
+                return new List<List<SeatViewModel>>();
+            }
+
+            var seatsInProjectionRoom = projection.GetSeatsInProjectionRoom();
+            var seatsReserved = projection.GetSeatsReserved().ToList();
+
+            var midresult = seatsInProjectionRoom.Select(seat => new SeatViewModel(seat, false));
+
+            foreach (var seatViewModel in midresult)
+            {
+                var isReserved = seatsReserved.Any(seat => seat.Id == seatViewModel.Id);
+                seatViewModel.Reserved = isReserved;
+            }
+
+            return SortSeats(projection, midresult);
+        }
+
+        private IEnumerable<IEnumerable<SeatViewModel>> SortSeats(Projection projection, IEnumerable<SeatViewModel> seats)
+        {
+            var rowCount = projection.ProjectionRoom.RowCount;
+            var columnCount = projection.ProjectionRoom.ColumnCount;
+
+            var query = seats.OrderBy(seat => seat.RowColumn).ToList();
+
+            var rows = new List<IEnumerable<SeatViewModel>>();
+
+            for (int i = 0; i < columnCount; i++)
+            {
+                var take = query.Take(rowCount).ToList();
+                query.RemoveRange(0, rowCount);
+                rows.Add(take);
+            }
+
+            return rows;
+        } 
 
     }
 }

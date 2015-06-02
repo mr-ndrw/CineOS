@@ -10,7 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 	/// <summary>
 	///     Serves as the base class for class that come into associations with eachother.
 	/// </summary>
-	public class AssociatedObject
+	public class BusinessObject
 	{
 		public static DictionaryContainer DictionaryContainer { get; set; }
 
@@ -30,7 +30,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///		Intializes a new instance of the PartOfExtent class and subscribes this object
 		///		to the Dictionary of Types and Collection of Objects of that type.
 		/// </summary>
-	    protected AssociatedObject()
+	    protected BusinessObject()
         {
             var self = this;
             var selfType = self.GetType();
@@ -52,7 +52,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 
 		/// <summary>
 		/// </summary>
-		static AssociatedObject()
+		static BusinessObject()
 		{
 			DictionaryContainer = new DictionaryContainer(){AssociationsDictionary =  new Dictionary<string, AssociationBase>(), ExtentDictionary = new Dictionary<Type, List<object>>()};
 		}
@@ -424,7 +424,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			RegisterAssociation<T1, T2>(associationName, int.MaxValue, int.MaxValue);
 		}
 
-		public static void Link(string associationName, AssociatedObject firstObject, AssociatedObject secondObject)
+		public static void Link(string associationName, BusinessObject firstObject, BusinessObject secondObject)
 		{
 			//	First check if such association exists. Else throw an exception.
 			if (!ContainsAssociation(associationName))
@@ -618,7 +618,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		}
 
 		/// <summary>
-		///     Returns the Collection of objects linked with this AssociatedObject from the qualified association using the
+		///     Returns the Collection of objects linked with this BusinessObject from the qualified association using the
 		///     provided qualifier.
 		/// </summary>
 		/// <typeparam name="TQualifier">
@@ -674,7 +674,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <remarks>
 		///     Upper and lower amount boundaries on the side of the owner are equal to 1, which is compliant with the
 		///     idea of a compositon - a part may only be owned by one owner and cannot exist without a owner.
-		///     Use standard Link(string,AssociatedObject,AssociatedObject) method to link objects which come into relation
+		///     Use standard Link(string,BusinessObject,BusinessObject) method to link objects which come into relation
 		///     within this association.
 		/// </remarks>
 		public static void RegisterComposition<TOwner, TPart>(string associatioName, int partLowerAmountBoundary, int partUpperAmountBoundary)
@@ -842,13 +842,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <param name="attribute">
 		///     Attribute object.
 		/// </param>
-		public void LinkWithAttribute<TAttribute>(string associationName, AssociatedObject objectToLink, TAttribute attribute)
+		public void LinkWithAttribute<TAttribute>(string associationName, BusinessObject objectToLink, TAttribute attribute)
 		{
 			LinkWithAttribute(associationName, this, objectToLink, attribute);
 		}
 
 		/// <summary>
-		///     Returns the collection of Attribute and AssociatedObject pairs which are linked with this object within
+		///     Returns the collection of Attribute and BusinessObject pairs which are linked with this object within
 		///     the scope of the provided association.
 		/// </summary>
 		/// <typeparam name="TAttribute">
@@ -858,9 +858,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Name of the association.
 		/// </param>
 		/// <returns>
-		///     Collection of Tuples of TAttribute and AssociatedObject.
+		///     Collection of Tuples of TAttribute and BusinessObject.
 		/// </returns>
-		public List<Tuple<TAttribute, AssociatedObject>> GetLinkedAttributesAndObjects<TAttribute>(string associationName)
+		public List<Tuple<TAttribute, BusinessObject>> GetLinkedAttributesAndObjects<TAttribute>(string associationName)
 		{
 			if (!ContainsAssociation(associationName))
 			{
@@ -874,7 +874,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			var attributeAssociation = (AttributeAssociationBase<TAttribute>) association;
 
 			return attributeAssociation.GetLinkedAttributesAndObjects(this)
-				.Select(tuple => new Tuple<TAttribute, AssociatedObject>(tuple.Item1, (AssociatedObject) tuple.Item2))
+				.Select(tuple => new Tuple<TAttribute, BusinessObject>(tuple.Item1, (BusinessObject) tuple.Item2))
 				.ToList();
 		}
 
@@ -979,7 +979,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		/// <returns>
 		///     Collection of AssociatedObjects.
 		/// </returns>
-		public List<AssociatedObject> GetLinkedObjects(string associationName)
+		public List<BusinessObject> GetLinkedObjects(string associationName)
 		{
 			if (!ContainsAssociation(associationName))
 			{
@@ -989,28 +989,28 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 			var association = AssociationsDictionary[associationName];
 
 			var collectionOfLinkedObjects = association.GetLinkedObjects(this)
-				.Cast<AssociatedObject>()
+				.Cast<BusinessObject>()
 				.ToList();
 
 			return collectionOfLinkedObjects;
 		}
 
 		/// <summary>
-		///     Links this AssociatedObject with another AssociatedObject in the specified Association.
+		///     Links this BusinessObject with another BusinessObject in the specified Association.
 		/// </summary>
 		/// <param name="associationName">
 		///     Name of the Association in which we are linking these AssociatedObjects..
 		/// </param>
 		/// <param name="linkedObject">
-		///     Reference to the AssociatedObject with which we want to link this AssociatedObject.
+		///     Reference to the BusinessObject with which we want to link this BusinessObject.
 		/// </param>
-		public void Link(string associationName, AssociatedObject linkedObject)
+		public void Link(string associationName, BusinessObject linkedObject)
 		{
 			Link(associationName, this, linkedObject);
 		}
 
 		/// <summary>
-		///     Links this AssociatedObject and the supplied AssociatedObject using the qualifier in the qualified association
+		///     Links this BusinessObject and the supplied BusinessObject using the qualifier in the qualified association
 		///     specified
 		///     by it's name.
 		/// </summary>
@@ -1021,7 +1021,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Name of the association.
 		/// </param>
 		/// <param name="linkedObject">
-		///     Object which we are going to link with this AssociatedObject.
+		///     Object which we are going to link with this BusinessObject.
 		/// </param>
 		/// <param name="qualifier">
 		///     Qualifier which will be used to determine the identifiable.
@@ -1030,7 +1030,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 		///     Qualified Association has means of determining which provided object is identifier and which one is a identifiable.
 		///     It won't matter if you'll call this method on the identifier or the identifiable.
 		/// </remarks>
-		public void LinkWithQualifier<TQualifier>(string associationName, AssociatedObject linkedObject, TQualifier qualifier)
+		public void LinkWithQualifier<TQualifier>(string associationName, BusinessObject linkedObject, TQualifier qualifier)
 		{
 			LinkWithQualifier<TQualifier>(associationName, this, linkedObject, qualifier);
 		}

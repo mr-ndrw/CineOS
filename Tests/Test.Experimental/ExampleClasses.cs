@@ -4,12 +4,12 @@ using en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase;
 namespace en.AndrewTorski.CineOS.Test.Experimental
 {
 	#region Qualified Association Exemplary Classes
-	public class Identifier : AssociatedObject
+	public class Identifier : BusinessObject
 	{
 		public string Name { get; set; }
 	}
 
-	public class Identifiable : AssociatedObject
+	public class Identifiable : BusinessObject
 	{
 		public int X { get; set; }
 		public int Y { get; set; }
@@ -43,12 +43,12 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 
 	#region Composition Exemplary Classes
 
-	public class Owner : AssociatedObject
+	public class Owner : BusinessObject
 	{
 		
 	}
 
-	public class Part : AssociatedObject
+	public class Part : BusinessObject
 	{
 		
 	}
@@ -57,8 +57,8 @@ namespace en.AndrewTorski.CineOS.Test.Experimental
 
 	#region Attribute Association Exmplary Classes
 
-	public class TestClass1 : AssociatedObject {}
-	public class TestClass2 : AssociatedObject {}
+	public class TestClass1 : BusinessObject {}
+	public class TestClass2 : BusinessObject {}
 	public class AttributeExample {}
 
 	#endregion

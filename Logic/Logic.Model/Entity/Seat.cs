@@ -11,7 +11,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Seat in a Projection Room.
 	/// </summary>
 	[DataContract]
-	public class Seat : AssociatedObject
+	public class Seat : BusinessObject
 	{
 		/// <summary>
 		///		Initializes a new instance 

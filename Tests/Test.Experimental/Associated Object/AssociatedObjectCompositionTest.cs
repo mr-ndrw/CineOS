@@ -13,9 +13,9 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 		{
 			//	Arrange & Act
 			const string compositionName = @"Test_Registering_Compositon";
-			AssociatedObject.RegisterComposition<Owner, Part>(compositionName, 0, int.MaxValue);
+			BusinessObject.RegisterComposition<Owner, Part>(compositionName, 0, int.MaxValue);
 			//	Assert
-			Assert.IsTrue((AssociatedObject.ContainsAssociation(compositionName)));
+			Assert.IsTrue((BusinessObject.ContainsAssociation(compositionName)));
 		}
 
 		[Test]
@@ -29,7 +29,7 @@ namespace en.AndrewTorski.CineOS.Test.Experimental.Associated_Object
 			var partList = new List<Part>() { part1, part2, part3 };
 
 			//	Register composition with 0..3 bounadaries on Part's side.
-			AssociatedObject.RegisterComposition<Owner, Part>(associationName, 0, 3);
+			BusinessObject.RegisterComposition<Owner, Part>(associationName, 0, 3);
 
 			//	Act
 			owner.Link(associationName, part1);

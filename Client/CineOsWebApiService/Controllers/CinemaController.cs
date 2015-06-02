@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using en.AndrewTorski.CineOS.Logic.Core.ViewModels;
@@ -8,6 +9,13 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService.Controllers
 {
     public class CinemaController : CineOsController
     {
+        [Route("api/cinemas")]
+        [HttpGet]
+        public IEnumerable<CinemaViewModel> GetCinemas()
+        {
+            return CineOsServices.GetCinemas();
+        }
+
         [Route("api/cinema/{idCinema}/newfilms")]
         [HttpGet]
         public IEnumerable<FilmViewModel> GetFilmsViewedIn(int idCinema)
@@ -15,11 +23,12 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService.Controllers
             return CineOsServices.GetFilmsViewedIn(new CinemaViewModel {Id = idCinema});
         }
 
-        [Route("api/cinemas")]
+        [Route("api/cinema/{idCinema}/film/{idFilm}/{dateFrom}/{dateTo}")]
         [HttpGet]
-        public IEnumerable<CinemaViewModel> GetCinemas()
+        public IEnumerable<ProjectionViewModel> GetProjectionsInRangeFor(int idCinema, int idFilm, DateTime dateFrom,
+            DateTime dateTo)
         {
-            return Cinema.Extent.Select(cinema => new CinemaViewModel(cinema));
+            return CineOsServices.GetProjectionsInRangeFor(idCinema, idFilm, dateFrom, dateTo);
         } 
     }
 }

@@ -9,7 +9,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		Represents a physical medium on which a Film can be stored.
 	/// </summary>
 	[DataContract]
-	public class Medium : AssociatedObject
+	public class Medium : BusinessObject
 	{
 		#region Private Members
 

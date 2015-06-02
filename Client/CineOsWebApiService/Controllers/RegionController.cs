@@ -4,7 +4,7 @@ using en.AndrewTorski.CineOS.Logic.Core.ViewModels;
 
 namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService.Controllers
 {
-    public class RegionsController : CineOsController
+    public class RegionController : CineOsController
     {
 
         [Route("api/regions")]
@@ -19,7 +19,7 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService.Controllers
         [HttpGet]
         public IEnumerable<CinemaViewModel> GetCinemasFor(int id)
         {
-            var result = CineOsServices.GetCinemasFor(new RegionViewModel{Id=id});
+            var result = CineOsServices.GetCinemasFor(id);
             return result;
         }
         

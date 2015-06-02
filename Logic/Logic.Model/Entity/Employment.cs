@@ -9,7 +9,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	///		during a certain time.
 	/// </summary>
 	[DataContract]
-	public class Employment : AssociatedObject
+	public class Employment : BusinessObject
 	{
 		public Employment(Cinema cinema, Employee employee)
 		{
