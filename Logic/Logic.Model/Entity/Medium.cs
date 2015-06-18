@@ -98,8 +98,10 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
+        [DataMember]
 		public static string MediumToProjectionAssociationName { get; set; }
 
+        [DataMember]
 		public static string MediumToFilmAssociationName { get; set; }
 
 

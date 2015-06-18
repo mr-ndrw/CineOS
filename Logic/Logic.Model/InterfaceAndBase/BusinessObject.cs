@@ -10,6 +10,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.InterfaceAndBase
 	/// <summary>
 	///     Serves as the base class for class that come into associations with eachother.
 	/// </summary>
+	[DataContract]
 	public class BusinessObject
 	{
 		public static DictionaryContainer DictionaryContainer { get; set; }

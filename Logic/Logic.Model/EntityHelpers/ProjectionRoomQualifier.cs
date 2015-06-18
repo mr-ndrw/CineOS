@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using en.AndrewTorski.CineOS.Logic.Model.Entity;
 
 namespace en.AndrewTorski.CineOS.Logic.Model.EntityHelpers
 {
-	public class ProjectionRoomCoordinates
+    [DataContract]
+	public class ProjectionRoomQualifier
 	{
-		public ProjectionRoomCoordinates(ProjectionRoom projectionRoom)
+		public ProjectionRoomQualifier(ProjectionRoom projectionRoom)
 		{
 			RoomNumber = projectionRoom.Number;
 		}
 
-		public ProjectionRoomCoordinates(string roomNumber)
+		public ProjectionRoomQualifier(string roomNumber)
 		{
 			RoomNumber = roomNumber;
 		}
@@ -23,10 +25,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.EntityHelpers
 			}
 		}
 
+        [DataMember]
 		public string RoomNumber { get; private set; }
 	}
 
-	public class ProjectionRoomCoordiantesEqualityComparer : IEqualityComparer<ProjectionRoomCoordinates>
+	public class ProjectionRoomCoordiantesEqualityComparer : IEqualityComparer<ProjectionRoomQualifier>
 	{
 		/// <summary>
 		/// Determines whether the specified objects are equal.
@@ -35,7 +38,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.EntityHelpers
 		/// true if the specified objects are equal; otherwise, false.
 		/// </returns>
 		/// <param name="x">The first object of type <paramref name="T"/> to compare.</param><param name="y">The second object of type <paramref name="T"/> to compare.</param>
-		public bool Equals(ProjectionRoomCoordinates x, ProjectionRoomCoordinates y)
+		public bool Equals(ProjectionRoomQualifier x, ProjectionRoomQualifier y)
 		{
 			return x.RoomNumber == y.RoomNumber;
 		}
@@ -47,7 +50,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.EntityHelpers
 		/// A hash code for the specified object.
 		/// </returns>
 		/// <param name="obj">The <see cref="T:System.Object"/> for which a hash code is to be returned.</param><exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
-		public int GetHashCode(ProjectionRoomCoordinates obj)
+		public int GetHashCode(ProjectionRoomQualifier obj)
 		{
 			unchecked
 			{

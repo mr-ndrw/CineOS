@@ -103,17 +103,22 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
 	    public static IEnumerable<Projection> Extent
 	    {
-	        get { return RetrieveExtentFor(typeof (Region)).Cast<Projection>(); }
+	        get { return RetrieveExtentFor(typeof (Projection)).Cast<Projection>(); }
 	    }
 
+        [DataMember]
 	    public static string ProjectionToProjectionRoomAssociationName { get; set; }
 
+        [DataMember]
 		public static string ProjectionToEmployeeAssociatioName { get; set; }
 
+        [DataMember]
 		public static string ProjectionToReservationAssociationName { get; set; }
 
+        [DataMember]
 		public static string ProjectionToFilmAssociationName { get; set; }
 
+        [DataMember]
 		public static string ProjectionToMediumAssociationName { get; set; }
 
 		#endregion

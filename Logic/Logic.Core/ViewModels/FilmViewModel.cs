@@ -15,6 +15,8 @@ namespace en.AndrewTorski.CineOS.Logic.Core.ViewModels
             EsrbRating = film.EsrbRating;
             Genre = film.Genre;
             Actors = film.Actors;
+            Description = film.Description;
+            Year = film.Year;
         }
 
         public int Id { get; set; }
@@ -25,5 +27,7 @@ namespace en.AndrewTorski.CineOS.Logic.Core.ViewModels
         public string EsrbRating { get; set; }
         public string Genre { get; set; }
         public string[] Actors { get; set; }
+        public string Description { get; set; }
+        public int Year { get; set; }
     }
 }

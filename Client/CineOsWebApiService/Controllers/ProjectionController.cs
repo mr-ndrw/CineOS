@@ -13,9 +13,9 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService.Controllers
     {
         [Route("api/projection/{idProjection}/seats")]
         [HttpGet]
-        public SeatViewModel[][] ShowSeatsWithStatus(int idProjection)
+        public IEnumerable<IEnumerable<SeatViewModel>> ShowSeatsWithStatus(int idProjection)
         {
-            return null;
+            return CineOsServices.GetSeatsWithStatusForProjection(idProjection);
         }
     }
 }

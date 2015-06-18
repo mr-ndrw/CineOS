@@ -24,7 +24,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model.Entity
 			Cinema.CinemaToProjectionRoomAssociationName = ProjectionRoom.ProjectionRoomToCinemaAssociationName = cinemaToProjectionRoomName;
 			ProjectionRoom.ProjectionRoomToSeatAssociationName = Seat.SeatToProjectionRoomAssociationName = projectionRoomToSeatName;
 			BusinessObject.RegisterComposition<Region, Cinema>(regionToCinemaName, 0, int.MaxValue);
-			BusinessObject.RegisterQualifiedAssociation<Cinema, ProjectionRoom, ProjectionRoomCoordinates>(cinemaToProjectionRoomName, 0, 1, 0, 1, ProjectionRoomCoordinates.EqualityComparer);
+			BusinessObject.RegisterQualifiedAssociation<Cinema, ProjectionRoom, ProjectionRoomQualifier>(cinemaToProjectionRoomName, 0, 1, 0, 1, ProjectionRoomQualifier.EqualityComparer);
 			BusinessObject.RegisterQualifiedAssociation<ProjectionRoom, Seat, SeatQualifier>(projectionRoomToSeatName, 1, 1, SeatQualifier.EqualityComparer);
 		}
 

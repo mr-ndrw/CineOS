@@ -36,6 +36,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		[DataMember]
 		public string Title { get; set; }
 
+        [DataMember]
+	    public int Year { get; set; }
+
+        [DataMember]
+	    public string Description { get; set; }
+
 		/// <summary>
 		///     Director of the Film.
 		/// </summary>
@@ -119,10 +125,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 	        }
 	    }
 
+        [DataMember]
 		public static string FilmToProjectionAssociationName { get; set; }
 
+        [DataMember]
 		public static string FilmToMediumAssociationName { get; set; }
 
+        [DataMember]
 		public static string FilmToClientAssociationName { get; set; }
 	}
 }

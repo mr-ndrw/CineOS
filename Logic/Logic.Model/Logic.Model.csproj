@@ -44,8 +44,8 @@
     <Compile Include="Association\AttributeAssociationBase.cs" />
     <Compile Include="Association\QualifiedComposition.cs" />
     <Compile Include="DictionaryContainer.cs" />
-    <Compile Include="EntityHelpers\ProjectionRoomCoordinates.cs" />
-    <Compile Include="EntityHelpers\SeatCoordinates.cs" />
+    <Compile Include="EntityHelpers\ProjectionRoomQualifier.cs" />
+    <Compile Include="EntityHelpers\SeatQualifier.cs" />
     <Compile Include="Entity\Person.cs" />
     <Compile Include="Exceptions\AssociationOfProvidedNameAlreadyExistsException.cs" />
     <Compile Include="Association\Composition.cs" />
@@ -76,6 +76,11 @@
     <Compile Include="InterfaceAndBase\BusinessObject.cs" />
     <Compile Include="Exceptions\PartAlreadyOwnedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\_Shared\_Shared.HelperLibrary\Shared.HelperLibrary.csproj">
@@ -83,7 +88,12 @@
       <Name>Shared.HelperLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -110,10 +110,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
+        [DataMember]
 		public static string CinemaToRegionAssociationName { get; set; }
 
+        [DataMember]
 		public static string CinemaToProjectionRoomAssociationName { get; set; }
 
+        [DataMember]
 		public static string CinemaToEmployeeAssociationName { get; set; }
 
 		#endregion
@@ -133,7 +136,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		/// </returns>
 		public ProjectionRoom GetProjectionRoom(string projectionRoomNumber)
 		{
-			var result = GetQualifiedLinkedObject(CinemaToProjectionRoomAssociationName, new ProjectionRoomCoordinates(projectionRoomNumber)).FirstOrDefault();
+			var result = GetQualifiedLinkedObject(CinemaToProjectionRoomAssociationName, new ProjectionRoomQualifier(projectionRoomNumber)).FirstOrDefault();
 
 			return (ProjectionRoom) result;
 		}

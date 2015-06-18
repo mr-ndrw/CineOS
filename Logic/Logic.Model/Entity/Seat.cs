@@ -85,8 +85,15 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			}
 		}
 
-		public static string SeatToProjectionRoomAssociationName { get; set; }
+	    public static IEnumerable<Seat> Extent
+	    {
+	        get { return RetrieveExtentFor(typeof (Seat)).Cast<Seat>(); }
+	    }
 
+        [DataMember]
+	    public static string SeatToProjectionRoomAssociationName { get; set; }
+
+        [DataMember]
 		public static string SeatToReservationAssociationName { get; set; }
 
 

@@ -94,7 +94,7 @@ namespace en.AndrewTorski.CineOS.Logic.Core
 
             var query = seats.OrderBy(seat => seat.RowColumn).ToList();
 
-            var rows = new List<IEnumerable<SeatViewModel>>();
+            var rows = new List<List<SeatViewModel>>();
 
             for (int i = 0; i < columnCount; i++)
             {
@@ -104,7 +104,41 @@ namespace en.AndrewTorski.CineOS.Logic.Core
             }
 
             return rows;
-        } 
+        }
+
+        /// <summary>
+        ///     Checks if a Client of provided email and password exists in the system.
+        ///     If such client was found, method will return this Client's Id number.
+        ///     If not, it will return -1;
+        /// </summary>
+        public int DoesClientExist(string email, string password)
+        {
+            return Client.Exists(email, password);
+        }
+
+        /// <summary>
+        ///     Returns all Reservations within the system.
+        /// </summary>
+        public IEnumerable<CompoundReservationViewModel> GetReservations()
+        {
+            var reservations = Reservation.Extent;
+
+            return reservations.Select(res => new CompoundReservationViewModel(res));
+        }
+
+        public void CreateReservation(PostReservationViewModel reservation)
+        {
+            var foundClient = Client.Extent.FirstOrDefault(client => client.Person.Id == reservation.ClientId );
+            var foundProjection =
+                Projection.Extent.FirstOrDefault(projection => projection.Id == reservation.ProjectionId);
+            var foundSeat = Seat.Extent.FirstOrDefault(seat => seat.Id == reservation.SeatId);
+
+            if (foundSeat == null) throw new ArgumentNullException("foundSeat");
+            if (foundClient == null) throw new ArgumentNullException("foundClient");
+            if (foundProjection == null) throw new ArgumentNullException("foundProjection");
+
+            new Reservation(foundClient, foundProjection, foundSeat);
+        }
 
     }
 }

@@ -21,7 +21,7 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			Id = NextFreeId;
 			NextFreeId++;
 
-			LinkWithQualifier(ProjectionRoomToCinemaAssociationName, cinema, this.Coordinates);
+			LinkWithQualifier(ProjectionRoomToCinemaAssociationName, cinema, this.Qualifier);
 		}
 
 
@@ -88,11 +88,11 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			get { return GetLinkedObjects(ProjectionRoomToSeatAssociationName).Cast<Seat>(); }
 		}
 
-		public ProjectionRoomCoordinates Coordinates
+		public ProjectionRoomQualifier Qualifier
 		{
 			get
 			{
-				return new ProjectionRoomCoordinates(this);
+				return new ProjectionRoomQualifier(this);
 			}
 		}
 
@@ -117,10 +117,13 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 			return (Seat) GetQualifiedLinkedObject(ProjectionRoomToSeatAssociationName, new SeatQualifier(rowNumber, columnNumber)).FirstOrDefault();
 		}
 
+        [DataMember]
 		public static string ProjectionRoomToCinemaAssociationName { get; set; }
 
+        [DataMember]
 		public static string ProjectionRoomToSeatAssociationName { get; set; }
 
+        [DataMember]
 		public static string ProjectionRoomToProjectionAssociationName { get; set; }
 
 		#endregion

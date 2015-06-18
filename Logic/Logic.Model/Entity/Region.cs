@@ -73,11 +73,8 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 		///		Get or sets Name of the Region to Cinema Association which is used
 		///		to communicate with the BusinessObject baseclass and the Association.
 		/// </summary>
+        [DataMember]
 		public static string RegionToCinemaAssociationName { get; set; }
-
-		#endregion
-
-		#region Methods
 
 		#endregion
 	}

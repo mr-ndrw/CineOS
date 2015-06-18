@@ -12,9 +12,12 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
         /// <summary>
         ///     Date And Time on which this Reservation was made.
         /// </summary>
-        [DataMember] private readonly DateTime _dateTime;
+        [DataMember] 
+        private readonly DateTime _dateTime;
 
-        //	TODO TEST THIS THING!
+        /// <summary>
+        ///     Initializes a new instance of the Reservation class using the Client which creates the Reservaration, Projection for which the Reservation is made and the Seats.
+        /// </summary>
         public Reservation(Client client, Projection projection, IEnumerable<Seat> seats)
         {
             _dateTime = DateTime.Now;
@@ -30,6 +33,14 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
 
             Id = NextFreeId;
             NextFreeId++;
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the Reservation class using the Client which creates the Reservaration, Projection for which the Reservation is made and a Seat0.
+        /// </summary>
+        public Reservation(Client client, Projection projection, Seat seat)
+            : this(client, projection, new List<Seat>() { seat })
+        {
         }
 
         #region Properties
@@ -68,6 +79,9 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
             get { return (Projection) GetLinkedObjects(ReservationToProjectionAssociationName).FirstOrDefault(); }
         }
 
+        /// <summary>
+        ///     Gets the collection of Seats which have reserved by this Reservation.
+        /// </summary>
         public IEnumerable<Seat> ReservedSeats
         {
             get { return GetLinkedObjects(ReservationToSeatAssociationName).Cast<Seat>(); }
@@ -78,14 +92,30 @@ namespace en.AndrewTorski.CineOS.Logic.Model.Entity
         /// </summary>
         public Client Client
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var foundClient = GetLinkedObjects(ReserevationToClientAssociationName).FirstOrDefault();
+                var client = (Client) foundClient;
+
+                return client;
+            }
         }
 
+        public static IEnumerable<Reservation> Extent
+        {
+            get { return RetrieveExtentFor(typeof (Reservation)).Cast<Reservation>(); }
+        }
+
+        [DataMember]
         public static string ReservationToSeatAssociationName { get; set; }
 
+        [DataMember]
         public static string ReservationToProjectionAssociationName { get; set; }
 
+        [DataMember]
         public static string ReserevationToClientAssociationName { get; set; }
+
+
 
         #endregion
     }

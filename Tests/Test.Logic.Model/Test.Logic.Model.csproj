@@ -71,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.Core\Logic.Core.csproj">
+      <Project>{D3733C61-3077-4282-88E4-B85BB3585BBE}</Project>
+      <Name>Logic.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Logic\Logic.Model\Logic.Model.csproj">
       <Project>{14c044b2-165e-4c84-87de-347ecb1b1b42}</Project>
       <Name>Logic.Model</Name>

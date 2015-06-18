@@ -42,7 +42,10 @@
     <Compile Include="CineOsServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CinemaViewModel.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\CompoundReservationViewModel.cs" />
     <Compile Include="ViewModels\FilmViewModel.cs" />
+    <Compile Include="ViewModels\PostReservationViewModel.cs" />
     <Compile Include="ViewModels\ProjectionViewModel.cs" />
     <Compile Include="ViewModels\RegionViewModel.cs" />
     <Compile Include="ViewModels\SeatViewModel.cs" />
