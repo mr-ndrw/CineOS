@@ -88,7 +88,9 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model.Entity
             projectionRoom.RowCount = 2;
             var cineOsServices= new CineOsServices();
 
-            //  no reservations
+
+
+            var reservation = new Reservation(client, projection, seat);
 
             //  Act
             var foundSeats = (List<List<SeatViewModel>>)cineOsServices.GetSeatsWithStatusForProjection(projection.Id);
@@ -101,7 +103,7 @@ namespace en.AndrewTorski.CineOS.Test.Logic.Model.Entity
             var foundSeat22 = foundSeats[1][1];
 
             Assert.AreEqual(foundSeat11.Id, seat.Id);
-            Assert.False(foundSeat11.Reserved);
+            Assert.True(foundSeat11.Reserved);
 
             Assert.AreEqual(foundSeat12.Id, seat2.Id);
             Assert.False(foundSeat12.Reserved);

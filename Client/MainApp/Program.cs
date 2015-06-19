@@ -185,8 +185,8 @@ namespace en.AndrewTorski.CineOS.Client.MainApp
             new Projection(projectionRoomInOdeon, film5, new DateTime(2015, 06, 28, 15, 15, 0));*/
 
             //WriteExtents("persistance.xml", BusinessObject.DictionaryContainer);
-            var dictionary = ReadExtents("persistance.xml");
-            BusinessObject.DictionaryContainer = dictionary;
+            //var dictionary = ReadExtents(@"C:\Users\Andrew\Documents\Visual Studio 2013\Projects\CineOS\Client\CineOsWebApiService\persistance.xml");
+            BusinessObject.DictionaryContainer = ReadExtents("persistance.xml");
 
 
             var cinemaToRegionAssociationName = "RegionToCinemaComposition";

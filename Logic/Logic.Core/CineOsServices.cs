@@ -76,13 +76,14 @@ namespace en.AndrewTorski.CineOS.Logic.Core
             var seatsInProjectionRoom = projection.GetSeatsInProjectionRoom();
             var seatsReserved = projection.GetSeatsReserved().ToList();
 
-            var midresult = seatsInProjectionRoom.Select(seat => new SeatViewModel(seat, false));
+            var midresult = seatsInProjectionRoom.Select(seat => new SeatViewModel(seat, seatsReserved.Any(seatReserved => seat.Id == seatReserved.Id)));
 
-            foreach (var seatViewModel in midresult)
+            /*foreach (var seatViewModel in midresult)
             {
-                var isReserved = seatsReserved.Any(seat => seat.Id == seatViewModel.Id);
+                bool isReserved = seatsReserved.Any(seat => seat.Id == seatViewModel.Id);
                 seatViewModel.Reserved = isReserved;
-            }
+
+            }*/
 
             return SortSeats(projection, midresult);
         }

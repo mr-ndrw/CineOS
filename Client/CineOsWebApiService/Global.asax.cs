@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Http;
@@ -13,6 +14,14 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService
 {
     public class WebApiApplication : HttpApplication
     {
+        protected void Application_BeginRequest()
+        {
+            if (Request.Headers.AllKeys.Contains("Origin") && Request.HttpMethod == "OPTIONS")
+            {
+                Response.Flush();
+            }
+        }
+
         protected void Application_Start()
         {
             var cinemaToRegionAssociationName = "RegionToCinemaComposition";
@@ -59,13 +68,13 @@ namespace en.AndrewTorski.CineOS.Client.CineOsWebApiService
 
             var path =
                 @"C:\Users\Andrew\Documents\Visual Studio 2013\Projects\CineOS\Client\CineOsWebApiService\persistance.xml";
-
-            BusinessObject.DictionaryContainer = ReadExtents(path);
+            var dic = ReadExtents(path);
+            BusinessObject.DictionaryContainer = dic;
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
 
-        private static void WriteExtents(string path, DictionaryContainer dictionaryContainer)
+        public static void WriteExtents(string path, DictionaryContainer dictionaryContainer)
         {
             try
             {
